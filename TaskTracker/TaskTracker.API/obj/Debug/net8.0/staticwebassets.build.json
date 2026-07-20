@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "xqamH11HKIoDJ5LL3pQGFJzpiCwP4f5+zimpOnw/w68=",
+  "Source": "TaskTracker.API",
+  "BasePath": "_content/TaskTracker.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

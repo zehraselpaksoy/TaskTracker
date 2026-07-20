@@ -1,0 +1,649 @@
+:host {
+  --page-background: #000000;
+  --surface-color: #1d1d1f;
+  --surface-hover: #252527;
+  --primary-text: #ffffff;
+  --secondary-text: #9b9ba1;
+  --border-color: #343438;
+  --accent-color: #72a7ff;
+  --profile-color: #ff9f1c;
+
+  display: block;
+  min-height: 100%;
+  background: var(--page-background);
+}
+
+ion-content {
+  --background: var(--page-background);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.teams-page {
+  min-height: 100%;
+  padding:
+    calc(env(safe-area-inset-top) + 30px)
+    20px
+    145px;
+}
+
+.top-section {
+  margin-bottom: 34px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 27px;
+}
+
+.profile-button,
+.create-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+
+  color: var(--primary-text);
+  background: var(--surface-color);
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.profile-button {
+  width: 54px;
+  height: 54px;
+
+  padding: 5px;
+
+  background: #242426;
+}
+
+.profile-button span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  color: #191919;
+  background: var(--profile-color);
+
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.create-button {
+  width: 54px;
+  height: 54px;
+
+  padding: 0;
+}
+
+.create-button ion-icon {
+  font-size: 32px;
+}
+
+.profile-button:hover,
+.create-button:hover {
+  border-color: #505056;
+  background: var(--surface-hover);
+}
+
+.profile-button:active,
+.create-button:active {
+  transform: scale(0.95);
+}
+
+.profile-button:focus-visible,
+.create-button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+.page-heading {
+  margin-bottom: 22px;
+}
+
+.welcome-text {
+  margin: 0 0 6px;
+
+  color: var(--secondary-text);
+
+  font-size: 15px;
+  font-weight: 500;
+}
+
+h1 {
+  margin: 0;
+
+  color: var(--primary-text);
+
+  font-size: clamp(
+    38px,
+    10vw,
+    48px
+  );
+
+  font-weight: 750;
+  letter-spacing: -1.5px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+
+  height: 58px;
+
+  padding:
+    0
+    12px
+    0
+    19px;
+
+  border: 1px solid transparent;
+  border-radius: 29px;
+
+  background: var(--surface-color);
+
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent-color);
+  background: #222225;
+}
+
+.search-box > ion-icon {
+  flex-shrink: 0;
+
+  margin-right: 13px;
+
+  color: var(--primary-text);
+
+  font-size: 25px;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  color: var(--primary-text);
+  background: transparent;
+
+  font-size: 18px;
+}
+
+.search-box input::placeholder {
+  color: var(--secondary-text);
+  opacity: 1;
+}
+
+.search-box input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.clear-search-button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 35px;
+  height: 35px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  color: var(--secondary-text);
+  background: transparent;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.clear-search-button:hover {
+  color: var(--primary-text);
+  background: rgba(
+    255,
+    255,
+    255,
+    0.07
+  );
+}
+
+.teams-section {
+  margin-top: 34px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 16px;
+}
+
+.teams-section h2 {
+  margin: 0;
+
+  color: var(--primary-text);
+
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.teams-section > h2 {
+  margin-bottom: 16px;
+}
+
+.team-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 27px;
+  height: 27px;
+
+  padding: 0 8px;
+
+  border-radius: 14px;
+
+  color: var(--secondary-text);
+  background: var(--surface-color);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.team-card {
+  display: grid;
+  grid-template-columns:
+    52px
+    minmax(0, 1fr)
+    42px;
+
+  align-items: center;
+
+  min-height: 88px;
+
+  padding:
+    15px
+    13px
+    15px
+    17px;
+
+  border: 1px solid transparent;
+  border-radius: 26px;
+
+  background: var(--surface-color);
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.team-card:hover {
+  background: var(--surface-hover);
+}
+
+.team-card:focus-visible {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.team-card:active {
+  transform: scale(0.985);
+}
+
+.team-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 47px;
+  height: 47px;
+
+  border-radius: 13px;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.18),
+    0 5px 14px
+      rgba(0, 0, 0, 0.25);
+}
+
+.team-information {
+  min-width: 0;
+
+  padding: 0 13px;
+}
+
+.team-information h3 {
+  overflow: hidden;
+
+  margin: 0 0 5px;
+
+  color: var(--primary-text);
+
+  font-size: 19px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-information p {
+  overflow: hidden;
+
+  margin: 0;
+
+  color: var(--secondary-text);
+
+  font-size: 14px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.separator {
+  display: inline-block;
+
+  margin: 0 5px;
+
+  color: #626268;
+}
+
+.favorite-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  color: #79797f;
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    color 150ms ease,
+    background 150ms ease;
+}
+
+.favorite-button ion-icon {
+  font-size: 25px;
+}
+
+.favorite-button ion-icon[name='star'] {
+  color: #ffc857;
+}
+
+.favorite-button:hover {
+  color: var(--primary-text);
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.06
+  );
+}
+
+.favorite-button:active {
+  transform: scale(0.9);
+}
+
+.favorite-button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.state-container,
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 280px;
+
+  padding: 30px 20px;
+
+  text-align: center;
+}
+
+.state-container ion-spinner {
+  width: 34px;
+  height: 34px;
+
+  margin-bottom: 17px;
+
+  color: var(--accent-color);
+}
+
+.state-container p,
+.empty-container p {
+  max-width: 310px;
+
+  margin: 0;
+
+  color: var(--secondary-text);
+
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.error-state p {
+  color: #ff8585;
+}
+
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  margin-bottom: 20px;
+
+  border-radius: 22px;
+
+  color: var(--accent-color);
+
+  background: rgba(
+    114,
+    167,
+    255,
+    0.12
+  );
+}
+
+.empty-icon ion-icon {
+  font-size: 32px;
+}
+
+.empty-container h2 {
+  margin: 0 0 10px;
+
+  color: var(--primary-text);
+
+  font-size: 22px;
+}
+
+.primary-button,
+.retry-button {
+  min-height: 46px;
+
+  margin-top: 22px;
+  padding: 0 24px;
+
+  border: 0;
+  border-radius: 23px;
+
+  color: #061226;
+  background: var(--accent-color);
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.primary-button:active,
+.retry-button:active {
+  transform: scale(0.97);
+}
+
+.bottom-navigation {
+  position: fixed;
+
+  right: 18px;
+  bottom:
+    calc(
+      env(safe-area-inset-bottom) +
+      14px
+    );
+  left: 18px;
+
+  z-index: 20;
+
+  display: grid;
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  min-height: 82px;
+
+  padding: 7px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 40px;
+
+  background:
+    rgba(29, 29, 31, 0.96);
+
+  box-shadow:
+    0 16px 45px
+    rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(20px);
+}
+
+.navigation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+
+  padding: 8px 3px;
+
+  border: 0;
+  border-radius: 30px;
+
+  color: #f0f0f2;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.navigation-item ion-icon {
+  margin-bottom: 5px;
+
+  font-size: 24px;
+}
+
+.navigation-item span {
+  overflow: hidden;
+
+  width: 100%;
+
+  font-size: 10px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navigation-item.active {
+  color: var(--accent-color);
+  background: #3a3a3d;
+}
+
+.navigation-item:active {
+  transform: scale(0.95);
+}
+
+@media (min-width: 768px) {
+  .teams-page {
+    width: min(100%, 720px);
+
+    margin: 0 auto;
+  }
+
+  .bottom-navigation {
+    right: 50%;
+    left: auto;
+
+    width:
+      min(
+        calc(100% - 36px),
+        720px
+      );
+
+    transform: translateX(50%);
+  }
+}

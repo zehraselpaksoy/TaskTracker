@@ -1,0 +1,48 @@
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <h1>TaskTracker</h1>
+
+    <p>Hoş Geldiniz</p>
+
+    <ion-item>
+      <ion-label position="stacked">
+        E-Posta
+      </ion-label>
+
+      <ion-input
+        type="email"
+        [(ngModel)]="email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">
+        Şifre
+      </ion-label>
+
+      <ion-input
+        type="password"
+        [(ngModel)]="password">
+      </ion-input>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      (click)="login()">
+      Giriş Yap
+    </ion-button>
+  </div>
+  <div class="register-link">
+  <span>Henüz bir hesabın yok mu?</span>
+
+  <ion-button
+    fill="clear"
+    size="small"
+    (click)="goToRegister()">
+
+    Kayıt Ol
+
+  </ion-button>
+</div>
+</ion-content>

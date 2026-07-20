@@ -1,0 +1,11 @@
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\bin\Debug\net8.0\TaskTracker.Domain.deps.json
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\bin\Debug\net8.0\TaskTracker.Domain.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\bin\Debug\net8.0\TaskTracker.Domain.pdb
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.AssemblyInfoInputs.cache
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.AssemblyInfo.cs
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\refint\TaskTracker.Domain.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\TaskTracker.Domain.pdb
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Domain\obj\Debug\net8.0\ref\TaskTracker.Domain.dll

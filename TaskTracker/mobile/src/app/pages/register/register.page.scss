@@ -1,0 +1,111 @@
+ion-content {
+  --background: #0f1115;
+}
+
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100%;
+  padding: 24px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 460px;
+
+  padding: 30px 24px;
+
+  border-radius: 24px;
+
+  background: #181b21;
+}
+
+h1 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+ion-item {
+  --background: #232730;
+  --color: #ffffff;
+  --border-color: transparent;
+  --highlight-color-focused: #6ea8fe;
+
+  margin-bottom: 14px;
+
+  border-radius: 14px;
+}
+
+ion-label {
+  color: #b7bec9 !important;
+}
+
+ion-input {
+  --color: #ffffff;
+  --placeholder-color: #7b8492;
+}
+
+ion-button {
+  --background: #6ea8fe;
+  --background-hover: #5f98ed;
+  --color: #10141b;
+
+  margin-top: 20px;
+
+  font-weight: 700;
+}
+
+.error-message {
+  margin: 12px 0 0;
+
+  color: #ff8585;
+
+  font-size: 14px;
+}
+
+.success-message {
+  margin: 12px 0 0;
+
+  color: #6ee7a8;
+
+  font-size: 14px;
+}
+
+.login-link {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+
+  margin-top: 22px;
+
+  color: #9ca3af;
+
+  font-size: 14px;
+}
+
+.login-link button {
+  padding: 0;
+
+  border: none;
+
+  color: #6ea8fe;
+  background: transparent;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}

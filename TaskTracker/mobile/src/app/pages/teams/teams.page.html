@@ -1,0 +1,453 @@
+<ion-content [fullscreen]="true">
+
+  <main class="teams-page">
+
+    <section class="top-section">
+
+      <div class="top-actions">
+
+        <button
+          type="button"
+          class="profile-button"
+          [attr.aria-label]="
+            userFullName || 'Profil'
+          "
+          [attr.title]="
+            userFullName || 'Profil'
+          ">
+
+          <span>
+            {{ userInitials }}
+          </span>
+
+        </button>
+
+        <button
+          type="button"
+          class="create-button"
+          aria-label="Takım oluştur"
+          (click)="createTeam()">
+
+          <ion-icon
+            name="add-outline">
+          </ion-icon>
+
+        </button>
+
+      </div>
+
+      <div class="page-heading">
+
+        <p
+          class="welcome-text"
+          *ngIf="userFullName">
+
+          Merhaba, {{ firstName }}
+
+        </p>
+
+        <h1>Takımlar</h1>
+
+      </div>
+
+      <div class="search-box">
+
+        <ion-icon
+          name="search-outline">
+        </ion-icon>
+
+        <input
+          type="search"
+          placeholder="Takım arayın"
+          [(ngModel)]="searchTerm"
+          aria-label="Takım ara">
+
+        <button
+          *ngIf="searchTerm"
+          type="button"
+          class="clear-search-button"
+          aria-label="Aramayı temizle"
+          (click)="searchTerm = ''">
+
+          ×
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <section
+      class="state-container"
+      *ngIf="isLoading">
+
+      <ion-spinner
+        name="crescent">
+      </ion-spinner>
+
+      <p>
+        Takımlar yükleniyor...
+      </p>
+
+    </section>
+
+    <section
+      class="state-container error-state"
+      *ngIf="
+        !isLoading &&
+        errorMessage
+      ">
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="loadTeams()">
+
+        Tekrar dene
+
+      </button>
+
+    </section>
+
+    <ng-container
+      *ngIf="
+        !isLoading &&
+        !errorMessage
+      ">
+
+      <section
+        class="teams-section"
+        *ngIf="
+          recentTeam &&
+          !searchTerm
+        ">
+
+        <h2>
+          En son görüntülenenler
+        </h2>
+
+        <article
+          class="team-card"
+          tabindex="0"
+          role="button"
+          (click)="
+            openTeam(
+              recentTeam.id,
+              recentTeam.name
+            )
+          "
+          (keyup.enter)="
+            openTeam(
+              recentTeam.id,
+              recentTeam.name
+            )
+          ">
+
+          <div
+            class="team-avatar"
+            [style.background]="
+              getTeamColor(
+                recentTeam.id
+              )
+            ">
+
+            {{
+              getTeamInitials(
+                recentTeam.name
+              )
+            }}
+
+          </div>
+
+          <div class="team-information">
+
+            <h3>
+              {{ recentTeam.name }}
+            </h3>
+
+            <p>
+              {{ recentTeam.memberCount }}
+              üye
+
+              <span class="separator">
+                •
+              </span>
+
+              {{ recentTeam.leaderName }}
+            </p>
+
+          </div>
+
+          <button
+            type="button"
+            class="favorite-button"
+            [attr.aria-label]="
+              isFavorite(recentTeam.id)
+                ? 'Favorilerden çıkar'
+                : 'Favoriye ekle'
+            "
+            (click)="
+              toggleFavorite(
+                $event,
+                recentTeam.id
+              )
+            ">
+
+            <ion-icon
+              [name]="
+                isFavorite(recentTeam.id)
+                  ? 'star'
+                  : 'star-outline'
+              ">
+            </ion-icon>
+
+          </button>
+
+        </article>
+
+      </section>
+
+      <section
+        class="teams-section"
+        *ngIf="
+          filteredTeams.length > 0
+        ">
+
+        <div class="section-heading">
+
+          <h2>
+            {{
+              searchTerm
+                ? 'Arama sonuçları'
+                : 'Tüm takımlar'
+            }}
+          </h2>
+
+          <span class="team-count">
+            {{ filteredTeams.length }}
+          </span>
+
+        </div>
+
+        <div class="team-list">
+
+          <article
+            class="team-card"
+            tabindex="0"
+            role="button"
+            *ngFor="
+              let team of filteredTeams;
+              trackBy: trackByTeamId
+            "
+            (click)="
+              openTeam(
+                team.id,
+                team.name
+              )
+            "
+            (keyup.enter)="
+              openTeam(
+                team.id,
+                team.name
+              )
+            ">
+
+            <div
+              class="team-avatar"
+              [style.background]="
+                getTeamColor(team.id)
+              ">
+
+              {{
+                getTeamInitials(
+                  team.name
+                )
+              }}
+
+            </div>
+
+            <div class="team-information">
+
+              <h3>
+                {{ team.name }}
+              </h3>
+
+              <p>
+                {{ team.memberCount }}
+                üye
+
+                <span class="separator">
+                  •
+                </span>
+
+                {{ team.leaderName }}
+              </p>
+
+            </div>
+
+            <button
+              type="button"
+              class="favorite-button"
+              [attr.aria-label]="
+                isFavorite(team.id)
+                  ? 'Favorilerden çıkar'
+                  : 'Favoriye ekle'
+              "
+              (click)="
+                toggleFavorite(
+                  $event,
+                  team.id
+                )
+              ">
+
+              <ion-icon
+                [name]="
+                  isFavorite(team.id)
+                    ? 'star'
+                    : 'star-outline'
+                ">
+              </ion-icon>
+
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+      <section
+        class="empty-container"
+        *ngIf="
+          teams.length === 0 &&
+          !searchTerm
+        ">
+
+        <div class="empty-icon">
+
+          <ion-icon
+            name="people-outline">
+          </ion-icon>
+
+        </div>
+
+        <h2>
+          Henüz bir takımın yok
+        </h2>
+
+        <p>
+          Yeni bir takım oluşturabilir
+          veya mevcut bir takıma
+          katılabilirsin.
+        </p>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="createTeam()">
+
+          Takım oluştur
+
+        </button>
+
+      </section>
+
+      <section
+        class="empty-container"
+        *ngIf="
+          teams.length > 0 &&
+          filteredTeams.length === 0
+        ">
+
+        <div class="empty-icon">
+
+          <ion-icon
+            name="search-outline">
+          </ion-icon>
+
+        </div>
+
+        <h2>
+          Takım bulunamadı
+        </h2>
+
+        <p>
+          “{{ searchTerm }}” aramasıyla
+          eşleşen bir takım bulunamadı.
+        </p>
+
+      </section>
+
+    </ng-container>
+
+  </main>
+
+  <nav class="bottom-navigation">
+
+    <button
+      type="button"
+      class="navigation-item">
+
+      <ion-icon
+        name="home-outline">
+      </ion-icon>
+
+      <span>Ana sayfa</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item active">
+
+      <ion-icon
+        name="people-outline">
+      </ion-icon>
+
+      <span>Takımlar</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item">
+
+      <ion-icon
+        name="checkbox-outline">
+      </ion-icon>
+
+      <span>Görevler</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item">
+
+      <ion-icon
+        name="grid-outline">
+      </ion-icon>
+
+      <span>Raporlar</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item">
+
+      <ion-icon
+        name="notifications-outline">
+      </ion-icon>
+
+      <span>Bildirimler</span>
+
+    </button>
+
+  </nav>
+
+</ion-content>

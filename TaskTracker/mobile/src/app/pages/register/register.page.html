@@ -1,0 +1,101 @@
+<ion-content [fullscreen]="true">
+
+  <div class="register-container">
+
+    <div class="register-card">
+
+      <h1>Hesap Oluştur</h1>
+
+      <p class="subtitle">
+        TaskTracker kullanmaya başlamak için kayıt ol.
+      </p>
+
+      <ion-item>
+        <ion-label position="stacked">Ad</ion-label>
+
+        <ion-input
+          type="text"
+          [(ngModel)]="firstName"
+          placeholder="Adınızı girin">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Soyad</ion-label>
+
+        <ion-input
+          type="text"
+          [(ngModel)]="lastName"
+          placeholder="Soyadınızı girin">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">E-posta</ion-label>
+
+        <ion-input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="ornek@email.com">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Şifre</ion-label>
+
+        <ion-input
+          type="password"
+          [(ngModel)]="password"
+          placeholder="En az 6 karakter">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Şifre Tekrar</ion-label>
+
+        <ion-input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          placeholder="Şifrenizi tekrar girin">
+        </ion-input>
+      </ion-item>
+
+      <p
+        class="error-message"
+        *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <p
+        class="success-message"
+        *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <ion-button
+        expand="block"
+        [disabled]="isLoading"
+        (click)="register()">
+
+        {{ isLoading ? 'Kayıt oluşturuluyor...' : 'Kayıt Ol' }}
+
+      </ion-button>
+
+      <div class="login-link">
+
+        <span>Zaten hesabın var mı?</span>
+
+        <button
+          type="button"
+          (click)="goToLogin()">
+          Giriş Yap
+        </button>
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+</ion-content>
