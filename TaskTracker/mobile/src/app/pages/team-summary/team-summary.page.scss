@@ -1,0 +1,586 @@
+:host {
+  display: block;
+
+  --page-background: #000000;
+  --surface: #1d1d1f;
+  --surface-secondary: #242529;
+  --surface-hover: #2b2c31;
+  --border: #34353a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1a8;
+  --text-muted: #73737a;
+
+  --accent: #72a7ff;
+}
+
+ion-content {
+  --background: var(--page-background);
+}
+
+button {
+  font: inherit;
+}
+
+.summary-page {
+  min-height: 100%;
+  width: 100%;
+
+  padding:
+    calc(env(safe-area-inset-top) + 20px)
+    18px
+    calc(env(safe-area-inset-bottom) + 40px);
+
+  background: var(--page-background);
+  color: var(--text-primary);
+}
+
+/* Header */
+
+.page-header {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 14px;
+}
+
+.circle-button {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.circle-button:hover {
+  background: var(--surface-hover);
+}
+
+.circle-button:active {
+  transform: scale(0.94);
+}
+
+.circle-button ion-icon {
+  font-size: 25px;
+}
+
+.team-title-button {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+
+  cursor: pointer;
+}
+
+.team-title-button span {
+  overflow: hidden;
+
+  font-size: 20px;
+  font-weight: 750;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-title-button ion-icon {
+  flex: 0 0 auto;
+
+  color: var(--text-secondary);
+  font-size: 17px;
+}
+
+.header-spacer {
+  width: 52px;
+  height: 52px;
+}
+
+/* Tabs */
+
+.workspace-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  margin-top: 18px;
+
+  overflow-x: auto;
+
+  border-bottom: 1px solid #28292e;
+
+  scrollbar-width: none;
+}
+
+.workspace-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.workspace-tab {
+  position: relative;
+
+  flex: 0 0 auto;
+  min-width: 70px;
+
+  padding: 16px 12px;
+
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+
+  font-size: 16px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.workspace-tab:hover {
+  color: var(--text-primary);
+}
+
+.workspace-tab.active {
+  color: var(--text-primary);
+}
+
+.workspace-tab.active::after {
+  position: absolute;
+  right: 10px;
+  bottom: -1px;
+  left: 10px;
+
+  height: 3px;
+
+  border-radius: 3px 3px 0 0;
+  background: var(--accent);
+
+  content: '';
+}
+
+/* İçerik */
+
+.summary-content {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 7px;
+
+  color: var(--accent);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.section-heading h1 {
+  margin: 0;
+
+  font-size: 28px;
+  font-weight: 780;
+  letter-spacing: -0.7px;
+}
+
+.task-count {
+  flex: 0 0 auto;
+
+  padding: 8px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--surface);
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* Tamamlanma kartı */
+
+.completion-card {
+  width: 100%;
+  padding: 22px;
+
+  border: 1px solid var(--border);
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(114, 167, 255, 0.14),
+      rgba(29, 29, 31, 0.95) 50%
+    );
+}
+
+.completion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card-label {
+  display: block;
+  margin-bottom: 6px;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.completion-header strong {
+  color: var(--text-primary);
+
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.completion-circle {
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid rgba(114, 167, 255, 0.25);
+  border-radius: 50%;
+
+  color: var(--accent);
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.progress-track {
+  height: 9px;
+  margin-top: 22px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: #303137;
+}
+
+.progress-value {
+  min-width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+  background: var(--accent);
+
+  transition: width 400ms ease;
+}
+
+.completion-card p {
+  margin: 13px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* İstatistik kartları */
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-top: 14px;
+}
+
+.stat-card {
+  min-height: 145px;
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid var(--border);
+  border-radius: 19px;
+
+  background: var(--surface);
+}
+
+.stat-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.stat-card strong {
+  margin-top: auto;
+
+  color: var(--text-primary);
+
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-card small {
+  margin-top: 8px;
+
+  color: var(--text-muted);
+
+  font-size: 12px;
+}
+
+.todo-card .status-dot {
+  background: #a1a1a8;
+}
+
+.progress-card .status-dot {
+  background: #ffab00;
+}
+
+.done-card .status-dot {
+  background: #57d9a3;
+}
+
+/* Geciken görev */
+
+.overdue-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  margin-top: 14px;
+  padding: 18px;
+
+  border: 1px solid var(--border);
+  border-radius: 19px;
+
+  background: var(--surface);
+}
+
+.overdue-card.has-overdue {
+  border-color: rgba(255, 116, 82, 0.42);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255, 116, 82, 0.12),
+      var(--surface) 55%
+    );
+}
+
+.overdue-content {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.overdue-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: rgba(255, 116, 82, 0.16);
+  color: #ff7452;
+
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.overdue-content span {
+  color: var(--text-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.overdue-content p {
+  margin: 4px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.overdue-card > strong {
+  color: #ff7452;
+
+  font-size: 30px;
+  font-weight: 800;
+}
+
+/* Yükleniyor ve hata */
+
+.state-container {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.state-container ion-spinner {
+  width: 34px;
+  height: 34px;
+
+  color: var(--accent);
+}
+
+.error-state {
+  color: #ff8f7a;
+}
+
+.retry-button {
+  margin-top: 12px;
+  padding: 11px 17px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* Tablet ve masaüstü */
+
+@media (min-width: 900px) {
+  .summary-page {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .statistics-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Mobil */
+
+@media (max-width: 560px) {
+  .summary-page {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .page-header {
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    gap: 10px;
+  }
+
+  .circle-button,
+  .header-spacer {
+    width: 48px;
+    height: 48px;
+  }
+
+  .team-title-button span {
+    font-size: 18px;
+  }
+
+  .workspace-tabs {
+    gap: 2px;
+  }
+
+  .workspace-tab {
+    min-width: auto;
+    padding-right: 13px;
+    padding-left: 13px;
+
+    font-size: 15px;
+  }
+
+  .section-heading {
+    align-items: center;
+  }
+
+  .section-heading h1 {
+    font-size: 24px;
+  }
+
+  .completion-card {
+    padding: 18px;
+  }
+
+  .completion-header strong {
+    font-size: 36px;
+  }
+
+  .statistics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .stat-card {
+    min-height: 132px;
+    padding: 15px;
+  }
+
+  .stat-card strong {
+    font-size: 30px;
+  }
+}

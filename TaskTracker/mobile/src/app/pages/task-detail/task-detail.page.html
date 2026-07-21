@@ -1,0 +1,819 @@
+<ion-content [fullscreen]="true">
+
+  <main class="task-detail-page">
+
+    <!-- HEADER -->
+
+    <header class="task-header">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <ion-icon name="arrow-back-outline"></ion-icon>
+
+      </button>
+
+      <div class="task-header-title">
+
+        <span class="task-key">
+          {{ getTaskKey() }}
+        </span>
+
+        <h1>
+          {{ task?.title }}
+        </h1>
+
+      </div>
+
+    </header>
+
+    <!-- LOADING -->
+
+    <section
+      class="loading-section"
+      *ngIf="isLoading">
+
+      <ion-spinner
+        name="crescent">
+      </ion-spinner>
+
+      <p>
+        Görev yükleniyor...
+      </p>
+
+    </section>
+
+    <!-- ERROR -->
+
+    <section
+      class="error-section"
+      *ngIf="!isLoading && errorMessage">
+
+      <h2>
+        Görev yüklenemedi
+      </h2>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="button"
+        (click)="retry()">
+
+        Tekrar Dene
+
+      </button>
+
+    </section>
+
+    <!-- CONTENT -->
+
+    <section
+      class="task-content"
+      *ngIf="!isLoading && !errorMessage && task">
+
+      <!-- STATUS CARD -->
+
+     <section class="detail-card status-card">
+
+        <div class="card-title">
+
+          Durum
+
+        </div>
+
+        <div class="status-dropdown">
+
+          <button
+            type="button"
+            class="status-button"
+            (click)="toggleStatusMenu()">
+
+            <span
+              class="status-dot"
+              [class.pending]="getStatusCssClass(task.status) === 'pending'"
+              [class.in-progress]="getStatusCssClass(task.status) === 'in-progress'"
+              [class.completed]="getStatusCssClass(task.status) === 'completed'">
+            </span>
+
+            {{ getStatusLabel(task.status) }}
+
+            <ion-icon
+              name="chevron-down-outline">
+            </ion-icon>
+
+          </button>
+
+          <div
+            class="status-menu"
+            *ngIf="isStatusMenuOpen">
+
+            <button
+              type="button"
+              *ngFor="let option of statusOptions"
+
+              (click)="updateStatus(option)"
+
+              [class.active]="isCurrentStatus(option.value)">
+
+              <span
+                class="status-dot"
+                [class]="option.cssClass">
+              </span>
+
+              {{ option.label }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <small
+          class="error-text"
+          *ngIf="statusErrorMessage">
+
+          {{ statusErrorMessage }}
+
+        </small>
+
+      </section>
+
+      <!-- GRID -->
+
+      <div class="detail-grid">
+
+        <!-- PRIORITY -->
+
+        <section class="detail-card">
+
+          <div class="card-title">
+
+            Öncelik
+
+          </div>
+
+          <div
+            class="priority-badge"
+            [attr.data-priority]="getPriority()">
+
+            <strong>
+
+              {{ getPrioritySymbol() }}
+
+            </strong>
+
+            {{ getPriorityLabel() }}
+
+          </div>
+
+        </section>
+
+        <!-- CATEGORY -->
+
+        <section class="detail-card">
+
+          <div class="card-title">
+
+            Kategori
+
+          </div>
+
+          <div class="info-row">
+
+            <ion-icon
+              name="pricetag-outline">
+            </ion-icon>
+
+            {{ task.categoryName }}
+
+          </div>
+
+        </section>
+
+        <!-- ASSIGNEE -->
+
+        <section class="detail-card">
+
+          <div class="card-title">
+
+            Atanan
+
+          </div>
+
+          <div class="assignee-box">
+
+            <div class="avatar">
+
+              {{ getAssigneeInitials() }}
+
+            </div>
+
+            <span>
+
+              {{ task.assignedToName || 'Atanmamış' }}
+
+            </span>
+
+          </div>
+
+        </section>
+
+        <!-- DUE DATE -->
+
+        <section class="detail-card">
+
+          <div class="card-title">
+
+            Son Tarih
+
+          </div>
+
+          <div class="info-row">
+
+            <ion-icon
+              name="calendar-outline">
+            </ion-icon>
+
+            {{ formatDate(task.dueDate) }}
+
+          </div>
+
+        </section>
+
+      </div>
+            <!-- DESCRIPTION -->
+
+      <section class="detail-card">
+
+        <div class="description-header">
+
+          <h2>Açıklama</h2>
+
+          <button
+            *ngIf="!isEditingDescription"
+            type="button"
+            class="edit-button"
+            (click)="startDescriptionEdit()">
+
+            <ion-icon
+              name="create-outline">
+            </ion-icon>
+
+            Düzenle
+
+          </button>
+
+        </div>
+
+        <!-- Okuma -->
+
+        <div *ngIf="!isEditingDescription">
+
+          <p
+            *ngIf="task.description">
+
+            {{ task.description }}
+
+          </p>
+
+          <p
+            class="empty-text"
+            *ngIf="!task.description">
+
+            Bu görev için açıklama eklenmemiş.
+
+          </p>
+
+        </div>
+
+        <!-- Düzenleme -->
+
+        <div
+          *ngIf="isEditingDescription">
+
+          <textarea
+
+            rows="7"
+
+            [(ngModel)]="editedDescription"
+
+            placeholder="Görev açıklamasını yazın...">
+
+          </textarea>
+
+          <div class="description-actions">
+
+            <button
+              type="button"
+              class="cancel-button"
+              (click)="cancelDescriptionEdit()">
+
+              <ion-icon
+                name="close-outline">
+              </ion-icon>
+
+              İptal
+
+            </button>
+
+            <button
+              type="button"
+              class="save-button"
+              (click)="saveDescription()">
+
+              <ion-spinner
+                *ngIf="isSavingDescription"
+                name="crescent">
+              </ion-spinner>
+
+              <ion-icon
+                *ngIf="!isSavingDescription"
+                name="save-outline">
+              </ion-icon>
+
+              Kaydet
+
+            </button>
+
+          </div>
+
+          <small
+            class="error-text"
+            *ngIf="descriptionErrorMessage">
+
+            {{ descriptionErrorMessage }}
+
+          </small>
+
+        </div>
+
+      </section>
+
+    <!-- COMMENTS -->
+
+<section class="detail-card comments-card">
+
+  <div class="comments-header">
+
+    <div>
+
+      <h2>Yorumlar</h2>
+
+      <p class="comments-subtitle">
+        Görevle ilgili notları ve dosyaları burada paylaşabilirsiniz.
+      </p>
+
+    </div>
+
+    <span class="comment-count">
+      {{ comments.length }}
+    </span>
+
+  </div>
+
+  <!-- YORUMLAR YÜKLENİYOR -->
+
+  <div
+    class="comments-loading"
+    *ngIf="isLoadingComments">
+
+    <ion-spinner name="crescent"></ion-spinner>
+
+    <span>
+      Yorumlar yükleniyor...
+    </span>
+
+  </div>
+
+  <!-- YORUM YÜKLEME HATASI -->
+
+  <div
+    class="comments-error"
+    *ngIf="!isLoadingComments && commentsErrorMessage">
+
+    <p>
+      {{ commentsErrorMessage }}
+    </p>
+
+    <button
+      type="button"
+      (click)="retryComments()">
+
+      Tekrar Dene
+
+    </button>
+
+  </div>
+
+  <!-- YORUM YOK -->
+
+  <div
+    class="comments-empty"
+    *ngIf="
+      !isLoadingComments &&
+      !commentsErrorMessage &&
+      comments.length === 0
+    ">
+
+    <ion-icon
+      name="chatbubble-outline">
+    </ion-icon>
+
+    <p>
+      Henüz yorum eklenmemiş.
+    </p>
+
+    <small>
+      İlk yorumu yazarak görevle ilgili konuşmayı başlatabilirsiniz.
+    </small>
+
+  </div>
+
+  <!-- YORUM LİSTESİ -->
+
+  <div
+    class="comments-list"
+    *ngIf="
+      !isLoadingComments &&
+      comments.length > 0
+    ">
+
+    <article
+      class="comment-item"
+      *ngFor="
+        let comment of comments;
+        trackBy: trackComment
+      ">
+
+      <div class="comment-avatar">
+        {{ getCommentInitials(comment) }}
+      </div>
+
+      <div class="comment-body">
+
+        <div class="comment-top-row">
+
+          <div class="comment-author">
+
+            <strong>
+              {{ comment.userFullName }}
+            </strong>
+
+            <span>
+              {{ formatCommentDate(comment.createdAt) }}
+            </span>
+
+          </div>
+
+          <div
+            class="comment-actions"
+            *ngIf="
+              editingCommentId !== comment.id
+            ">
+
+            <button
+              type="button"
+              class="comment-action-button"
+              title="Yorumu düzenle"
+              [disabled]="
+                isUpdatingComment ||
+                deletingCommentId !== null
+              "
+              (click)="startCommentEdit(comment)">
+
+              <ion-icon
+                name="create-outline">
+              </ion-icon>
+
+            </button>
+
+            <button
+              type="button"
+              class="comment-action-button danger"
+              title="Yorumu sil"
+              [disabled]="
+                isDeletingComment(comment.id) ||
+                isUpdatingComment
+              "
+              (click)="deleteComment(comment)">
+
+              <ion-spinner
+                *ngIf="isDeletingComment(comment.id)"
+                name="crescent">
+              </ion-spinner>
+
+              <ion-icon
+                *ngIf="!isDeletingComment(comment.id)"
+                name="trash-outline">
+              </ion-icon>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- YORUM OKUMA -->
+
+        <div
+          class="comment-content"
+          *ngIf="
+            editingCommentId !== comment.id
+          ">
+
+          {{ comment.content }}
+
+        </div>
+
+        <!-- YORUM DÜZENLEME -->
+
+        <div
+          class="comment-edit-area"
+          *ngIf="
+            editingCommentId === comment.id
+          ">
+
+          <textarea
+            rows="4"
+            [(ngModel)]="editedCommentContent"
+            placeholder="Yorumunuzu düzenleyin...">
+          </textarea>
+
+          <small
+            class="error-text"
+            *ngIf="updateCommentErrorMessage">
+
+            {{ updateCommentErrorMessage }}
+
+          </small>
+
+          <div class="comment-edit-actions">
+
+            <button
+              type="button"
+              class="cancel-button"
+              [disabled]="isUpdatingComment"
+              (click)="cancelCommentEdit()">
+
+              <ion-icon
+                name="close-outline">
+              </ion-icon>
+
+              İptal
+
+            </button>
+
+            <button
+              type="button"
+              class="save-button"
+              [disabled]="isUpdatingComment"
+              (click)="updateComment(comment)">
+
+              <ion-spinner
+                *ngIf="isUpdatingComment"
+                name="crescent">
+              </ion-spinner>
+
+              <ion-icon
+                *ngIf="!isUpdatingComment"
+                name="save-outline">
+              </ion-icon>
+
+              Kaydet
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- EKLER -->
+
+        <div
+          class="comment-attachments"
+          *ngIf="
+            comment.attachments &&
+            comment.attachments.length > 0
+          ">
+
+          <div
+            class="attachment-item"
+            *ngFor="
+              let attachment of comment.attachments;
+              trackBy: trackAttachment
+            ">
+
+            <button
+              type="button"
+              class="attachment-open-button"
+              (click)="openAttachment(attachment)">
+
+              <span class="attachment-icon">
+
+                <ion-icon
+                  name="document-outline">
+                </ion-icon>
+
+              </span>
+
+              <span class="attachment-info">
+
+                <strong>
+                  {{ attachment.originalFileName }}
+                </strong>
+
+                <small>
+                  {{ formatFileSize(attachment.fileSize) }}
+                </small>
+
+              </span>
+
+              <ion-icon
+                class="download-icon"
+                name="download-outline">
+              </ion-icon>
+
+            </button>
+
+            <button
+              type="button"
+              class="attachment-delete-button"
+              title="Dosyayı sil"
+              [disabled]="
+                isDeletingAttachment(attachment.id)
+              "
+              (click)="deleteAttachment(comment, attachment)">
+
+              <ion-spinner
+                *ngIf="
+                  isDeletingAttachment(attachment.id)
+                "
+                name="crescent">
+              </ion-spinner>
+
+              <ion-icon
+                *ngIf="
+                  !isDeletingAttachment(attachment.id)
+                "
+                name="trash-outline">
+              </ion-icon>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+  <!-- YENİ YORUM -->
+
+  <div class="comment-compose">
+
+    <div class="comment-compose-header">
+
+      <h3>
+        Yeni yorum
+      </h3>
+
+      <span>
+        {{ newCommentContent.length }} karakter
+      </span>
+
+    </div>
+
+    <textarea
+      rows="4"
+      [(ngModel)]="newCommentContent"
+      [disabled]="isCreatingComment"
+      placeholder="Görev hakkında bir yorum yazın...">
+    </textarea>
+
+    <!-- SEÇİLEN DOSYALAR -->
+
+    <div
+      class="selected-files"
+      *ngIf="
+        selectedCommentFiles.length > 0
+      ">
+
+      <div
+        class="selected-file-item"
+        *ngFor="
+          let file of selectedCommentFiles;
+          let fileIndex = index;
+          trackBy: trackSelectedFile
+        ">
+
+        <div class="selected-file-info">
+
+          <ion-icon
+            name="document-outline">
+          </ion-icon>
+
+          <div>
+
+            <strong>
+              {{ file.name }}
+            </strong>
+
+            <small>
+              {{ formatFileSize(file.size) }}
+            </small>
+
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          title="Dosyayı kaldır"
+          [disabled]="isCreatingComment"
+          (click)="
+            removeSelectedCommentFile(fileIndex)
+          ">
+
+          <ion-icon
+            name="close-outline">
+          </ion-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <small
+      class="error-text"
+      *ngIf="createCommentErrorMessage">
+
+      {{ createCommentErrorMessage }}
+
+    </small>
+
+    <div class="comment-compose-actions">
+
+      <input
+        #commentFileInput
+        type="file"
+        multiple
+        hidden
+        (change)="onCommentFilesSelected($event)">
+
+      <button
+        type="button"
+        class="attach-button"
+        [disabled]="isCreatingComment"
+        (click)="commentFileInput.click()">
+
+        <ion-icon
+          name="attach-outline">
+        </ion-icon>
+
+        Dosya Ekle
+
+      </button>
+
+      <button
+        type="button"
+        class="send-comment"
+        [disabled]="
+          isCreatingComment ||
+          !newCommentContent.trim()
+        "
+        (click)="createComment()">
+
+        <ion-spinner
+          *ngIf="isCreatingComment"
+          name="crescent">
+        </ion-spinner>
+
+        <ion-icon
+          *ngIf="!isCreatingComment"
+          name="send-outline">
+        </ion-icon>
+
+        {{ isCreatingComment
+          ? 'Gönderiliyor...'
+          : 'Yorumu Gönder'
+        }}
+
+      </button>
+
+    </div>
+
+  </div>
+</section>
+  </section>
+
+  </main>
+
+</ion-content>

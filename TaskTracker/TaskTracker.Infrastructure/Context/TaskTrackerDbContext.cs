@@ -13,6 +13,8 @@ namespace TaskTracker.Infrastructure.Context
         public TaskTrackerDbContext(DbContextOptions<TaskTrackerDbContext> options) : base(options)
         {
         }
+        public DbSet<TaskComment> TaskComments { get; set; }
+        public DbSet<CommentAttachment> CommentAttachments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<TaskItem> TaskItems { get; set; }
         public DbSet<User> Users { get; set; }

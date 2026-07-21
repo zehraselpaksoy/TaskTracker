@@ -46,6 +46,82 @@ namespace TaskTracker.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("TaskTracker.Domain.Entities.CommentAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ObjectKey")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("TaskCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskCommentId");
+
+                    b.ToTable("CommentAttachments", (string)null);
+                });
+
+            modelBuilder.Entity("TaskTracker.Domain.Entities.TaskComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TaskItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskItemId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TaskComments", (string)null);
+                });
+
             modelBuilder.Entity("TaskTracker.Domain.Entities.TaskItem", b =>
                 {
                     b.Property<int>("Id")
@@ -208,6 +284,36 @@ namespace TaskTracker.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("TaskTracker.Domain.Entities.CommentAttachment", b =>
+                {
+                    b.HasOne("TaskTracker.Domain.Entities.TaskComment", "TaskComment")
+                        .WithMany("Attachments")
+                        .HasForeignKey("TaskCommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TaskComment");
+                });
+
+            modelBuilder.Entity("TaskTracker.Domain.Entities.TaskComment", b =>
+                {
+                    b.HasOne("TaskTracker.Domain.Entities.TaskItem", "TaskItem")
+                        .WithMany("Comments")
+                        .HasForeignKey("TaskItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TaskTracker.Domain.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TaskItem");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TaskTracker.Domain.Entities.TaskItem", b =>
                 {
                     b.HasOne("TaskTracker.Domain.Entities.User", "AssignedToUser")
@@ -266,6 +372,16 @@ namespace TaskTracker.Infrastructure.Migrations
                     b.Navigation("TaskItems");
                 });
 
+            modelBuilder.Entity("TaskTracker.Domain.Entities.TaskComment", b =>
+                {
+                    b.Navigation("Attachments");
+                });
+
+            modelBuilder.Entity("TaskTracker.Domain.Entities.TaskItem", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("TaskTracker.Domain.Entities.Team", b =>
                 {
                     b.Navigation("Members");
@@ -276,6 +392,8 @@ namespace TaskTracker.Infrastructure.Migrations
             modelBuilder.Entity("TaskTracker.Domain.Entities.User", b =>
                 {
                     b.Navigation("AssignedTasks");
+
+                    b.Navigation("Comments");
 
                     b.Navigation("CreatedTasks");
 

@@ -35,5 +35,7 @@ namespace TaskTracker.Domain.Entities
         public int TeamId { get; set; }
 
         public Team Team { get; set; } = null!;
+        public ICollection<TaskComment> Comments { get; set; }
+            = new List<TaskComment>();
     }
 }

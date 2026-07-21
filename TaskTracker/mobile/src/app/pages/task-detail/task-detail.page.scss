@@ -1,0 +1,1082 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+ion-content {
+  --background: #0b1020;
+  --color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+.task-detail-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(79, 70, 229, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(14, 165, 233, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #0b1020 0%,
+      #0f172a 100%
+    );
+}
+
+/* Header */
+
+.task-header {
+  width: min(1180px, 100%);
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.back-button {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #e2e8f0;
+  background: rgba(30, 41, 59, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-1px);
+  background: rgba(51, 65, 85, 0.95);
+  border-color: rgba(129, 140, 248, 0.45);
+}
+
+.back-button:active {
+  transform: translateY(0);
+}
+
+.back-button ion-icon {
+  font-size: 22px;
+}
+
+.task-header-title {
+  min-width: 0;
+  flex: 1;
+}
+
+.task-key {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  color: #c7d2fe;
+  background: rgba(79, 70, 229, 0.16);
+  border: 1px solid rgba(129, 140, 248, 0.26);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.task-header-title h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(25px, 4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+/* Loading ve hata */
+
+.loading-section,
+.error-section {
+  width: min(1180px, 100%);
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 42px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.84);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 28px 70px rgba(2, 6, 23, 0.34);
+  backdrop-filter: blur(18px);
+}
+
+.loading-section ion-spinner {
+  width: 42px;
+  height: 42px;
+  color: #818cf8;
+}
+
+.loading-section p {
+  margin: 16px 0 0;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.error-section h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 22px;
+}
+
+.error-section p {
+  max-width: 580px;
+  margin: 12px 0 22px;
+  color: #cbd5e1;
+  line-height: 1.65;
+}
+
+.error-section button {
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 12px;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #6366f1
+  );
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.26);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.error-section button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(79, 70, 229, 0.34);
+}
+
+/* Ana içerik */
+
+.task-content {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.detail-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.status-card {
+  position: relative;
+  z-index: 100;
+}
+
+/* Kartlar */
+
+.detail-card {
+  position: relative;
+  overflow: visible;
+
+  padding: 22px;
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30, 41, 59, 0.92),
+      rgba(15, 23, 42, 0.92)
+    );
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow:
+    0 20px 50px rgba(2, 6, 23, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+}
+
+.card-title {
+  margin-bottom: 14px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Durum */
+
+.status-dropdown {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.status-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 1000;
+
+  width: 240px;
+  padding: 8px;
+
+  display: grid;
+  gap: 5px;
+
+  border-radius: 15px;
+  background: #111827;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 22px 50px rgba(2, 6, 23, 0.52);
+}
+
+.status-button {
+  min-width: 190px;
+  min-height: 46px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  border-radius: 13px;
+  color: #f8fafc;
+  background: rgba(15, 23, 42, 0.74);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.status-button:hover {
+  background: rgba(30, 41, 59, 0.96);
+  border-color: rgba(129, 140, 248, 0.48);
+}
+
+.status-button ion-icon {
+  margin-left: auto;
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  display: inline-block;
+  border-radius: 999px;
+  background: #94a3b8;
+  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.1);
+}
+
+.status-dot.pending {
+  background: #f59e0b;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.13);
+}
+
+.status-dot.in-progress {
+  background: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.13);
+}
+
+.status-dot.completed {
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.13);
+}
+
+.status-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+
+  width: 240px;
+
+  z-index: 99999;
+
+  padding: 8px;
+  display: grid;
+  gap: 5px;
+
+  border-radius: 15px;
+
+  background: #111827;
+
+  border: 1px solid rgba(148, 163, 184, 0.2);
+
+  box-shadow: 0 22px 50px rgba(2, 6, 23, 0.52);
+}
+
+.status-menu button {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  color: #cbd5e1;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.status-menu button:hover {
+  color: #ffffff;
+  background: rgba(71, 85, 105, 0.44);
+}
+
+.status-menu button.active {
+  color: #ffffff;
+  background: rgba(79, 70, 229, 0.2);
+}
+
+/* Öncelik */
+
+.priority-badge {
+  width: fit-content;
+  min-height: 38px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  color: #e2e8f0;
+  background: rgba(100, 116, 139, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.priority-badge strong {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.priority-badge[data-priority='low'] {
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.priority-badge[data-priority='medium'] {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.priority-badge[data-priority='high'] {
+  color: #fda4af;
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.25);
+}
+
+/* Bilgi satırları */
+
+.info-row {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #e2e8f0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.info-row ion-icon {
+  flex: 0 0 auto;
+  color: #818cf8;
+  font-size: 20px;
+}
+
+.assignee-box {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e2e8f0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #0ea5e9
+  );
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+}
+
+/* Açıklama */
+
+.description-header,
+.comments-header {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.description-header h2,
+.comments-header h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+
+.edit-button {
+  min-height: 38px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 10px;
+  color: #c7d2fe;
+  background: rgba(79, 70, 229, 0.13);
+  border: 1px solid rgba(129, 140, 248, 0.24);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.edit-button:hover {
+  transform: translateY(-1px);
+  background: rgba(79, 70, 229, 0.22);
+  border-color: rgba(129, 140, 248, 0.44);
+}
+
+.edit-button ion-icon {
+  font-size: 17px;
+}
+
+.detail-card p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.empty-text {
+  color: #64748b !important;
+  font-style: italic;
+}
+
+.detail-card textarea {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  padding: 15px 16px;
+  border-radius: 13px;
+  outline: none;
+  color: #f8fafc;
+  background: rgba(2, 6, 23, 0.48);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  line-height: 1.65;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.detail-card textarea::placeholder {
+  color: #64748b;
+}
+
+.detail-card textarea:focus {
+  background: rgba(2, 6, 23, 0.68);
+  border-color: rgba(129, 140, 248, 0.65);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+.description-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button,
+.save-button {
+  min-height: 42px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cancel-button {
+  color: #cbd5e1;
+  background: rgba(51, 65, 85, 0.44);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.cancel-button:hover {
+  color: #ffffff;
+  background: rgba(71, 85, 105, 0.58);
+}
+
+.save-button {
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #6366f1
+  );
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  box-shadow: 0 10px 26px rgba(79, 70, 229, 0.23);
+}
+
+.save-button:hover {
+  transform: translateY(-1px);
+}
+
+.save-button ion-spinner {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+}
+
+.cancel-button ion-icon,
+.save-button ion-icon {
+  font-size: 17px;
+}
+
+/* Yorumlar */
+
+.comment-count {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #c7d2fe;
+  background: rgba(79, 70, 229, 0.16);
+  border: 1px solid rgba(129, 140, 248, 0.22);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.comments-empty {
+  min-height: 170px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  text-align: center;
+  background: rgba(2, 6, 23, 0.26);
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+}
+
+.comments-empty ion-icon {
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 38px;
+}
+
+.comments-empty p {
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+.comments-empty small {
+  margin-top: 6px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.comment-box {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.comment-box textarea {
+  min-height: 100px;
+}
+
+.send-comment {
+  min-height: 42px;
+  margin-top: 12px;
+  margin-left: auto;
+  padding: 0 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #0ea5e9,
+    #4f46e5
+  );
+  font-size: 14px;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(14, 165, 233, 0.18);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.send-comment:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(14, 165, 233, 0.25);
+}
+
+/* Hata metinleri */
+
+.error-text {
+  display: block;
+  margin-top: 11px;
+  color: #fda4af;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Focus */
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(129, 140, 248, 0.42);
+  outline-offset: 3px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .task-detail-page {
+    padding: 20px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobil */
+
+@media (max-width: 600px) {
+  .task-detail-page {
+    padding: 16px 14px 28px;
+  }
+
+  .task-header {
+    margin-bottom: 18px;
+    gap: 12px;
+  }
+
+  .back-button {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    border-radius: 12px;
+  }
+
+  .task-header-title h1 {
+    font-size: 25px;
+  }
+
+  .task-key {
+    min-height: 25px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .task-content {
+    gap: 14px;
+  }
+
+  .detail-grid {
+    gap: 14px;
+  }
+
+  .detail-card {
+    padding: 17px;
+    border-radius: 16px;
+  }
+
+  .status-dropdown {
+    width: 100%;
+  }
+
+  .status-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .status-menu {
+    width: 100%;
+  }
+
+  .description-header,
+  .comments-header {
+    align-items: flex-start;
+  }
+
+  .description-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-button,
+  .save-button {
+    width: 100%;
+  }
+
+  .send-comment {
+    width: 100%;
+  }
+}
+
+/* Çok küçük ekran */
+
+@media (max-width: 380px) {
+  .task-detail-page {
+    padding-inline: 10px;
+  }
+
+  .detail-card {
+    padding: 15px;
+  }
+
+  .description-header {
+    flex-direction: column;
+  }
+
+  .edit-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+/* ==========================================================
+   COMMENTS
+========================================================== */
+
+.comments-card {
+  margin-top: 28px;
+}
+
+.comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.comments-header h2 {
+  margin: 0;
+}
+
+.comments-subtitle {
+  margin-top: 6px;
+  color: #8b949e;
+  font-size: .9rem;
+}
+
+.comment-count {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.comments-loading,
+.comments-empty,
+.comments-error {
+  text-align: center;
+  padding: 28px 0;
+}
+
+.comments-loading ion-spinner,
+.comments-empty ion-icon {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 16px;
+}
+
+.comment-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-author {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.comment-author span {
+  color: #8b949e;
+  font-size: .82rem;
+}
+
+.comment-content {
+  margin-top: 10px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-action-button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.comment-action-button.danger {
+  color: #ef4444;
+}
+
+.comment-edit-area textarea {
+  width: 100%;
+  margin-top: 12px;
+  min-height: 120px;
+}
+
+.comment-edit-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==========================================================
+   ATTACHMENTS
+========================================================== */
+
+.comment-attachments {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attachment-item {
+  display: flex;
+  gap: 8px;
+}
+
+.attachment-open-button {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.attachment-icon {
+  font-size: 22px;
+}
+
+.attachment-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.attachment-info small {
+  color: #8b949e;
+}
+
+.download-icon {
+  font-size: 20px;
+}
+
+.attachment-delete-button {
+  width: 44px;
+  border: none;
+  border-radius: 12px;
+  color: #ef4444;
+  cursor: pointer;
+}
+
+/* ==========================================================
+   NEW COMMENT
+========================================================== */
+
+.comment-compose {
+  margin-top: 30px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 24px;
+}
+
+.comment-compose-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.comment-compose textarea {
+  width: 100%;
+  min-height: 140px;
+}
+
+.selected-files {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selected-file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-file-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.selected-file-info ion-icon {
+  font-size: 22px;
+}
+
+.comment-compose-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.attach-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 160px;
+  height: 52px;
+
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+
+  background: #232b3e;
+  color: #fff;
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.attach-button:hover {
+  background: #2d3750;
+  border-color: #4f8cff;
+}
+
+.attach-button ion-icon {
+  font-size: 22px;
+  color: #6ea8ff;
+}

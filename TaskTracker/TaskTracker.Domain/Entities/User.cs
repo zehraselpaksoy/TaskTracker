@@ -21,5 +21,7 @@ namespace TaskTracker.Domain.Entities
             = new List<TaskItem>();
         public ICollection<TeamMember> TeamMemberships { get; set; }
             = new List<TeamMember>();
+        public ICollection<TaskComment> Comments { get; set; }
+            = new List<TaskComment>();
     }
 }

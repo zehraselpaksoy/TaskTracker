@@ -33,7 +33,6 @@ C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\sta
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TaskTracker.API.props
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TaskTracker.API.props
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\TaskTrac.704AACD1.Up2Date
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\TaskTracker.API.dll
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\refint\TaskTracker.API.dll
@@ -166,3 +165,11 @@ C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\Sys
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\System.Formats.Asn1.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\TaskTracker.API.sourcelink.json
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\CommunityToolkit.HighPerformance.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\Minio.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\bin\Debug\net8.0\System.Reactive.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

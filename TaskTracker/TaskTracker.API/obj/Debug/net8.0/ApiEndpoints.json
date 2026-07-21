@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "DeleteAttachment",
+    "RelativePath": "api/attachments/{attachmentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "attachmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskTracker.API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -36,6 +52,85 @@
       {
         "Name": "registerDto",
         "Type": "TaskTracker.Application.DTOs.Auth.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.CategoriesController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "GetCommentById",
+    "RelativePath": "api/comments/{commentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "UpdateComment",
+    "RelativePath": "api/comments/{commentId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateCommentDto",
+        "Type": "TaskTracker.Application.DTOs.Comments.UpdateCommentDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "DeleteComment",
+    "RelativePath": "api/comments/{commentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.ReportsController",
+    "Method": "GetTeamSummary",
+    "RelativePath": "api/Reports/teams/{teamId}/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -132,6 +227,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "GetCommentsByTaskId",
+    "RelativePath": "api/tasks/{taskId}/comments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
+    "Method": "CreateComment",
+    "RelativePath": "api/tasks/{taskId}/comments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Files",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskTracker.API.Controllers.TaskController",
     "Method": "GetAssignedTasks",
     "RelativePath": "api/tasks/assigned",
@@ -145,6 +282,16 @@
     "ContainingType": "TaskTracker.API.Controllers.TaskController",
     "Method": "GetCreatedTasks",
     "RelativePath": "api/tasks/created",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.TaskController",
+    "Method": "GetMyTasks",
+    "RelativePath": "api/tasks/my",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

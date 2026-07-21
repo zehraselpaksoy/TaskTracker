@@ -33,13 +33,94 @@
       </div>
 
     </header>
+    <!-- TEAM SELECTOR -->
+
+<div
+  class="team-menu-backdrop"
+  *ngIf="isTeamMenuOpen"
+  (click)="onTeamMenuBackdropClick()">
+</div>
+
+<section
+  class="team-menu"
+  *ngIf="isTeamMenuOpen">
+
+  <header class="team-menu-header">
+
+    <h3>Takım Seç</h3>
+
+    <button
+      type="button"
+      class="team-menu-close"
+      (click)="closeTeamMenu()">
+
+      <ion-icon name="close-outline"></ion-icon>
+
+    </button>
+
+  </header>
+
+  <div
+    class="team-menu-loading"
+    *ngIf="isTeamsLoading">
+
+    <ion-spinner name="crescent"></ion-spinner>
+
+    <p>Takımlar yükleniyor...</p>
+
+  </div>
+
+  <div
+    class="team-menu-error"
+    *ngIf="!isTeamsLoading && teamMenuError">
+
+    {{ teamMenuError }}
+
+  </div>
+
+  <div
+    class="team-menu-list"
+    *ngIf="!isTeamsLoading && !teamMenuError">
+
+    <button
+      type="button"
+      class="team-menu-item"
+      *ngFor="let team of myTeams; trackBy: trackTeam"
+      [class.active]="isActiveTeam(team.id)"
+      (click)="selectTeam(team)">
+
+      <div class="team-menu-item-content">
+
+        <strong>
+          {{ team.name }}
+        </strong>
+
+        <small>
+          {{ team.memberCount }} üye
+        </small>
+
+      </div>
+
+      <ion-icon
+        *ngIf="isActiveTeam(team.id)"
+        name="checkmark-circle-outline">
+
+      </ion-icon>
+
+    </button>
+
+  </div>
+
+</section>
 
     <nav class="workspace-tabs">
 
       <button
         type="button"
         class="menu-tab"
-        aria-label="Çalışma alanı menüsü">
+        aria-label="Çalışma alanı menüsünü aç"
+        [attr.aria-expanded]="isNavigationMenuOpen"
+        (click)="toggleNavigationMenu()">
 
         <ion-icon name="menu-outline">
         </ion-icon>
@@ -63,6 +144,181 @@
 
     </nav>
 
+    <!-- SOL NAVİGASYON MENÜSÜ -->
+
+    <div
+      class="navigation-backdrop"
+      *ngIf="isNavigationMenuOpen"
+      (click)="onNavigationBackdropClick()">
+    </div>
+
+    <aside
+      class="navigation-drawer"
+      [class.open]="isNavigationMenuOpen"
+      [attr.aria-hidden]="!isNavigationMenuOpen"
+      aria-label="Çalışma alanı navigasyonu">
+
+      <header class="navigation-drawer-header">
+
+        <div class="navigation-team-info">
+
+          <span class="navigation-team-label">
+            Çalışma alanı
+          </span>
+
+          <strong>
+            {{ teamName }}
+          </strong>
+
+        </div>
+
+        <button
+          type="button"
+          class="navigation-close-button"
+          aria-label="Menüyü kapat"
+          (click)="closeNavigationMenu()">
+
+          <ion-icon name="close-outline">
+          </ion-icon>
+
+        </button>
+
+      </header>
+
+      <nav class="navigation-menu">
+
+        <button
+          type="button"
+          class="navigation-menu-item"
+          [class.active]="activeTab === 'summary'"
+          (click)="selectNavigationTab('summary')">
+
+          <span class="navigation-menu-icon">
+
+            <ion-icon name="stats-chart-outline">
+            </ion-icon>
+
+          </span>
+
+          <span class="navigation-menu-text">
+            Özet
+          </span>
+
+          <span
+            class="navigation-active-indicator"
+            *ngIf="activeTab === 'summary'">
+
+            ✓
+
+          </span>
+
+        </button>
+
+        <button
+          type="button"
+          class="navigation-menu-item"
+          [class.active]="activeTab === 'board'"
+          (click)="selectNavigationTab('board')">
+
+          <span class="navigation-menu-icon">
+
+            <ion-icon name="grid-outline">
+            </ion-icon>
+
+          </span>
+
+          <span class="navigation-menu-text">
+            Pano
+          </span>
+
+          <span
+            class="navigation-active-indicator"
+            *ngIf="activeTab === 'board'">
+
+            ✓
+
+          </span>
+
+        </button>
+
+        <button
+          type="button"
+          class="navigation-menu-item"
+          [class.active]="activeTab === 'list'"
+          (click)="selectNavigationTab('list')">
+
+          <span class="navigation-menu-icon">
+
+            <ion-icon name="list-outline">
+            </ion-icon>
+
+          </span>
+
+          <span class="navigation-menu-text">
+            Liste
+          </span>
+
+          <span
+            class="navigation-active-indicator"
+            *ngIf="activeTab === 'list'">
+
+            ✓
+
+          </span>
+
+        </button>
+
+        <button
+          type="button"
+          class="navigation-menu-item"
+          [class.active]="activeTab === 'calendar'"
+          (click)="selectNavigationTab('calendar')">
+
+          <span class="navigation-menu-icon">
+
+            <ion-icon name="calendar-outline">
+            </ion-icon>
+
+          </span>
+
+          <span class="navigation-menu-text">
+            Takvim
+          </span>
+
+          <span
+            class="navigation-active-indicator"
+            *ngIf="activeTab === 'calendar'">
+
+            ✓
+
+          </span>
+
+        </button>
+
+      </nav>
+
+      <footer class="navigation-drawer-footer">
+
+        <button
+          type="button"
+          class="navigation-back-button"
+          (click)="goBack()">
+
+          <ion-icon name="arrow-back-outline">
+          </ion-icon>
+
+          <span>
+            Takımlara dön
+          </span>
+
+        </button>
+
+      </footer>
+
+    </aside>
+
+    <!-- LOADING -->
+
     <section
       class="loading-state"
       *ngIf="isLoading">
@@ -70,17 +326,25 @@
       <ion-spinner name="crescent">
       </ion-spinner>
 
-      <p>Takım panosu yükleniyor...</p>
+      <p>
+        Takım panosu yükleniyor...
+      </p>
 
     </section>
+
+    <!-- ERROR -->
 
     <section
       class="error-state"
       *ngIf="!isLoading && errorMessage">
 
-      <h2>Pano yüklenemedi</h2>
+      <h2>
+        Pano yüklenemedi
+      </h2>
 
-      <p>{{ errorMessage }}</p>
+      <p>
+        {{ errorMessage }}
+      </p>
 
       <button
         type="button"
@@ -92,6 +356,8 @@
 
     </section>
 
+    <!-- BOARD -->
+
     <section
       class="board-content"
       *ngIf="
@@ -102,55 +368,139 @@
 
       <div class="board-toolbar">
 
-        <label class="search-box">
+  <label class="search-box">
 
-          <ion-icon name="search-outline">
-          </ion-icon>
+    <ion-icon name="search-outline"></ion-icon>
 
-          <input
-            type="search"
-            [(ngModel)]="searchText"
-            placeholder="Görev arayın"
-            aria-label="Görev ara">
+    <input
+      type="search"
+      [(ngModel)]="searchText"
+      placeholder="Görev arayın"
+      aria-label="Görev ara">
 
-        </label>
+  </label>
 
-        <button
-          type="button"
-          class="filter-button">
+  <!-- ATANAN -->
 
-          Atanan
+  <div class="filter-wrapper">
 
-          <ion-icon name="chevron-down-outline">
-          </ion-icon>
+    <button
+      type="button"
+      class="filter-button"
+      (click)="openAssigneeMenu()">
 
-        </button>
+      {{ getSelectedAssigneeLabel() }}
 
-        <button
-          type="button"
-          class="filter-button">
+      <ion-icon name="chevron-down-outline"></ion-icon>
 
-          Öncelik
+    </button>
 
-          <ion-icon name="chevron-down-outline">
-          </ion-icon>
+    <div
+      class="assignee-menu"
+      *ngIf="isAssigneeMenuOpen">
 
-        </button>
+      <button
+        class="assignee-item"
+        (click)="selectAssignee(null)">
 
-        <button
-          type="button"
-          class="board-menu-button"
-          aria-label="Pano seçenekleri"
-          (click)="openBoardMenu()">
+        Tüm Görevler
 
-          <ion-icon name="ellipsis-horizontal-outline">
-          </ion-icon>
+      </button>
 
-        </button>
+      <button
+        class="assignee-item"
+        *ngFor="let member of teamMembers"
+        (click)="selectAssignee(member.userId)">
+
+        {{ member.fullName }}
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ÖNCELİK -->
+
+  <div class="filter-wrapper">
+
+    <button
+      type="button"
+      class="filter-button"
+      (click)="openPriorityMenu()">
+
+      {{ getSelectedPriorityLabel() }}
+
+      <ion-icon name="chevron-down-outline"></ion-icon>
+
+    </button>
+
+    <div
+      class="priority-menu"
+      *ngIf="isPriorityMenuOpen">
+
+      <button
+        class="priority-item"
+        (click)="selectPriority(null)">
+
+        Tümü
+
+      </button>
+
+      <button
+        class="priority-item"
+        (click)="selectPriority('high')">
+
+        🔴 Yüksek
+
+      </button>
+
+      <button
+        class="priority-item"
+        (click)="selectPriority('medium')">
+
+        🟡 Orta
+
+      </button>
+
+      <button
+        class="priority-item"
+        (click)="selectPriority('low')">
+
+        🔵 Düşük
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="board-menu-button"
+    aria-label="Pano seçenekleri"
+    (click)="openBoardMenu()">
+
+    <ion-icon
+      name="ellipsis-horizontal-outline">
+    </ion-icon>
+
+  </button>
+
+</div>
+
+      <div
+        class="drag-drop-error"
+        role="alert"
+        *ngIf="dragDropErrorMessage">
+
+        {{ dragDropErrorMessage }}
 
       </div>
 
-      <div class="board-columns">
+      <div
+        class="board-columns"
+        cdkDropListGroup>
 
         <section
           class="board-column"
@@ -160,7 +510,9 @@
 
             <div>
 
-              <h2>{{ column.title }}</h2>
+              <h2>
+                {{ column.title }}
+              </h2>
 
               <span>
                 {{
@@ -184,7 +536,12 @@
 
           </header>
 
-          <div class="task-list">
+          <div
+            class="task-list"
+            cdkDropList
+            [id]="'task-column-' + column.id"
+            [cdkDropListData]="getTasksByStatus(column.id)"
+            (cdkDropListDropped)="dropTask($event, column.id)">
 
             <article
               class="task-card"
@@ -192,9 +549,54 @@
                 let task of getTasksByStatus(column.id);
                 trackBy: trackTask
               "
+              cdkDrag
+              [cdkDragData]="task"
+              [cdkDragDisabled]="isTaskStatusUpdating(task.id)"
+              [class.status-updating]="isTaskStatusUpdating(task.id)"
               tabindex="0"
+              role="button"
               (click)="openTask(task)"
               (keyup.enter)="openTask(task)">
+
+              <div
+                class="task-card drag-preview"
+                *cdkDragPreview>
+
+                <div class="task-card-top">
+
+                  <span
+                    class="task-type-icon"
+                    [class.done-task]="task.status === 'done'">
+
+                    <ion-icon name="checkmark-circle-outline">
+                    </ion-icon>
+
+                  </span>
+
+                </div>
+
+                <h3>
+                  {{ task.title }}
+                </h3>
+
+                <div class="task-footer">
+
+                  <span class="task-key">
+                    {{ task.key }}
+                  </span>
+
+                  <span class="assignee-avatar">
+                    {{ task.assigneeInitials }}
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div
+                class="task-card drag-placeholder"
+                *cdkDragPlaceholder>
+              </div>
 
               <div class="task-card-top">
 
@@ -207,20 +609,33 @@
 
                 </span>
 
-                <button
-                  type="button"
-                  class="task-menu-button"
-                  aria-label="Görev seçenekleri"
-                  (click)="$event.stopPropagation()">
+                <div class="task-card-actions">
 
-                  <ion-icon name="ellipsis-horizontal-outline">
-                  </ion-icon>
+                  <ion-spinner
+                    class="task-status-spinner"
+                    name="crescent"
+                    *ngIf="isTaskStatusUpdating(task.id)">
+                  </ion-spinner>
 
-                </button>
+                  <button
+                    type="button"
+                    class="task-menu-button"
+                    aria-label="Görev seçenekleri"
+                    [disabled]="isTaskStatusUpdating(task.id)"
+                    (click)="$event.stopPropagation()">
+
+                    <ion-icon name="ellipsis-horizontal-outline">
+                    </ion-icon>
+
+                  </button>
+
+                </div>
 
               </div>
 
-              <h3>{{ task.title }}</h3>
+              <h3>
+                {{ task.title }}
+              </h3>
 
               <div class="task-meta">
 
@@ -281,7 +696,13 @@
                 ).length === 0
               ">
 
-              <p>Bu sütunda görev yok.</p>
+              <p>
+                Bu sütunda görev yok.
+              </p>
+
+              <small>
+                Görevi buraya sürükleyebilirsiniz.
+              </small>
 
             </div>
 
@@ -317,6 +738,8 @@
 
     </section>
 
+    <!-- SUMMARY -->
+
     <section
       class="placeholder-tab"
       *ngIf="
@@ -328,7 +751,9 @@
       <ion-icon name="stats-chart-outline">
       </ion-icon>
 
-      <h2>Özet</h2>
+      <h2>
+        Özet
+      </h2>
 
       <p>
         Takım istatistikleri daha sonra
@@ -336,6 +761,8 @@
       </p>
 
     </section>
+
+    <!-- LIST -->
 
     <section
       class="placeholder-tab"
@@ -348,7 +775,9 @@
       <ion-icon name="list-outline">
       </ion-icon>
 
-      <h2>Liste</h2>
+      <h2>
+        Liste
+      </h2>
 
       <p>
         Görevlerin liste görünümünü
@@ -356,6 +785,8 @@
       </p>
 
     </section>
+
+    <!-- CALENDAR -->
 
     <section
       class="placeholder-tab"
@@ -368,7 +799,9 @@
       <ion-icon name="calendar-outline">
       </ion-icon>
 
-      <h2>Takvim</h2>
+      <h2>
+        Takvim
+      </h2>
 
       <p>
         Görevlerin tarih görünümünü
@@ -376,6 +809,8 @@
       </p>
 
     </section>
+
+    <!-- GÖREV OLUŞTURMA MODALI -->
 
     <div
       class="task-modal-backdrop"
@@ -421,7 +856,9 @@
 
           <label class="task-form-field">
 
-            <span>Başlık</span>
+            <span>
+              Başlık
+            </span>
 
             <input
               type="text"
@@ -435,7 +872,9 @@
 
           <label class="task-form-field">
 
-            <span>Açıklama</span>
+            <span>
+              Açıklama
+            </span>
 
             <textarea
               name="description"
@@ -451,7 +890,9 @@
 
             <label class="task-form-field">
 
-              <span>Son tarih</span>
+              <span>
+                Son tarih
+              </span>
 
               <input
                 type="datetime-local"
@@ -462,7 +903,9 @@
 
             <label class="task-form-field">
 
-              <span>Öncelik</span>
+              <span>
+                Öncelik
+              </span>
 
               <select
                 name="priority"
@@ -490,7 +933,9 @@
 
             <label class="task-form-field">
 
-              <span>Kategori</span>
+              <span>
+                Kategori
+              </span>
 
               <select
                 name="categoryId"
@@ -515,7 +960,9 @@
 
             <label class="task-form-field">
 
-              <span>Atanan kişi</span>
+              <span>
+                Atanan kişi
+              </span>
 
               <select
                 name="assignedToUserId"

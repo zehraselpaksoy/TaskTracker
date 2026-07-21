@@ -2,41 +2,99 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using TaskTracker.API.Hubs;
 using TaskTracker.API.Middleware;
 using TaskTracker.Application;
 using TaskTracker.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Application Services
+#region Service Registrations
+
+// Application katmaný servisleri
 builder.Services.AddApplicationServices();
 
-// Infrastructure Services
+// Infrastructure katmaný:
+// DbContext, Repository, UnitOfWork, MinIO ve diðer altyapý servisleri
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// Controller servisleri
+builder.Services.AddControllers();
+
+// SignalR servisleri
+builder.Services.AddSignalR();
 
 // JWT Authentication
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+
+        options.DefaultChallengeScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+
+        options.DefaultScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        var jwtKey = builder.Configuration["Jwt:Key"]
+                     ?? throw new InvalidOperationException(
+                         "Jwt:Key yapýlandýrmasý bulunamadý.");
+
+        var jwtIssuer = builder.Configuration["Jwt:Issuer"]
+                        ?? throw new InvalidOperationException(
+                            "Jwt:Issuer yapýlandýrmasý bulunamadý.");
+
+        var jwtAudience = builder.Configuration["Jwt:Audience"]
+                          ?? throw new InvalidOperationException(
+                              "Jwt:Audience yapýlandýrmasý bulunamadý.");
+
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+
+        options.SaveToken = true;
+
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtKey)),
+
+                ClockSkew = TimeSpan.Zero
+            };
+
+        // SignalR baðlantýsýnda JWT token query string üzerinden gelebilir.
+        options.Events = new JwtBearerEvents
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+            OnMessageReceived = context =>
+            {
+                var accessToken =
+                    context.Request.Query["access_token"].FirstOrDefault();
 
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+                var requestPath = context.HttpContext.Request.Path;
 
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    builder.Configuration["Jwt:Key"]!))
+                if (!string.IsNullOrWhiteSpace(accessToken) &&
+                    requestPath.StartsWithSegments("/hubs/task"))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 
-// Controllers
-builder.Services.AddControllers();
+// Authorization
+builder.Services.AddAuthorization();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -44,9 +102,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowIonic", policy =>
     {
         policy
-            .WithOrigins("http://localhost:8100")
+            .WithOrigins(
+                "http://localhost:8100",
+                "http://127.0.0.1:8100"
+            )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -55,59 +117,85 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition(
-        "Bearer",
-        new OpenApiSecurityScheme
+    options.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
         {
-            Name = "Authorization",
-            Type = SecuritySchemeType.Http,
-            Scheme = "Bearer",
-            BearerFormat = "JWT",
-            In = ParameterLocation.Header,
-            Description =
-                "JWT token giriniz. Örnek: eyJhbGciOiJIUzI1NiIs..."
+            Title = "TaskTracker API",
+            Version = "v1",
+            Description = "TaskTracker uygulamasýnýn REST API servisi."
         });
+
+    var bearerSecurityScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "JWT token giriniz.",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = JwtBearerDefaults.AuthenticationScheme
+        }
+    };
+
+    options.AddSecurityDefinition(
+        JwtBearerDefaults.AuthenticationScheme,
+        bearerSecurityScheme);
 
     options.AddSecurityRequirement(
         new OpenApiSecurityRequirement
         {
             {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                    }
-                },
+                bearerSecurityScheme,
                 Array.Empty<string>()
             }
         });
 });
 
+#endregion
+
 var app = builder.Build();
 
-// Global Exception Middleware
+#region Middleware Pipeline
+
+// Tüm hatalarý merkezi olarak yakalar
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint(
+            "/swagger/v1/swagger.json",
+            "TaskTracker API v1");
+
+        options.DocumentTitle = "TaskTracker API";
+    });
 }
 
+// HTTP isteklerini HTTPS'e yönlendirir
 app.UseHttpsRedirection();
 
 // Ionic frontend eriþimi
 app.UseCors("AllowIonic");
 
-// Önce kullanýcý doðrulanýr
+// Kullanýcý kimlik doðrulamasý
 app.UseAuthentication();
 
-// Sonra yetki kontrolü yapýlýr
+// Yetki kontrolü
 app.UseAuthorization();
 
+// Controller endpointleri
 app.MapControllers();
+
+// SignalR Hub endpointi
+app.MapHub<TaskHub>("/hubs/task");
+
+#endregion
 
 app.Run();

@@ -155,10 +155,10 @@ namespace TaskTracker.Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task UpdateTaskStatusAsync(
-            int taskId,
-            UpdateTaskStatusDto updateTaskStatusDto,
-            int currentUserId)
+        public async Task<int> UpdateTaskStatusAsync(
+    int taskId,
+    UpdateTaskStatusDto updateTaskStatusDto,
+    int currentUserId)
         {
             var task = await _unitOfWork.Tasks
                 .GetByIdWithDetailsAsync(taskId);
@@ -180,7 +180,9 @@ namespace TaskTracker.Application.Services
                     "Bu görevin durumunu değiştirme yetkiniz yok.");
             }
 
-            UpdateTaskDates(task, updateTaskStatusDto.Status);
+            UpdateTaskDates(
+                task,
+                updateTaskStatusDto.Status);
 
             task.Status = updateTaskStatusDto.Status;
             task.UpdatedAt = DateTime.UtcNow;
@@ -188,8 +190,9 @@ namespace TaskTracker.Application.Services
             _unitOfWork.Tasks.Update(task);
 
             await _unitOfWork.SaveChangesAsync();
-        }
 
+            return task.TeamId;
+        }
         public async Task DeleteTaskAsync(
             int taskId,
             int currentUserId)
@@ -240,6 +243,24 @@ namespace TaskTracker.Application.Services
             return MapToDto(task);
         }
 
+        public async Task<List<TaskDto>> GetMyTasksAsync(int userId)
+        {
+            var createdTasks = await _unitOfWork.Tasks
+                .GetCreatedTasksByUserIdAsync(userId);
+
+            var assignedTasks = await _unitOfWork.Tasks
+                .GetAssignedTasksByUserIdAsync(userId);
+
+            var tasks = createdTasks
+                .Concat(assignedTasks)
+                .GroupBy(task => task.Id)
+                .Select(group => group.First())
+                .OrderByDescending(task => task.UpdatedAt ?? task.CreatedAt)
+                .Select(MapToDto)
+                .ToList();
+
+            return tasks;
+        }
         public async Task<List<TaskDto>> GetCreatedTasksAsync(int userId)
         {
             var tasks = await _unitOfWork.Tasks

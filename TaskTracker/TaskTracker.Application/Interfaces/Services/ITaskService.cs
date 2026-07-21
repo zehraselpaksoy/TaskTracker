@@ -10,10 +10,7 @@ namespace TaskTracker.Application.Interfaces.Services
             int taskId,
             UpdateTaskDto updateTaskDto,
             int currentUserId);
-        Task UpdateTaskStatusAsync(
-            int taskId,
-            UpdateTaskStatusDto updateTaskStatusDto,
-            int currentUserId);
+        Task<int> UpdateTaskStatusAsync(int taskId,UpdateTaskStatusDto updateTaskStatusDto,int currentUserId);
         Task DeleteTaskAsync(int taskId, int currentUserId);
 
         Task<TaskDto?> GetTaskByIdAsync(int taskId, int currentUserId);
@@ -21,6 +18,9 @@ namespace TaskTracker.Application.Interfaces.Services
         Task<List<TaskDto>> GetCreatedTasksAsync(int userId);
 
         Task<List<TaskDto>> GetAssignedTasksAsync(int userId);
+        Task<List<TaskDto>> GetMyTasksAsync(int currentUserId);
         Task<List<TaskDto>> GetTeamTasksAsync(int teamId,int currentUserId);
+
+
     }
 }

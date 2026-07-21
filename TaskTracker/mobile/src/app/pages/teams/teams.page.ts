@@ -18,8 +18,6 @@ import {
   addOutline,
   checkboxOutline,
   gridOutline,
-  homeOutline,
-  notificationsOutline,
   peopleOutline,
   searchOutline,
   star,
@@ -68,8 +66,6 @@ export class TeamsPage implements OnInit {
       addOutline,
       checkboxOutline,
       gridOutline,
-      homeOutline,
-      notificationsOutline,
       peopleOutline,
       searchOutline,
       star,
@@ -217,6 +213,18 @@ export class TeamsPage implements OnInit {
   createTeam(): void {
     this.router.navigate([
       '/teams/create'
+    ]);
+  }
+
+  openAllTasks(): void {
+    this.router.navigate([
+      '/tasks'
+    ]);
+  }
+
+  openReports(): void {
+    this.router.navigate([
+      '/reports'
     ]);
   }
 

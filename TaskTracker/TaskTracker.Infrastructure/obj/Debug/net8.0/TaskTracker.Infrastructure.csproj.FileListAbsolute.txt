@@ -17,3 +17,4 @@ C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Infrastructure\obj\Debug
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Infrastructure\obj\Debug\net8.0\ref\TaskTracker.Infrastructure.dll
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Infrastructure\bin\Debug\net8.0\TaskTracker.Infrastructure.runtimeconfig.json
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Infrastructure\obj\Debug\net8.0\TaskTracker.Infrastructure.genruntimeconfig.cache
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Infrastructure\obj\Debug\net8.0\TaskTracker.Infrastructure.sourcelink.json

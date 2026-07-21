@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
+using TaskTracker.API.Hubs;
 using TaskTracker.Application.DTOs.Tasks;
 using TaskTracker.Application.Interfaces.Services;
 
@@ -12,10 +14,14 @@ namespace TaskTracker.API.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
+        private readonly IHubContext<TaskHub> _taskHubContext;
 
-        public TaskController(ITaskService taskService)
+        public TaskController(
+            ITaskService taskService,
+            IHubContext<TaskHub> taskHubContext)
         {
             _taskService = taskService;
+            _taskHubContext = taskHubContext;
         }
 
         [HttpPost]
@@ -53,12 +59,31 @@ namespace TaskTracker.API.Controllers
         {
             var currentUserId = GetCurrentUserId();
 
-            await _taskService.UpdateTaskStatusAsync(
+            var teamId = await _taskService.UpdateTaskStatusAsync(
                 id,
                 updateTaskStatusDto,
                 currentUserId);
 
-            return Ok("Görev durumu başarıyla güncellendi.");
+            await _taskHubContext.Clients
+                .Group($"team-{teamId}")
+                .SendAsync(
+                    "TaskStatusUpdated",
+                    new
+                    {
+                        taskId = id,
+                        teamId,
+                        status = updateTaskStatusDto.Status,
+                        updatedByUserId = currentUserId,
+                        updatedAt = DateTime.UtcNow
+                    });
+
+            return Ok(new
+            {
+                message = "Görev durumu başarıyla güncellendi.",
+                taskId = id,
+                teamId,
+                status = updateTaskStatusDto.Status
+            });
         }
 
         [HttpDelete("{id}")]
@@ -111,6 +136,7 @@ namespace TaskTracker.API.Controllers
 
             return Ok(tasks);
         }
+
         [HttpGet("team/{teamId}")]
         public async Task<IActionResult> GetTeamTasks(int teamId)
         {
@@ -120,6 +146,17 @@ namespace TaskTracker.API.Controllers
                 .GetTeamTasksAsync(
                     teamId,
                     currentUserId);
+
+            return Ok(tasks);
+        }
+
+        [HttpGet("my")]
+        public async Task<IActionResult> GetMyTasks()
+        {
+            var currentUserId = GetCurrentUserId();
+
+            var tasks = await _taskService
+                .GetMyTasksAsync(currentUserId);
 
             return Ok(tasks);
         }

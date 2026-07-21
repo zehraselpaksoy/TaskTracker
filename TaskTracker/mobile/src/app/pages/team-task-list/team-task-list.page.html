@@ -1,0 +1,360 @@
+<ion-content [fullscreen]="true">
+
+  <main class="list-page">
+
+    <!-- Header -->
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Takımlara geri dön"
+        (click)="goBack()">
+
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+
+      <button
+        type="button"
+        class="team-title-button">
+
+        <span>{{ teamName }}</span>
+
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </button>
+
+      <div class="header-spacer"></div>
+
+    </header>
+
+    <!-- Workspace tabs -->
+    <nav
+      class="workspace-tabs"
+      aria-label="Takım çalışma alanı">
+
+      <button
+        type="button"
+        class="workspace-tab"
+        *ngFor="let tab of tabs"
+        [class.active]="activeTab === tab.id"
+        (click)="navigateToTab(tab.id)">
+
+        {{ tab.label }}
+      </button>
+
+    </nav>
+
+    <!-- Toolbar -->
+    <section class="toolbar">
+
+      <label class="search-box">
+        <ion-icon name="search-outline"></ion-icon>
+
+        <input
+          type="search"
+          [(ngModel)]="searchText"
+          placeholder="Görev ara"
+          autocomplete="off"
+          aria-label="Görev ara">
+      </label>
+
+      <div class="filters">
+
+        <!-- Assignee filter -->
+        <div class="filter-wrapper">
+
+          <button
+            type="button"
+            class="filter-button"
+            [class.active]="selectedAssigneeId !== null"
+            (click)="openAssigneeMenu()">
+
+            <span>
+              {{ getSelectedAssigneeLabel() }}
+            </span>
+
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+
+          <div
+            class="filter-menu"
+            *ngIf="isAssigneeMenuOpen">
+
+            <button
+              type="button"
+              [class.selected]="selectedAssigneeId === null"
+              (click)="selectAssignee(null)">
+
+              Tüm atananlar
+            </button>
+
+            <button
+              type="button"
+              *ngFor="let member of teamMembers"
+              [class.selected]="selectedAssigneeId === member.userId"
+              (click)="selectAssignee(member.userId)">
+
+              {{ member.fullName }}
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Priority filter -->
+        <div class="filter-wrapper">
+
+          <button
+            type="button"
+            class="filter-button"
+            [class.active]="selectedPriority !== null"
+            (click)="openPriorityMenu()">
+
+            <span>
+              {{ getSelectedPriorityLabel() }}
+            </span>
+
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+
+          <div
+            class="filter-menu"
+            *ngIf="isPriorityMenuOpen">
+
+            <button
+              type="button"
+              [class.selected]="selectedPriority === null"
+              (click)="selectPriority(null)">
+
+              Tüm öncelikler
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedPriority === 'high'"
+              (click)="selectPriority('high')">
+
+              Yüksek
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedPriority === 'medium'"
+              (click)="selectPriority('medium')">
+
+              Orta
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedPriority === 'low'"
+              (click)="selectPriority('low')">
+
+              Düşük
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Status filter -->
+        <div class="filter-wrapper">
+
+          <button
+            type="button"
+            class="filter-button"
+            [class.active]="selectedStatus !== null"
+            (click)="openStatusMenu()">
+
+            <span>
+              {{ getSelectedStatusLabel() }}
+            </span>
+
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+
+          <div
+            class="filter-menu"
+            *ngIf="isStatusMenuOpen">
+
+            <button
+              type="button"
+              [class.selected]="selectedStatus === null"
+              (click)="selectStatus(null)">
+
+              Tüm durumlar
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedStatus === 'todo'"
+              (click)="selectStatus('todo')">
+
+              Yapılacak
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedStatus === 'inProgress'"
+              (click)="selectStatus('inProgress')">
+
+              Devam Ediyor
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedStatus === 'done'"
+              (click)="selectStatus('done')">
+
+              Tamamlandı
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Loading -->
+    <section
+      class="state-panel"
+      *ngIf="isLoading">
+
+      <ion-spinner name="crescent"></ion-spinner>
+
+      <p>Görevler yükleniyor...</p>
+    </section>
+
+    <!-- Error -->
+    <section
+      class="state-panel error"
+      *ngIf="!isLoading && errorMessage">
+
+      <p>{{ errorMessage }}</p>
+
+      <button
+        type="button"
+        (click)="loadPage()">
+
+        Tekrar dene
+      </button>
+    </section>
+
+    <!-- Task list -->
+    <section
+      class="task-list"
+      *ngIf="!isLoading && !errorMessage">
+
+      <div class="list-summary">
+
+        <div>
+          <ion-icon name="list-outline"></ion-icon>
+
+          <span>
+            {{ getFilteredTasks().length }} görev
+          </span>
+        </div>
+
+        <span>
+          Toplam {{ tasks.length }}
+        </span>
+
+      </div>
+
+      <article
+        class="task-row"
+        *ngFor="
+          let task of getFilteredTasks();
+          trackBy: trackTask
+        "
+        tabindex="0"
+        role="button"
+        (click)="openTask(task)"
+        (keydown.enter)="openTask(task)"
+        (keydown.space)="openTask(task)">
+
+        <div class="task-main">
+
+          <span
+            class="status-indicator"
+            [attr.data-status]="task.status">
+          </span>
+
+          <div class="task-copy">
+
+            <div class="task-heading">
+
+              <span class="task-key">
+                {{ task.key }}
+              </span>
+
+              <span
+                class="status-badge"
+                [attr.data-status]="task.status">
+
+                {{ getStatusLabel(task.status) }}
+              </span>
+
+            </div>
+
+            <h2>
+              {{ task.title }}
+            </h2>
+
+            <div class="task-meta">
+
+              <span
+                class="priority-badge"
+                [attr.data-priority]="task.priority">
+
+                <strong>
+                  {{ getPrioritySymbol(task.priority) }}
+                </strong>
+
+                {{ getPriorityLabel(task.priority) }}
+              </span>
+
+              <span class="due-date">
+
+                <ion-icon name="calendar-outline"></ion-icon>
+
+                {{ formatDueDate(task.dueDate) }}
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="assignee">
+
+          <div class="assignee-avatar">
+            {{ task.assigneeInitials }}
+          </div>
+
+          <span>
+            {{ task.assigneeName }}
+          </span>
+
+        </div>
+
+      </article>
+
+      <div
+        class="empty-state"
+        *ngIf="getFilteredTasks().length === 0">
+
+        <ion-icon name="list-outline"></ion-icon>
+
+        <h2>Görev bulunamadı</h2>
+
+        <p>
+          Arama kelimesini veya seçili filtreleri değiştir.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</ion-content>

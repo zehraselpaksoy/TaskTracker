@@ -388,66 +388,44 @@
 
   <nav class="bottom-navigation">
 
-    <button
-      type="button"
-      class="navigation-item">
+  <button
+    type="button"
+    class="navigation-item active">
 
-      <ion-icon
-        name="home-outline">
-      </ion-icon>
+    <ion-icon
+      name="people-outline">
+    </ion-icon>
 
-      <span>Ana sayfa</span>
+    <span>Takımlar</span>
 
-    </button>
+  </button>
 
-    <button
-      type="button"
-      class="navigation-item active">
+  <button
+    type="button"
+    class="navigation-item"
+    (click)="openAllTasks()">
 
-      <ion-icon
-        name="people-outline">
-      </ion-icon>
+    <ion-icon
+      name="checkbox-outline">
+    </ion-icon>
 
-      <span>Takımlar</span>
+    <span>Görevler</span>
 
-    </button>
+  </button>
 
-    <button
-      type="button"
-      class="navigation-item">
+  <button
+    type="button"
+    class="navigation-item"
+    (click)="openReports()">
 
-      <ion-icon
-        name="checkbox-outline">
-      </ion-icon>
+    <ion-icon
+      name="grid-outline">
+    </ion-icon>
 
-      <span>Görevler</span>
+    <span>Raporlar</span>
 
-    </button>
+  </button>
 
-    <button
-      type="button"
-      class="navigation-item">
-
-      <ion-icon
-        name="grid-outline">
-      </ion-icon>
-
-      <span>Raporlar</span>
-
-    </button>
-
-    <button
-      type="button"
-      class="navigation-item">
-
-      <ion-icon
-        name="notifications-outline">
-      </ion-icon>
-
-      <span>Bildirimler</span>
-
-    </button>
-
-  </nav>
+</nav>
 
 </ion-content>

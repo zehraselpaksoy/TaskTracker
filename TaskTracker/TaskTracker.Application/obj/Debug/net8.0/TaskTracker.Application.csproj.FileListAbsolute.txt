@@ -13,3 +13,4 @@ C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Application\obj\Debug\ne
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Application\obj\Debug\net8.0\refint\TaskTracker.Application.dll
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.pdb
 C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Application\obj\Debug\net8.0\ref\TaskTracker.Application.dll
+C:\Users\ZEHRA ASEL\tasktracker\TaskTracker\TaskTracker.Application\obj\Debug\net8.0\TaskTracker.Application.sourcelink.json

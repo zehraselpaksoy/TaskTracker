@@ -1,0 +1,357 @@
+<ion-content [fullscreen]="true">
+
+  <main class="tasks-page">
+
+    <header class="tasks-header">
+
+      <div class="header-top">
+
+        <div>
+          <h1>Görevler</h1>
+
+          <p>
+            Tüm takımlardaki görevlerin
+          </p>
+        </div>
+
+        <div class="header-icon">
+          <ion-icon name="checkbox-outline"></ion-icon>
+        </div>
+
+      </div>
+
+      <div class="search-box">
+
+        <ion-icon name="search-outline"></ion-icon>
+
+        <input
+          type="search"
+          placeholder="Görev ara..."
+          [(ngModel)]="searchTerm"
+          aria-label="Görev ara">
+
+        <button
+          *ngIf="searchTerm"
+          type="button"
+          class="clear-search-button"
+          aria-label="Aramayı temizle"
+          (click)="clearSearch()">
+
+          ×
+
+        </button>
+
+      </div>
+
+    </header>
+
+    <section class="filter-section">
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="activeFilter === 'all'"
+        (click)="setFilter('all')">
+
+        <span>Tümü</span>
+
+        <strong>
+          {{ allTaskCount }}
+        </strong>
+
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="activeFilter === 'open'"
+        (click)="setFilter('open')">
+
+        <span>Açık</span>
+
+        <strong>
+          {{ openTaskCount }}
+        </strong>
+
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="activeFilter === 'inProgress'"
+        (click)="setFilter('inProgress')">
+
+        <span>Devam Ediyor</span>
+
+        <strong>
+          {{ inProgressTaskCount }}
+        </strong>
+
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="activeFilter === 'completed'"
+        (click)="setFilter('completed')">
+
+        <span>Tamamlandı</span>
+
+        <strong>
+          {{ completedTaskCount }}
+        </strong>
+
+      </button>
+
+    </section>
+
+    <section
+      class="state-container"
+      *ngIf="isLoading">
+
+      <ion-spinner name="crescent"></ion-spinner>
+
+      <p>
+        Görevler yükleniyor...
+      </p>
+
+    </section>
+
+    <section
+      class="state-container error-state"
+      *ngIf="!isLoading && errorMessage">
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="loadTasks()">
+
+        Tekrar dene
+
+      </button>
+
+    </section>
+
+    <ng-container
+      *ngIf="!isLoading && !errorMessage">
+
+      <div class="result-information">
+
+        <span>
+          {{ filteredTasks.length }} sonuç
+        </span>
+
+      </div>
+
+      <section
+        class="task-list"
+        *ngIf="filteredTasks.length > 0">
+
+        <article
+          class="task-card"
+          tabindex="0"
+          role="button"
+          *ngFor="
+            let task of filteredTasks;
+            trackBy: trackByTaskId
+          "
+          (click)="openTask(task)"
+          (keyup.enter)="openTask(task)">
+
+          <div class="task-type-icon">
+
+            <span
+              class="task-checkbox"
+              [class.completed]="
+                getStatusClass(task.status) ===
+                'status-completed'
+              ">
+
+              <ion-icon
+                *ngIf="
+                  getStatusClass(task.status) ===
+                  'status-completed'
+                "
+                name="checkbox-outline">
+              </ion-icon>
+
+            </span>
+
+          </div>
+
+          <div class="task-main-information">
+
+            <h2>
+              {{ task.title }}
+            </h2>
+
+            <div class="task-meta">
+
+              <span class="task-code">
+                TASK-{{ task.id }}
+              </span>
+
+              <span class="meta-separator">
+                •
+              </span>
+
+              <span class="team-name">
+                {{ task.teamName || 'Takım belirtilmedi' }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div
+            class="priority-information"
+            [ngClass]="
+              getPriorityClass(task.priority)
+            ">
+
+            <span class="priority-symbol">
+              {{ getPrioritySymbol(task.priority) }}
+            </span>
+
+            <span class="priority-label">
+              {{ getPriorityLabel(task.priority) }}
+            </span>
+
+          </div>
+
+          <div
+            class="status-badge"
+            [ngClass]="
+              getStatusClass(task.status)
+            ">
+
+            {{ getStatusLabel(task.status) }}
+
+          </div>
+
+          <div
+            class="assignee-avatar"
+            [style.background]="
+              getAssigneeColor(
+                task.assignedToUserId
+              )
+            "
+            [attr.title]="
+              task.assignedToUserName ||
+              'Atanmamış'
+            ">
+
+            {{
+              getAssigneeInitials(
+                task.assignedToUserName
+              )
+            }}
+
+          </div>
+
+          <ion-icon
+            class="task-arrow"
+            name="chevron-forward-outline">
+          </ion-icon>
+
+        </article>
+
+      </section>
+
+      <section
+        class="empty-container"
+        *ngIf="
+          tasks.length === 0 &&
+          !searchTerm
+        ">
+
+        <div class="empty-icon">
+
+          <ion-icon name="checkbox-outline"></ion-icon>
+
+        </div>
+
+        <h2>
+          Henüz görev bulunmuyor
+        </h2>
+
+        <p>
+          Oluşturduğun veya sana atanan görevler
+          burada görüntülenecek.
+        </p>
+
+      </section>
+
+      <section
+        class="empty-container"
+        *ngIf="
+          tasks.length > 0 &&
+          filteredTasks.length === 0
+        ">
+
+        <div class="empty-icon">
+
+          <ion-icon name="search-outline"></ion-icon>
+
+        </div>
+
+        <h2>
+          Görev bulunamadı
+        </h2>
+
+        <p *ngIf="searchTerm">
+          “{{ searchTerm }}” aramasıyla eşleşen
+          görev bulunamadı.
+        </p>
+
+        <p *ngIf="!searchTerm">
+          Seçilen durumda görev bulunmuyor.
+        </p>
+
+      </section>
+
+    </ng-container>
+
+  </main>
+
+  <nav class="bottom-navigation">
+
+    <button
+      type="button"
+      class="navigation-item"
+      (click)="openTeams()">
+
+      <ion-icon name="people-outline"></ion-icon>
+
+      <span>Takımlar</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item active">
+
+      <ion-icon name="checkbox-outline"></ion-icon>
+
+      <span>Görevler</span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-item"
+      (click)="openReports()">
+
+      <ion-icon name="grid-outline"></ion-icon>
+
+      <span>Raporlar</span>
+
+    </button>
+
+  </nav>
+
+</ion-content>

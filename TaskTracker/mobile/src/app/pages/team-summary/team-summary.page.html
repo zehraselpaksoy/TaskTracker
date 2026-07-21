@@ -1,0 +1,240 @@
+<ion-content fullscreen="true">
+
+  <main class="summary-page">
+
+    <!-- Üst başlık -->
+    <header class="page-header">
+
+  <button
+    type="button"
+    class="circle-button"
+    aria-label="Takımlara dön"
+    (click)="goBack()">
+
+    <ion-icon name="arrow-back-outline"></ion-icon>
+
+  </button>
+
+  <button
+    type="button"
+    class="team-title-button">
+
+    <span>{{ teamName }}</span>
+
+    <ion-icon name="chevron-down-outline"></ion-icon>
+
+  </button>
+
+  <div class="header-spacer"></div>
+
+</header>
+
+    <!-- Sekmeler -->
+    <nav class="workspace-tabs">
+
+      <button
+        type="button"
+        class="workspace-tab active">
+
+        Özet
+
+      </button>
+
+      <button
+        type="button"
+        class="workspace-tab"
+        (click)="navigateTo('board')">
+
+        Pano
+
+      </button>
+
+      <button
+        type="button"
+        class="workspace-tab"
+        (click)="navigateTo('list')">
+
+        Liste
+
+      </button>
+
+      <button
+        type="button"
+        class="workspace-tab"
+        (click)="navigateTo('calendar')">
+
+        Takvim
+
+      </button>
+
+    </nav>
+
+    <!-- Yükleniyor -->
+    <section
+      *ngIf="isLoading"
+      class="state-container">
+
+      <ion-spinner name="crescent"></ion-spinner>
+
+      <p>Takım özeti yükleniyor...</p>
+
+    </section>
+
+    <!-- Hata -->
+    <section
+      *ngIf="errorMessage && !isLoading"
+      class="state-container error-state">
+
+      <p>{{ errorMessage }}</p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="loadSummary()">
+
+        Tekrar dene
+
+      </button>
+
+    </section>
+
+    <!-- Özet içeriği -->
+    <section
+      *ngIf="summary && !isLoading"
+      class="summary-content">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="eyebrow">TAKIM PERFORMANSI</span>
+          <h1>Görev özeti</h1>
+        </div>
+
+        <span class="task-count">
+          {{ summary.totalTasks }} görev
+        </span>
+
+      </div>
+
+      <!-- Tamamlanma oranı -->
+      <article class="completion-card">
+
+        <div class="completion-header">
+
+          <div>
+            <span class="card-label">Tamamlanma oranı</span>
+
+            <strong>
+              %{{ summary.completionRate }}
+            </strong>
+          </div>
+
+          <div class="completion-circle">
+            {{ summary.doneTasks }}/{{ summary.totalTasks }}
+          </div>
+
+        </div>
+
+        <div class="progress-track">
+
+          <div
+            class="progress-value"
+            [style.width.%]="summary.completionRate">
+          </div>
+
+        </div>
+
+        <p>
+          Toplam {{ summary.totalTasks }} görevden
+          {{ summary.doneTasks }} tanesi tamamlandı.
+        </p>
+
+      </article>
+
+      <!-- İstatistik kartları -->
+      <div class="statistics-grid">
+
+        <article class="stat-card total-card">
+
+          <div class="stat-top">
+            <span class="status-dot"></span>
+            <span>Toplam görev</span>
+          </div>
+
+          <strong>{{ summary.totalTasks }}</strong>
+
+          <small>Tüm görevler</small>
+
+        </article>
+
+        <article class="stat-card todo-card">
+
+          <div class="stat-top">
+            <span class="status-dot"></span>
+            <span>Yapılacak</span>
+          </div>
+
+          <strong>{{ summary.todoTasks }}</strong>
+
+          <small>Henüz başlanmadı</small>
+
+        </article>
+
+        <article class="stat-card progress-card">
+
+          <div class="stat-top">
+            <span class="status-dot"></span>
+            <span>Devam ediyor</span>
+          </div>
+
+          <strong>{{ summary.inProgressTasks }}</strong>
+
+          <small>Üzerinde çalışılıyor</small>
+
+        </article>
+
+        <article class="stat-card done-card">
+
+          <div class="stat-top">
+            <span class="status-dot"></span>
+            <span>Tamamlanan</span>
+          </div>
+
+          <strong>{{ summary.doneTasks }}</strong>
+
+          <small>Başarıyla tamamlandı</small>
+
+        </article>
+
+      </div>
+
+      <!-- Geciken görev -->
+      <article
+        class="overdue-card"
+        [class.has-overdue]="summary.overdueTasks > 0">
+
+        <div class="overdue-content">
+
+          <div class="overdue-icon">
+            !
+          </div>
+
+          <div>
+            <span>Geciken görevler</span>
+
+            <p>
+              Son teslim tarihi geçmiş ve tamamlanmamış görevler
+            </p>
+          </div>
+
+        </div>
+
+        <strong>{{ summary.overdueTasks }}</strong>
+
+      </article>
+
+    </section>
+
+  </main>
+
+</ion-content>
