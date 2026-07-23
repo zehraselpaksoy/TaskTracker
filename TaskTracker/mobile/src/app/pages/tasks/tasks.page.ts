@@ -5,7 +5,10 @@ import {
   OnInit
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 
 import {
   IonContent,
@@ -84,7 +87,8 @@ type TaskFilter =
   | 'all'
   | 'open'
   | 'inProgress'
-  | 'completed';
+  | 'completed'
+  | 'overdue';
 
 @Component({
   selector: 'app-tasks',
@@ -107,6 +111,9 @@ export class TasksPage implements OnInit {
   private readonly router =
     inject(Router);
 
+  private readonly route =
+    inject(ActivatedRoute); 
+
   tasks: UserTask[] = [];
 
   searchTerm = '';
@@ -127,10 +134,24 @@ export class TasksPage implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loadTasks();
-  }
+ ngOnInit(): void {
+  this.route.queryParamMap.subscribe(
+    (params) => {
+      const filter =
+        params.get('filter');
 
+      this.activeFilter =
+        this.parseTaskFilter(filter);
+
+      this.loadTasks();
+    }
+  );
+}
+ get overdueTaskCount(): number {
+  return this.tasks.filter(
+    (task) => this.isOverdue(task)
+  ).length;
+}
   get filteredTasks(): UserTask[] {
     const searchValue = this.searchTerm
       .trim()
@@ -278,10 +299,10 @@ export class TasksPage implements OnInit {
   }
 
   openReports(): void {
-    this.router.navigate([
-      '/reports'
-    ]);
-  }
+  this.router.navigate([
+    '/dashboard'
+  ]);
+}
 
   getStatusLabel(
     status: number | string
@@ -521,21 +542,38 @@ export class TasksPage implements OnInit {
     return secondTime - firstTime;
   }
 
-  private matchesStatusFilter(
-    task: UserTask
-  ): boolean {
-    if (
-      this.activeFilter === 'all'
-    ) {
+private matchesStatusFilter(
+  task: UserTask
+): boolean {
+  switch (this.activeFilter) {
+    case 'all':
       return true;
-    }
 
-    return (
-      this.normalizeStatus(
-        task.status
-      ) === this.activeFilter
-    );
+    case 'open':
+      return (
+        this.normalizeStatus(task.status) ===
+        'open'
+      );
+
+    case 'inProgress':
+      return (
+        this.normalizeStatus(task.status) ===
+        'inProgress'
+      );
+
+    case 'completed':
+      return (
+        this.normalizeStatus(task.status) ===
+        'completed'
+      );
+
+    case 'overdue':
+      return this.isOverdue(task);
+
+    default:
+      return true;
   }
+}
 
   private normalizeStatus(
     status: number | string
@@ -592,7 +630,72 @@ export class TasksPage implements OnInit {
 
     return 'unknown';
   }
+  private parseTaskFilter(
+  filter: string | null
+): TaskFilter {
+  if (!filter) {
+    return 'all';
+  }
 
+  const value = filter
+    .trim()
+    .toLocaleLowerCase('tr-TR');
+
+  switch (value) {
+    case 'all':
+      return 'all';
+
+    case 'pending':
+    case 'todo':
+    case 'open':
+      return 'open';
+
+    case 'inprogress':
+      return 'inProgress';
+
+    case 'completed':
+    case 'done':
+      return 'completed';
+
+    case 'overdue':
+      return 'overdue';
+
+    default:
+      return 'all';
+  }
+}
+
+private isOverdue(
+  task: UserTask
+): boolean {
+  if (!task.dueDate) {
+    return false;
+  }
+
+  if (
+    this.normalizeStatus(task.status) ===
+    'completed'
+  ) {
+    return false;
+  }
+
+  const dueDate =
+    new Date(task.dueDate);
+
+  if (
+    Number.isNaN(dueDate.getTime())
+  ) {
+    return false;
+  }
+
+  const today =
+    new Date();
+
+  today.setHours(0, 0, 0, 0);
+  dueDate.setHours(0, 0, 0, 0);
+
+  return dueDate < today;
+}
   private normalizePriority(
     priority: number | string
   ): 'low' | 'medium' | 'high' | 'unknown' {

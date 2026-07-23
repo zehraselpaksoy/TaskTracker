@@ -76,4 +76,15 @@ export const routes: Routes = [
       m => m.TeamCalendarPage
     )
 },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
+  {
+  path: 'dashboard',
+  loadComponent: () =>
+    import('./pages/dashboard/dashboard.page').then(
+      m => m.DashboardPage
+    )
+},
 ];

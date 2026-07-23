@@ -19,9 +19,7 @@ namespace TaskTracker.Application.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task CreateTeamAsync(
-            CreateTeamDto createTeamDto,
-                       int currentUserId)
+        public async Task<CreateTeamDto> CreateTeamAsync(CreateTeamDto createTeamDto, int currentUserId)
         {
             var user = await _unitOfWork.Users
                 .GetByIdAsync(currentUserId);
@@ -63,6 +61,12 @@ namespace TaskTracker.Application.Services
             _unitOfWork.TeamMembers.Add(leaderMembership);
 
             await _unitOfWork.SaveChangesAsync();
+
+            return new CreateTeamDto
+            {
+                Id = team.Id,
+                Name = team.Name
+            };
         }
         public async Task<TeamDetailDto?> GetTeamByIdAsync(
             int teamId,

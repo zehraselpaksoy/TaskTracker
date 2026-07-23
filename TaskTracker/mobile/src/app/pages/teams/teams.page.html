@@ -427,5 +427,127 @@
   </button>
 
 </nav>
+<div
+  class="create-team-modal-backdrop"
+  *ngIf="isCreateTeamModalOpen"
+  (click)="onCreateModalBackdropClick($event)">
 
+  <section
+    class="create-team-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="create-team-title">
+
+    <div class="create-team-modal-header">
+
+      <div>
+        <span class="modal-eyebrow">
+          Yeni çalışma alanı
+        </span>
+
+        <h2 id="create-team-title">
+          Takım Oluştur
+        </h2>
+
+        <p>
+          Takımını oluştur ve görev panosuna geç.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="modal-close-button"
+        [disabled]="isCreatingTeam"
+        (click)="closeCreateTeamModal()">
+
+        ×
+
+      </button>
+
+    </div>
+
+    <form
+      class="create-team-form"
+      (ngSubmit)="createNewTeam()">
+
+      <label class="form-field">
+
+        <span>Takım adı</span>
+
+        <input
+          type="text"
+          name="teamName"
+          [(ngModel)]="newTeamName"
+          maxlength="100"
+          autocomplete="off"
+          placeholder="Örneğin: Mobil Uygulama Takımı"
+          [disabled]="isCreatingTeam">
+
+      </label>
+
+      <label class="form-field">
+
+        <span>Açıklama</span>
+
+        <textarea
+          name="teamDescription"
+          [(ngModel)]="newTeamDescription"
+          maxlength="500"
+          rows="4"
+          placeholder="Takımın çalışma alanını kısaca açıklayın"
+          [disabled]="isCreatingTeam">
+        </textarea>
+
+      </label>
+
+      <p
+        class="create-team-error"
+        *ngIf="createTeamError">
+
+        {{ createTeamError }}
+
+      </p>
+
+      <div class="create-team-actions">
+
+        <button
+          type="button"
+          class="cancel-button"
+          [disabled]="isCreatingTeam"
+          (click)="closeCreateTeamModal()">
+
+          Vazgeç
+
+        </button>
+
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="
+            isCreatingTeam ||
+            !newTeamName.trim()
+          ">
+
+          <ion-spinner
+            *ngIf="isCreatingTeam"
+            name="crescent">
+          </ion-spinner>
+
+          <span>
+            {{
+              isCreatingTeam
+                ? 'Oluşturuluyor...'
+                : 'Takımı Oluştur'
+            }}
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+</div>
 </ion-content>

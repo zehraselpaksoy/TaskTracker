@@ -475,10 +475,13 @@
 
   </div>
 
+<div class="board-menu-wrapper">
+
   <button
     type="button"
     class="board-menu-button"
     aria-label="Pano seçenekleri"
+    [attr.aria-expanded]="isBoardMenuOpen"
     (click)="openBoardMenu()">
 
     <ion-icon
@@ -486,6 +489,44 @@
     </ion-icon>
 
   </button>
+
+  <div
+    class="board-options-menu"
+    *ngIf="isBoardMenuOpen">
+
+    <button
+      type="button"
+      class="board-options-item"
+      (click)="openMembersModal()">
+
+      <ion-icon
+        name="people-outline">
+      </ion-icon>
+
+      <span>
+        Takım üyeleri
+      </span>
+
+    </button>
+
+    <button
+      type="button"
+      class="board-options-item"
+      (click)="openAddMemberModal()">
+
+      <ion-icon
+        name="person-add-outline">
+      </ion-icon>
+
+      <span>
+        Üye ekle
+      </span>
+
+    </button>
+
+  </div>
+
+</div>
 
 </div>
 
@@ -1033,7 +1074,185 @@
       </section>
 
     </div>
+  <div
+  class="members-modal-backdrop"
+  *ngIf="isMembersModalOpen"
+  (click)="closeMembersModal()">
 
+  <section
+    class="members-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="members-modal-title"
+    (click)="$event.stopPropagation()">
+
+    <header class="members-modal-header">
+
+      <div>
+
+        <span class="members-modal-label">
+          {{ teamName }}
+        </span>
+
+        <h2 id="members-modal-title">
+          Takım üyeleri
+        </h2>
+
+      </div>
+
+      <button
+        type="button"
+        class="members-modal-close"
+        aria-label="Üyeler penceresini kapat"
+        (click)="closeMembersModal()">
+
+        ×
+
+      </button>
+
+    </header>
+
+    <div
+      class="members-list"
+      *ngIf="teamMembers.length > 0">
+
+      <article
+        class="member-card"
+        *ngFor="let member of teamMembers">
+
+        <span class="member-avatar">
+          {{
+            member.fullName
+              .charAt(0)
+              .toLocaleUpperCase('tr-TR')
+          }}
+        </span>
+
+        <div class="member-info">
+
+          <strong>
+            {{ member.fullName }}
+          </strong>
+
+          <small>
+            Takım üyesi
+          </small>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <p
+      class="members-empty"
+      *ngIf="teamMembers.length === 0">
+
+      Bu takımda henüz üye bulunmuyor.
+
+    </p>
+
+    <footer class="members-modal-actions">
+
+      <button
+        type="button"
+        class="secondary-action"
+        (click)="closeMembersModal()">
+
+        Kapat
+
+      </button>
+
+      <button
+        type="button"
+        class="primary-action"
+        (click)="openAddMemberModal()">
+
+        Üye ekle
+
+      </button>
+
+    </footer>
+
+  </section>
+
+</div>
+<div
+  class="members-modal-backdrop"
+  *ngIf="isAddMemberModalOpen"
+  (click)="closeAddMemberModal()">
+
+  <section
+    class="members-modal"
+    (click)="$event.stopPropagation()">
+
+    <h2>Üye Ekle</h2>
+
+    <div class="member-search">
+
+      <input
+        type="text"
+        placeholder="Ad veya e-posta ile ara..."
+        [(ngModel)]="memberSearchText"
+        (keyup.enter)="searchUsers()">
+
+      <button
+        type="button"
+        (click)="searchUsers()">
+
+        Ara
+
+      </button>
+
+    </div>
+
+    <p
+      class="error-message"
+      *ngIf="addMemberError">
+
+      {{ addMemberError }}
+
+    </p>
+
+    <div
+      class="user-list"
+      *ngIf="userSearchResults.length > 0">
+
+      <div
+        class="user-item"
+        *ngFor="let user of userSearchResults">
+
+        <div>
+
+          <strong>{{ user.fullName }}</strong>
+
+          <div>{{ user.email }}</div>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="addTeamMember(user)">
+
+          Ekle
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      (click)="closeAddMemberModal()">
+
+      Kapat
+
+    </button>
+
+  </section>
+
+</div>
   </main>
 
 </ion-content>

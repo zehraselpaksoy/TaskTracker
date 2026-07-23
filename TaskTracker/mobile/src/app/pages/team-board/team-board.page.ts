@@ -64,8 +64,15 @@ import {
 
 import { Team } from '../../models/team';
 
-import { TeamService } from '../../services/teams';
+import {
+  TeamService,
+  UserSearchResult
+} from '../../services/teams';
 import { SignalRService } from '../../services/signalr';
+import {
+  peopleOutline,
+  personAddOutline
+} from 'ionicons/icons';
 
 interface CategoryOption {
   id: number;
@@ -127,6 +134,24 @@ export class TeamBoardPage implements OnInit, OnDestroy {
 
   private readonly categoryApiUrl =
     'https://localhost:7164/api/categories';
+
+
+  memberSearchText = '';
+
+userSearchResults: UserSearchResult[] = [];
+
+isSearchingUsers = false;
+
+isAddingMember = false;
+
+addMemberError = '';
+
+addedMemberMessage = '';
+    isBoardMenuOpen = false;
+
+  isMembersModalOpen = false;
+
+  isAddMemberModalOpen = false;
 
   teamId = 0;
 
@@ -233,7 +258,9 @@ export class TeamBoardPage implements OnInit, OnDestroy {
       listOutline,
       menuOutline,
       searchOutline,
-      statsChartOutline
+      statsChartOutline,
+      peopleOutline,
+      personAddOutline
     });
   }
 
@@ -282,6 +309,31 @@ export class TeamBoardPage implements OnInit, OnDestroy {
     this.closeAssigneeMenu();
     this.closePriorityMenu();
   }
+  
+  private refreshTeamMembers(): void {
+  this.teamService
+    .getTeamById(this.teamId)
+    .subscribe({
+      next: team => {
+        this.teamMembers =
+          (team.members ?? []).map(
+            member => ({
+              userId: member.userId,
+              fullName: member.fullName
+            })
+          );
+      },
+
+      error: (
+        error: HttpErrorResponse
+      ) => {
+        console.error(
+          'Takım üyeleri yenilenemedi:',
+          error
+        );
+      }
+    });
+}
 
   loadBoard(): void {
     this.isLoading = true;
@@ -888,14 +940,216 @@ setActiveTab(
     ]);
   }
 
-  openBoardMenu(): void {
-    this.closeAssigneeMenu();
-    this.closePriorityMenu();
+ openBoardMenu(): void {
+  this.closeAssigneeMenu();
+  this.closePriorityMenu();
 
-    console.log(
-      'Pano menüsü açılacak'
-    );
+  this.isBoardMenuOpen =
+    !this.isBoardMenuOpen;
+}
+
+closeBoardMenu(): void {
+  this.isBoardMenuOpen = false;
+}
+
+openMembersModal(): void {
+  this.closeBoardMenu();
+  this.isMembersModalOpen = true;
+}
+
+closeMembersModal(): void {
+  this.isMembersModalOpen = false;
+}
+
+openAddMemberModal(): void {
+  this.closeBoardMenu();
+
+  this.memberSearchText = '';
+  this.userSearchResults = [];
+  this.addMemberError = '';
+  this.addedMemberMessage = '';
+
+  this.isAddMemberModalOpen = true;
+}
+
+closeAddMemberModal(): void {
+  if (
+    this.isSearchingUsers ||
+    this.isAddingMember
+  ) {
+    return;
   }
+
+  this.isAddMemberModalOpen = false;
+
+  this.memberSearchText = '';
+  this.userSearchResults = [];
+  this.addMemberError = '';
+  this.addedMemberMessage = '';
+}
+searchUsers(): void {
+  const query =
+    this.memberSearchText.trim();
+
+  this.addMemberError = '';
+  this.addedMemberMessage = '';
+
+  if (query.length < 2) {
+    this.userSearchResults = [];
+
+    if (query.length === 1) {
+      this.addMemberError =
+        'Arama için en az 2 karakter girin.';
+    }
+
+    return;
+  }
+
+  this.isSearchingUsers = true;
+
+  this.teamService
+    .searchUsers(
+      query,
+      this.teamId
+    )
+    .subscribe({
+      next: users => {
+        this.userSearchResults = users;
+        this.isSearchingUsers = false;
+
+        if (users.length === 0) {
+          this.addMemberError =
+            'Eşleşen ve henüz takımda olmayan kullanıcı bulunamadı.';
+        }
+      },
+
+      error: (
+        error: HttpErrorResponse
+      ) => {
+        console.error(
+          'Kullanıcı arama hatası:',
+          error
+        );
+
+        this.isSearchingUsers = false;
+        this.userSearchResults = [];
+
+        if (error.status === 0) {
+          this.addMemberError =
+            'Backend sunucusuna ulaşılamadı.';
+
+          return;
+        }
+
+        if (error.status === 401) {
+          this.addMemberError =
+            'Oturumunuz sona ermiş olabilir.';
+
+          return;
+        }
+
+        if (error.status === 403) {
+          this.addMemberError =
+            'Kullanıcı arama yetkiniz bulunmuyor.';
+
+          return;
+        }
+
+        this.addMemberError =
+          this.extractBackendError(
+            error,
+            'Kullanıcılar aranırken bir hata oluştu.'
+          );
+      }
+    });
+}
+addTeamMember(
+  user: UserSearchResult
+): void {
+  if (this.isAddingMember) {
+    return;
+  }
+
+  this.isAddingMember = true;
+  this.addMemberError = '';
+  this.addedMemberMessage = '';
+
+  this.teamService
+    .addMember(
+      this.teamId,
+      user.id
+    )
+    .subscribe({
+      next: () => {
+        this.isAddingMember = false;
+
+        this.addedMemberMessage =
+          `${user.fullName} takıma eklendi.`;
+
+        this.userSearchResults =
+          this.userSearchResults.filter(
+            item => item.id !== user.id
+          );
+
+        this.refreshTeamMembers();
+      },
+
+      error: (
+        error: HttpErrorResponse
+      ) => {
+        console.error(
+          'Takıma üye ekleme hatası:',
+          error
+        );
+
+        this.isAddingMember = false;
+
+        if (error.status === 0) {
+          this.addMemberError =
+            'Backend sunucusuna ulaşılamadı.';
+
+          return;
+        }
+
+        if (error.status === 400) {
+          this.addMemberError =
+            this.extractBackendError(
+              error,
+              'Kullanıcı takıma eklenemedi.'
+            );
+
+          return;
+        }
+
+        if (error.status === 401) {
+          this.addMemberError =
+            'Oturumunuz sona ermiş olabilir.';
+
+          return;
+        }
+
+        if (error.status === 403) {
+          this.addMemberError =
+            'Takıma üye eklemek için takım lideri olmalısınız.';
+
+          return;
+        }
+
+        if (error.status === 404) {
+          this.addMemberError =
+            'Takım veya kullanıcı bulunamadı.';
+
+          return;
+        }
+
+        this.addMemberError =
+          this.extractBackendError(
+            error,
+            'Kullanıcı takıma eklenirken bir hata oluştu.'
+          );
+      }
+    });
+}
 
   /*
    * Görev filtreleme
@@ -1351,7 +1605,7 @@ setActiveTab(
     };
   }
 
-  private getInitials(
+   getInitials(
     fullName: string | null
   ): string {
     if (!fullName) {

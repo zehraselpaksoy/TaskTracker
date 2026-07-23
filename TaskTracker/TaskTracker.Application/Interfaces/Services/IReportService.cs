@@ -10,6 +10,8 @@ namespace TaskTracker.Application.Interfaces.Services
     public interface IReportService
     {
         Task<TeamSummaryResponse> GetTeamSummaryAsync(int teamId);
-        Task<DashboardSummaryDto> GetDashboardSummaryAsync(int userId); 
+        Task<DashboardSummaryDto> GetDashboardSummaryAsync(int userId);
+        Task<List<WeeklyProgressDto>> GetWeeklyProgressAsync(int userId);
+        Task<List<UpcomingTaskDto>> GetUpcomingDeadlinesAsync(int userId);
     }
 }

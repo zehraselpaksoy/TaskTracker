@@ -42,11 +42,22 @@ import { TeamService } from '../../services/teams';
 })
 export class TeamsPage implements OnInit {
 
+
   private readonly teamService =
     inject(TeamService);
 
   private readonly router =
     inject(Router);
+
+  isCreateTeamModalOpen = false;
+
+isCreatingTeam = false;
+
+createTeamError = '';
+
+newTeamName = '';
+
+newTeamDescription = '';  
 
   teams: Team[] = [];
 
@@ -210,11 +221,90 @@ export class TeamsPage implements OnInit {
     ]);
   }
 
-  createTeam(): void {
-    this.router.navigate([
-      '/teams/create'
-    ]);
+ createTeam(): void {
+  this.openCreateTeamModal();
+}
+openCreateTeamModal(): void {
+  this.newTeamName = '';
+  this.newTeamDescription = '';
+  this.createTeamError = '';
+  this.isCreateTeamModalOpen = true;
+}
+
+closeCreateTeamModal(): void {
+  if (this.isCreatingTeam) {
+    return;
   }
+
+  this.isCreateTeamModalOpen = false;
+  this.createTeamError = '';
+}
+
+createNewTeam(): void {
+  const name = this.newTeamName.trim();
+  const description =
+    this.newTeamDescription.trim();
+
+  if (!name) {
+    this.createTeamError =
+      'Takım adı zorunludur.';
+
+    return;
+  }
+
+  this.isCreatingTeam = true;
+  this.createTeamError = '';
+
+  this.teamService
+    .createTeam({
+      name,
+      description:
+        description || null
+    })
+    .subscribe({
+      next: (createdTeam: Team) => {
+        this.isCreatingTeam = false;
+        this.isCreateTeamModalOpen = false;
+
+        localStorage.setItem(
+          'lastViewedTeamId',
+          createdTeam.id.toString()
+        );
+
+        localStorage.setItem(
+          `teamName_${createdTeam.id}`,
+          createdTeam.name
+        );
+
+        this.router.navigate([
+          '/teams',
+          createdTeam.id
+        ]);
+      },
+
+      error: (error: unknown) => {
+        console.error(
+          'Takım oluşturulamadı:',
+          error
+        );
+
+        this.createTeamError =
+          'Takım oluşturulurken bir hata oluştu.';
+
+        this.isCreatingTeam = false;
+      }
+    });
+}
+onCreateModalBackdropClick(
+  event: MouseEvent
+): void {
+  if (
+    event.target ===
+    event.currentTarget
+  ) {
+    this.closeCreateTeamModal();
+  }
+}
 
   openAllTasks(): void {
     this.router.navigate([
@@ -222,11 +312,11 @@ export class TeamsPage implements OnInit {
     ]);
   }
 
-  openReports(): void {
-    this.router.navigate([
-      '/reports'
-    ]);
-  }
+ openReports(): void {
+  this.router.navigate([
+    '/dashboard'
+  ]);
+}
 
   toggleFavorite(
     event: Event,

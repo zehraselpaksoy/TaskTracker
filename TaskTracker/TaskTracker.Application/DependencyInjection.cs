@@ -13,6 +13,7 @@ namespace TaskTracker.Application
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<ITaskCommentService, TaskCommentService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

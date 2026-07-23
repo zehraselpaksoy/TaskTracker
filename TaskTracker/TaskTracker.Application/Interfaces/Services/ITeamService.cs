@@ -4,10 +4,9 @@ namespace TaskTracker.Application.Interfaces.Services
 {
     public interface ITeamService
     {
-        Task CreateTeamAsync(
+        Task<CreateTeamDto> CreateTeamAsync(
             CreateTeamDto createTeamDto,
             int currentUserId);
-
         Task<TeamDetailDto?> GetTeamByIdAsync(int teamId, int currentUserId);
 
         Task<List<TeamDto>> GetAllTeamsAsync();

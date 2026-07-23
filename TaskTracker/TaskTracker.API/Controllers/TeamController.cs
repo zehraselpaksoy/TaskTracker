@@ -35,11 +35,12 @@ namespace TaskTracker.API.Controllers
         {
             var currentUserId = GetCurrentUserId();
 
-            await _teamService.CreateTeamAsync(
-                createTeamDto,
-                currentUserId);
+            var createdTeam =
+                await _teamService.CreateTeamAsync(
+                    createTeamDto,
+                    currentUserId);
 
-            return Ok("Takım başarıyla oluşturuldu.");
+            return Ok(createdTeam);
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()

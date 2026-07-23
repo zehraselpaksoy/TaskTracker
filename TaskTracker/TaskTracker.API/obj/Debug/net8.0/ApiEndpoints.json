@@ -147,6 +147,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TaskTracker.API.Controllers.ReportsController",
+    "Method": "GetUpcomingDeadlines",
+    "RelativePath": "api/Reports/upcoming-deadlines",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.ReportsController",
+    "Method": "GetWeeklyProgress",
+    "RelativePath": "api/Reports/weekly-progress",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskTracker.API.Controllers.TaskController",
     "Method": "Create",
     "RelativePath": "api/tasks",
@@ -432,6 +452,27 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.UsersController",
+    "Method": "Search",
+    "RelativePath": "api/users/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   }
 ]

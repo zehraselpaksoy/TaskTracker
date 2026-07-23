@@ -3,44 +3,124 @@
   "WorkspaceRootPath": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\teamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\teamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\taskcommentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\taskcommentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\users\\usersearchresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\users\\usersearchresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iteammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iteammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\teammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\repositories\\teammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\teamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\services\\teamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\tasks\\createdtaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\tasks\\createdtaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\teamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\teamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\reports\\weeklyprogressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\reports\\weeklyprogressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\reports\\upcomingdeadlines.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\reports\\upcomingdeadlines.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\ireportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\ireportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\services\\taskcommentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,14 +139,6 @@
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\itaskitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\ireportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\ireportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\reports\\dashboardsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\reports\\dashboardsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -75,28 +147,12 @@
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\reports\\teamsummaryresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\tasks\\taskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\tasks\\taskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\taskcommentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\taskcommentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\enums\\taskitemstatus .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\enums\\taskitemstatus .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\hubs\\taskhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -113,10 +169,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\identity\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\identity\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -141,14 +193,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\comments\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\comments\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -183,10 +227,6 @@
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\storage\\ifilestorageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\tasktracker.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\tasktracker.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -201,10 +241,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\migrations\\20260720084634_addtaskcommentsandattachments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\migrations\\20260720084634_addtaskcommentsandattachments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\taskcommentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -227,10 +263,6 @@
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\tasks\\updatetaskstatusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\tasks\\createtaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\tasks\\createtaskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -243,40 +275,12 @@
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\configurations\\taskitemconfiguration .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.domain\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52539EF0-294B-411E-8FC1-3EB329087576}|TaskTracker.Domain\\TaskTracker.Domain.csproj|solutionrelative:tasktracker.domain\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.api\\middleware\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6DC5A00-31C1-4182-AA65-41F4021DC058}|TaskTracker.API\\TaskTracker.API.csproj|solutionrelative:tasktracker.api\\middleware\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\teamdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\teamdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iteammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iteammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\teammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\repositories\\teammemberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\teamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\teamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\teams\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\dtos\\teams\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\teamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -299,20 +303,12 @@
       "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\services\\ipasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.infrastructure\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08F1336A-D944-4D88-810F-7D0921A3D104}|TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj|solutionrelative:tasktracker.infrastructure\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\interfaces\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|solutionrelative:tasktracker.application\\interfaces\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BB6CBDB-0A8A-4AB7-ABF0-263F2470A6FE}|TaskTracker.Application\\TaskTracker.Application.csproj|c:\\users\\zehra asel\\tasktracker\\tasktracker\\tasktracker.application\\dtos\\auth\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -350,31 +346,319 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "TaskTracker.API\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T13:55:20.788Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DependencyInjection.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DependencyInjection.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DependencyInjection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-21T13:58:55.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TaskCommentsController.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskCommentsController.cs",
+              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\TaskCommentsController.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskCommentsController.cs",
+              "RelativeToolTip": "TaskTracker.API\\Controllers\\TaskCommentsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-20T08:39:34.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TeamController.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TeamController.cs",
+              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\TeamController.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TeamController.cs",
+              "RelativeToolTip": "TaskTracker.API\\Controllers\\TeamController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAowEcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T12:58:03.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ITeamService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T11:04:37.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\UserService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Services\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T13:50:44.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "TeamService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\TeamService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\TeamService.cs",
               "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\TeamService.cs",
               "RelativeToolTip": "TaskTracker.Application\\Services\\TeamService.cs",
-              "ViewState": "AgIAAAIBAAAAAAAAAAAswC4BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAkwJkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-17T10:47:13.347Z"
+              "WhenOpened": "2026-07-17T10:47:13.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\User.cs",
+              "RelativeToolTip": "TaskTracker.Domain\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-13T08:55:51.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAUwBMAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-14T10:31:40.879Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "UserSearchResultDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Users\\UserSearchResultDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Users\\UserSearchResultDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Users\\UserSearchResultDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Users\\UserSearchResultDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T13:30:25.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IUserService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IUserService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IUserService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T13:49:52.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-13T14:36:39.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ReportService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\ReportService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\ReportService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\ReportService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Services\\ReportService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T12:32:36.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ICategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-13T14:37:04.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ITeamMemberRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T08:31:43.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TeamMemberRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
+              "RelativeToolTip": "TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAIwDkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T08:36:31.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "TeamMemberDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T12:55:07.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CreateTeamDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T10:59:41.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "TaskService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\TaskService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\TaskService.cs",
               "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\TaskService.cs",
               "RelativeToolTip": "TaskTracker.Application\\Services\\TaskService.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAA+wMIAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T07:40:30.652Z"
+              "WhenOpened": "2026-07-16T07:40:30.652Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 19,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-14T10:50:22.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ITaskService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAswBkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T07:36:18.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TeamDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T11:00:39.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CreateDTaskDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\CreateDTaskDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Tasks\\CreateDTaskDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\CreateDTaskDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Tasks\\CreateDTaskDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T06:43:22.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ITeamRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T08:31:06.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "TaskTracker.API\\Properties\\launchSettings.json",
@@ -386,19 +670,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 25,
+              "Title": "WeeklyProgressDto.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\WeeklyProgressDto.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Reports\\WeeklyProgressDto.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\WeeklyProgressDto.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Reports\\WeeklyProgressDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T11:23:09.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Upcomingdeadlines.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\Upcomingdeadlines.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Reports\\Upcomingdeadlines.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\Upcomingdeadlines.cs",
+              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Reports\\Upcomingdeadlines.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-23T12:29:01.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "ReportController.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\ReportController.cs",
               "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\ReportController.cs",
               "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\ReportController.cs",
               "RelativeToolTip": "TaskTracker.API\\Controllers\\ReportController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAswFAAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T08:20:20.707Z"
+              "WhenOpened": "2026-07-23T12:33:55.167Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 29,
               "Title": "DependencyInjection.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\DependencyInjection.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\DependencyInjection.cs",
@@ -410,56 +721,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TeamController.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TeamController.cs",
-              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\TeamController.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TeamController.cs",
-              "RelativeToolTip": "TaskTracker.API\\Controllers\\TeamController.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAowHMAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 27,
+              "Title": "IReportService.cs",
+              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
+              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
+              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
+              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T11:49:41.596Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TaskController.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskController.cs",
-              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\TaskController.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskController.cs",
-              "RelativeToolTip": "TaskTracker.API\\Controllers\\TaskController.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAowKYAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-17T14:10:30.775Z",
+              "WhenOpened": "2026-07-21T13:50:31.044Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Program.cs",
-              "RelativeDocumentMoniker": "TaskTracker.API\\Program.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Program.cs",
-              "RelativeToolTip": "TaskTracker.API\\Program.cs",
-              "ViewState": "AgIAALcAAAAAAAAAAIAwwMgAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-20T13:56:08.761Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ReportService.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\ReportService.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\ReportService.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\ReportService.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Services\\ReportService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-21T13:51:22.155Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 32,
               "Title": "IJwtService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IJwtService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IJwtService.cs",
@@ -471,7 +746,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 31,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\AuthService.cs",
@@ -483,7 +758,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 30,
               "Title": "TaskCommentService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Services\\TaskCommentService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Services\\TaskCommentService.cs",
@@ -495,19 +770,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DependencyInjection.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DependencyInjection.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DependencyInjection.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-21T13:58:55.495Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 33,
               "Title": "ITaskItemRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITaskItemRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITaskItemRepository.cs",
@@ -519,31 +782,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ITaskService.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\ITaskService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAswBkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T07:36:18.259Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "IReportService.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\IReportService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-21T13:50:31.044Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 34,
               "Title": "DashboardSummaryDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\DashboardSummaryDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Reports\\DashboardSummaryDto.cs",
@@ -555,7 +794,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 35,
               "Title": "TeamSummaryResponse.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Reports\\TeamSummaryResponse.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Reports\\TeamSummaryResponse.cs",
@@ -567,19 +806,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "TaskItem.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\TaskItem.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\TaskItem.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\TaskItem.cs",
-              "RelativeToolTip": "TaskTracker.Domain\\Entities\\TaskItem.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAuwCgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T10:53:56.849Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 36,
               "Title": "TaskItemStatus .cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Enums\\TaskItemStatus .cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Enums\\TaskItemStatus .cs",
@@ -591,31 +818,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "TaskCommentsController.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskCommentsController.cs",
-              "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\TaskCommentsController.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\TaskCommentsController.cs",
-              "RelativeToolTip": "TaskTracker.API\\Controllers\\TaskCommentsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-20T08:39:34.191Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "TaskDto.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\TaskDto.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Tasks\\TaskDto.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\TaskDto.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Tasks\\TaskDto.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAswBoAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T07:12:00.645Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 37,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\IUnitOfWork.cs",
@@ -627,19 +830,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ITeamService.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\ITeamService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T11:04:37.602Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 39,
               "Title": "TaskTracker.API.csproj",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\TaskTracker.API.csproj",
               "RelativeDocumentMoniker": "TaskTracker.API\\TaskTracker.API.csproj",
@@ -651,7 +842,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 38,
               "Title": "TaskHub.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Hubs\\TaskHub.cs",
               "RelativeDocumentMoniker": "TaskTracker.API\\Hubs\\TaskHub.cs",
@@ -663,7 +854,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 44,
               "Title": "UpdateTaskDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\UpdateTaskDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Tasks\\UpdateTaskDto.cs",
@@ -675,7 +866,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 43,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\AuthController.cs",
@@ -687,7 +878,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 40,
               "Title": "PasswordHasher.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Identity\\PasswordHasher.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Identity\\PasswordHasher.cs",
@@ -699,7 +890,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 41,
               "Title": "JwtSettings.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Identity\\JwtSettings.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Identity\\JwtSettings.cs",
@@ -711,19 +902,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "IAuthService.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Services\\IAuthService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T10:50:22.186Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 42,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Auth\\LoginDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Auth\\LoginDto.cs",
@@ -735,19 +914,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "BaseEntity.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Common\\BaseEntity.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Domain\\Common\\BaseEntity.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Common\\BaseEntity.cs",
-              "RelativeToolTip": "TaskTracker.Domain\\Common\\BaseEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T10:43:59.417Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 48,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\UnitOfWork.cs",
@@ -759,7 +926,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 46,
               "Title": "CreateCommentDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Comments\\CreateCommentDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Comments\\CreateCommentDto.cs",
@@ -771,7 +938,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 45,
               "Title": "UpdateCommentDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Comments\\UpdateCommentDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Comments\\UpdateCommentDto.cs",
@@ -783,7 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 47,
               "Title": "CommentDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Comments\\CommentDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Comments\\CommentDto.cs",
@@ -795,19 +962,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\User.cs",
-              "RelativeToolTip": "TaskTracker.Domain\\Entities\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T08:55:51.93Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 51,
               "Title": "CommentAttachment.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\CommentAttachment.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\CommentAttachment.cs",
@@ -819,7 +974,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 49,
               "Title": "ICommentAttachmentRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ICommentAttachmentRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ICommentAttachmentRepository.cs",
@@ -831,7 +986,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 50,
               "Title": "CommentAttachmentRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\CommentAttachmentRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\CommentAttachmentRepository.cs",
@@ -843,7 +998,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 52,
               "Title": "ITaskCommentService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\ITaskCommentService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\ITaskCommentService.cs",
@@ -855,7 +1010,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 53,
               "Title": "ITaskCommentRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITaskCommentRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITaskCommentRepository.cs",
@@ -867,7 +1022,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 55,
               "Title": "IFileStorageService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Storage\\IFileStorageService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Storage\\IFileStorageService.cs",
@@ -879,7 +1034,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 54,
               "Title": "MinioFileStorageService.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Storage\\MinioFileStorageService.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Storage\\MinioFileStorageService.cs",
@@ -891,19 +1046,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "ICategoryRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ICategoryRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T14:37:04.041Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 56,
               "Title": "TaskTracker.Infrastructure.csproj",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\TaskTracker.Infrastructure.csproj",
@@ -915,7 +1058,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 58,
               "Title": "docker-compose.yml",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\docker-compose.yml",
               "RelativeDocumentMoniker": "docker-compose.yml",
@@ -927,7 +1070,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 59,
               "Title": "20260720084634_AddTaskCommentsAndAttachments.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Migrations\\20260720084634_AddTaskCommentsAndAttachments.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Migrations\\20260720084634_AddTaskCommentsAndAttachments.cs",
@@ -939,7 +1082,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 57,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\appsettings.json",
               "RelativeDocumentMoniker": "TaskTracker.API\\appsettings.json",
@@ -951,19 +1094,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeToolTip": "TaskTracker.Infrastructure\\Repositories\\UserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T10:31:40.879Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 60,
               "Title": "TaskCommentRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TaskCommentRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\TaskCommentRepository.cs",
@@ -975,7 +1106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 61,
               "Title": "TaskItemRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TaskItemRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\TaskItemRepository.cs",
@@ -987,7 +1118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 63,
               "Title": "TaskComment.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\TaskComment.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\TaskComment.cs",
@@ -999,19 +1130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
-              "Title": "CreateTaskDto.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\CreateTaskDto.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Tasks\\CreateTaskDto.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\CreateTaskDto.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Tasks\\CreateTaskDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T06:43:22.819Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 62,
               "Title": "TaskTrackerDbContext.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Context\\TaskTrackerDbContext.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Context\\TaskTrackerDbContext.cs",
@@ -1023,7 +1142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 64,
               "Title": "UpdateTaskStatusDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Tasks\\UpdateTaskStatusDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Tasks\\UpdateTaskStatusDto.cs",
@@ -1035,7 +1154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 65,
               "Title": "CategoriesController.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Controllers\\CategoriesController.cs",
               "RelativeDocumentMoniker": "TaskTracker.API\\Controllers\\CategoriesController.cs",
@@ -1047,7 +1166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 66,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\Category.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\Category.cs",
@@ -1059,7 +1178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 67,
               "Title": "TaskItemConfiguration .cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Configurations\\TaskItemConfiguration .cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Configurations\\TaskItemConfiguration .cs",
@@ -1071,31 +1190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
-              "Title": "ITeamRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T08:31:06.773Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
-              "Title": "Team.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\Team.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\Team.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\Team.cs",
-              "RelativeToolTip": "TaskTracker.Domain\\Entities\\Team.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T08:20:27.466Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 68,
               "Title": "ExceptionMiddleware.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.API\\Middleware\\ExceptionMiddleware.cs",
               "RelativeDocumentMoniker": "TaskTracker.API\\Middleware\\ExceptionMiddleware.cs",
@@ -1107,31 +1202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
-              "Title": "ITeamMemberRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\ITeamMemberRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T08:31:43.724Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 64,
-              "Title": "TeamMemberDto.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\TeamMemberDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T12:55:07.211Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 69,
               "Title": "TeamDetailDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamDetailDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\TeamDetailDto.cs",
@@ -1143,43 +1214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
-              "Title": "TeamMemberRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
-              "RelativeToolTip": "TaskTracker.Infrastructure\\Repositories\\TeamMemberRepository.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAswDkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T08:36:31.299Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 68,
-              "Title": "CreateTeamDto.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\CreateTeamDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T10:59:41.683Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 67,
-              "Title": "TeamDto.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
-              "RelativeToolTip": "TaskTracker.Application\\DTOs\\Teams\\TeamDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-16T11:00:39.914Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 70,
               "Title": "TeamRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\TeamRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\TeamRepository.cs",
@@ -1191,7 +1226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 71,
               "Title": "TaskPriority.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Enums\\TaskPriority.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Enums\\TaskPriority.cs",
@@ -1203,7 +1238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 72,
               "Title": "TeamRole.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Enums\\TeamRole.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Enums\\TeamRole.cs",
@@ -1215,7 +1250,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 73,
               "Title": "TeamMember.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Domain\\Entities\\TeamMember.cs",
               "RelativeDocumentMoniker": "TaskTracker.Domain\\Entities\\TeamMember.cs",
@@ -1227,7 +1262,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 74,
               "Title": "IPasswordHasher.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Services\\IPasswordHasher.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Services\\IPasswordHasher.cs",
@@ -1236,18 +1271,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-14T10:52:32.628Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 74,
-              "Title": "IRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\IRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IRepository.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\IRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T13:56:18.336Z"
             },
             {
               "$type": "Document",
@@ -1276,18 +1299,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 77,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
-              "ToolTip": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
-              "RelativeToolTip": "TaskTracker.Application\\Interfaces\\Repositories\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T14:36:39.105Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 78,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Application\\DTOs\\Auth\\RegisterDto.cs",
               "RelativeDocumentMoniker": "TaskTracker.Application\\DTOs\\Auth\\RegisterDto.cs",
@@ -1299,7 +1310,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 78,
               "Title": "CategoryRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Repositories\\CategoryRepository.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Repositories\\CategoryRepository.cs",
@@ -1311,7 +1322,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 80,
               "Title": "20260713134646_InitialCreate.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Migrations\\20260713134646_InitialCreate.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Migrations\\20260713134646_InitialCreate.cs",
@@ -1323,7 +1334,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 79,
               "Title": "CategoryConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\ZEHRA ASEL\\tasktracker\\TaskTracker\\TaskTracker.Infrastructure\\Configurations\\CategoryConfiguration.cs",
               "RelativeDocumentMoniker": "TaskTracker.Infrastructure\\Configurations\\CategoryConfiguration.cs",

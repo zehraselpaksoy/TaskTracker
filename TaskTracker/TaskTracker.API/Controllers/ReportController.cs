@@ -40,4 +40,43 @@ public class ReportsController : ControllerBase
 
         return Ok(summary);
     }
+
+    [HttpGet("weekly-progress")]
+    public async Task<IActionResult> GetWeeklyProgress()
+    {
+        var userIdClaim =
+            User.FindFirst(ClaimTypes.NameIdentifier);
+
+        if (userIdClaim == null ||
+            !int.TryParse(userIdClaim.Value, out var userId))
+        {
+            return Unauthorized();
+        }
+
+        var result =
+            await _reportService.GetWeeklyProgressAsync(userId);
+
+        return Ok(result);
+    }
+
+    [HttpGet("upcoming-deadlines")]
+    public async Task<IActionResult> GetUpcomingDeadlines()
+    {
+        var userIdClaim =
+            User.FindFirst(ClaimTypes.NameIdentifier);
+
+        if (
+            userIdClaim is null ||
+            !int.TryParse(userIdClaim.Value, out var userId)
+        )
+        {
+            return Unauthorized();
+        }
+
+        var result =
+            await _reportService
+                .GetUpcomingDeadlinesAsync(userId);
+
+        return Ok(result);
+    } 
 }

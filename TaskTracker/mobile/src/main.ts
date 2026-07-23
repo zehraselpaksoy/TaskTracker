@@ -17,6 +17,11 @@ import {
   withInterceptors
 } from '@angular/common/http';
 
+import {
+  provideCharts,
+  withDefaultRegisterables
+} from 'ng2-charts';
+
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { authInterceptor } from './app/interceptors/auth-interceptor';
@@ -37,6 +42,9 @@ bootstrapApplication(AppComponent, {
 
     provideHttpClient(
       withInterceptors([authInterceptor])
-    )
+    ),
+    provideCharts(
+    withDefaultRegisterables()
+    ),
   ]
 }).catch(error => console.error(error));
