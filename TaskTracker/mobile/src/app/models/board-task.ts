@@ -25,6 +25,10 @@ export interface BoardTask {
   assignedToUserId: number | null;
   assigneeName: string;
   assigneeInitials: string;
+
+  // Görevi atayan (oluşturan) kişi alanları
+  createdByName?: string;
+  createdInitials?: string;
 }
 
 export interface BoardColumn {

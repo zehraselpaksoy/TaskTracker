@@ -1,0 +1,320 @@
+<ion-content [fullscreen]="true">
+  <div class="calendar-page">
+
+    <!-- Üst başlık -->
+    <header class="top-header">
+      <button
+        type="button"
+        class="circle-button"
+        aria-label="Takımlara dön"
+        (click)="goBack()"
+      >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+
+      <button
+        type="button"
+        class="team-selector"
+        aria-label="Takım seç"
+        aria-haspopup="dialog"
+        [attr.aria-expanded]="isTeamMenuOpen"
+        (click)="openTeamMenu()"
+      >
+        <span>{{ teamName }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </button>
+
+      <div class="header-spacer" aria-hidden="true"></div>
+    </header>
+
+    <!-- Üst sekmeler -->
+    <nav class="workspace-tabs" aria-label="Takım çalışma alanı">
+      <button
+        type="button"
+        class="menu-tab"
+        aria-label="Çalışma alanı menüsünü aç"
+        [attr.aria-expanded]="isNavigationMenuOpen"
+        (click)="toggleNavigationMenu()"
+      >
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <div class="tabs-scroll">
+        <button
+          *ngFor="let tab of tabs"
+          type="button"
+          class="workspace-tab"
+          [class.active]="activeTab === tab.id"
+          [attr.aria-current]="activeTab === tab.id ? 'page' : null"
+          (click)="navigateToTab(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+    </nav>
+
+    <!-- Takvim içeriği -->
+    <main class="calendar-content">
+
+      <section class="calendar-toolbar">
+        <div class="month-navigation">
+          <button
+            type="button"
+            class="navigation-button"
+            aria-label="Önceki ay"
+            (click)="previousMonth()"
+          >
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </button>
+
+          <div class="month-title">
+            <span class="month-label">
+              {{ getMonthTitle() }}
+            </span>
+            <span class="month-subtitle">
+              Son teslim tarihine göre görevler
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="navigation-button"
+            aria-label="Sonraki ay"
+            (click)="nextMonth()"
+          >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="today-button"
+          (click)="goToToday()"
+        >
+          Bugün
+        </button>
+      </section>
+
+      <!-- Yükleniyor -->
+      <div *ngIf="isLoading" class="state-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Görevler yükleniyor...</p>
+      </div>
+
+      <!-- Hata -->
+      <div *ngIf="!isLoading && errorMessage" class="state-container error-state">
+        <h2>Takvim yüklenemedi</h2>
+        <p>{{ errorMessage }}</p>
+        <button type="button" class="retry-button" (click)="loadCalendar()">
+          Tekrar dene
+        </button>
+      </div>
+
+      <!-- Takvim -->
+      <section *ngIf="!isLoading && !errorMessage" class="calendar-wrapper">
+        <div class="week-days">
+          <div *ngFor="let weekDay of weekDays" class="week-day">
+            {{ weekDay }}
+          </div>
+        </div>
+
+        <div class="calendar-grid">
+          <article
+            *ngFor="let day of calendarDays; trackBy: trackDay"
+            class="calendar-day"
+            [class.other-month]="!day.isCurrentMonth"
+            [class.today]="day.isToday"
+          >
+            <div class="day-header">
+              <span class="day-number">{{ day.dayNumber }}</span>
+              <span *ngIf="day.isToday" class="today-label">Bugün</span>
+            </div>
+
+            <div class="day-tasks">
+              <button
+                *ngFor="let task of day.tasks; trackBy: trackTask"
+                type="button"
+                class="calendar-task"
+                [ngClass]="getTaskStatusClass(task.status)"
+                (click)="openTask(task)"
+              >
+                <span class="task-title">{{ task.title }}</span>
+                <span *ngIf="task.assignedToName" class="task-assignee">
+                  {{ task.assignedToName }}
+                </span>
+              </button>
+
+              <span
+                *ngIf="day.tasks.length === 0 && day.isCurrentMonth"
+                class="empty-day"
+              >
+                Görev yok
+              </span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Takım menüsü arka planı (2. Fotoğraftaki Karartma) -->
+  <div
+    *ngIf="isTeamMenuOpen"
+    class="team-menu-backdrop"
+    (click)="onTeamMenuBackdropClick()"
+  ></div>
+
+  <!-- 2. FOTOĞRAFTAKİ TAKIM SEÇİCİ MODAL WINDOW -->
+  <section
+    *ngIf="isTeamMenuOpen"
+    class="team-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="team-menu-title"
+  >
+    <header class="team-menu-header">
+      <h3 id="team-menu-title">Takım Seç</h3>
+
+      <button
+        type="button"
+        class="team-menu-close"
+        aria-label="Takım menüsünü kapat"
+        (click)="closeTeamMenu()"
+      >
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <div *ngIf="isTeamsLoading" class="team-menu-loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <span>Takımlar yükleniyor...</span>
+    </div>
+
+    <div *ngIf="!isTeamsLoading && teamMenuError" class="team-menu-error">
+      <span>{{ teamMenuError }}</span>
+      <button type="button" class="retry-button" (click)="loadMyTeams()">
+        Tekrar dene
+      </button>
+    </div>
+
+    <div *ngIf="!isTeamsLoading && !teamMenuError" class="team-menu-list">
+      <button
+        *ngFor="let team of myTeams; trackBy: trackTeam"
+        type="button"
+        class="team-menu-item"
+        [class.active]="isActiveTeam(team.id)"
+        (click)="selectTeam(team)"
+      >
+        <span class="team-menu-item-content">
+          <strong>{{ team.name }}</strong>
+          <small>{{ team.memberCount || 1 }} üye</small>
+        </span>
+
+        <ion-icon
+          *ngIf="isActiveTeam(team.id)"
+          name="checkmark-circle-outline"
+        ></ion-icon>
+      </button>
+
+      <div *ngIf="myTeams.length === 0" class="team-menu-empty">
+        Henüz bir takıma üye değilsiniz.
+      </div>
+    </div>
+  </section>
+
+  <!-- Sol menü arka planı -->
+  <div
+    *ngIf="isNavigationMenuOpen"
+    class="navigation-backdrop"
+    (click)="onNavigationBackdropClick()"
+  ></div>
+
+  <!-- Sol çalışma alanı menüsü -->
+  <aside
+    *ngIf="isNavigationMenuOpen"
+    class="navigation-drawer"
+    [class.open]="isNavigationMenuOpen"
+    aria-label="Takım çalışma alanı menüsü"
+  >
+    <header class="navigation-drawer-header">
+      <div class="navigation-team-info">
+        <span class="navigation-team-label">Çalışma alanı</span>
+        <strong>{{ teamName }}</strong>
+      </div>
+
+      <button
+        type="button"
+        class="navigation-close-button"
+        aria-label="Menüyü kapat"
+        (click)="closeNavigationMenu()"
+      >
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <nav class="navigation-menu">
+      <button
+        type="button"
+        class="navigation-menu-item"
+        [class.active]="activeTab === 'summary'"
+        (click)="selectNavigationTab('summary')"
+      >
+        <span class="navigation-menu-icon">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+        </span>
+        <span class="navigation-menu-text">Özet</span>
+        <span *ngIf="activeTab === 'summary'" class="navigation-active-indicator">✓</span>
+      </button>
+
+      <button
+        type="button"
+        class="navigation-menu-item"
+        [class.active]="activeTab === 'board'"
+        (click)="selectNavigationTab('board')"
+      >
+        <span class="navigation-menu-icon">
+          <ion-icon name="grid-outline"></ion-icon>
+        </span>
+        <span class="navigation-menu-text">Pano</span>
+        <span *ngIf="activeTab === 'board'" class="navigation-active-indicator">✓</span>
+      </button>
+
+      <button
+        type="button"
+        class="navigation-menu-item"
+        [class.active]="activeTab === 'list'"
+        (click)="selectNavigationTab('list')"
+      >
+        <span class="navigation-menu-icon">
+          <ion-icon name="list-outline"></ion-icon>
+        </span>
+        <span class="navigation-menu-text">Liste</span>
+        <span *ngIf="activeTab === 'list'" class="navigation-active-indicator">✓</span>
+      </button>
+
+      <button
+        type="button"
+        class="navigation-menu-item active"
+        (click)="selectNavigationTab('calendar')"
+      >
+        <span class="navigation-menu-icon">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </span>
+        <span class="navigation-menu-text">Takvim</span>
+        <span class="navigation-active-indicator">✓</span>
+      </button>
+    </nav>
+
+    <footer class="navigation-drawer-footer">
+      <button
+        type="button"
+        class="navigation-back-button"
+        (click)="goBack()"
+      >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>Takımlara dön</span>
+      </button>
+    </footer>
+  </aside>
+</ion-content>

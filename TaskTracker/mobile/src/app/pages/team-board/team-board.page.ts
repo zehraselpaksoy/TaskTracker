@@ -64,7 +64,7 @@ import {
 
 import { Team } from '../../models/team';
 
-import { TeamService } from '../../services/team';
+import { TeamService } from '../../services/teams';
 import { SignalRService } from '../../services/signalr';
 
 interface CategoryOption {
@@ -843,12 +843,21 @@ export class TeamBoardPage implements OnInit, OnDestroy {
 setActiveTab(
   tab: BoardTab
 ): void {
+  (document.activeElement as HTMLElement | null)?.blur();
 
   if (tab === 'summary') {
     void this.router.navigate([
       '/teams',
       this.teamId,
       'summary'
+    ]);
+    return;
+  }
+
+  if (tab === 'board') {
+    void this.router.navigate([
+      '/teams',
+      this.teamId
     ]);
     return;
   }
@@ -862,7 +871,13 @@ setActiveTab(
     return;
   }
 
-  this.activeTab = tab;
+  if (tab === 'calendar') {
+    void this.router.navigate([
+      '/teams',
+      this.teamId,
+      'calendar'
+    ]);
+  }
 }
 
   goBack(): void {

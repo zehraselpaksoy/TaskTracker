@@ -55,5 +55,41 @@ namespace TaskTracker.Application.Services
                 CompletionRate = completionRate
             };
         }
+        public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(
+    int userId)
+        {
+            var tasks =
+                await _unitOfWork.Tasks
+                    .GetAssignedTasksByUserIdAsync(userId);
+
+            var now = DateTime.UtcNow;
+
+            var totalTasks = tasks.Count;
+
+            var todoTasks = tasks.Count(task =>
+                task.Status == TaskItemStatus.Pending);
+
+            var inProgressTasks = tasks.Count(task =>
+                task.Status == TaskItemStatus.InProgress);
+
+            var completedTasks = tasks.Count(task =>
+                task.Status == TaskItemStatus.Completed);
+
+            var overdueTasks = tasks.Count(task =>
+                task.DueDate.HasValue &&
+                task.DueDate.Value < now &&
+                task.Status != TaskItemStatus.Completed);
+
+            return new DashboardSummaryDto
+            {
+                TotalTasks = totalTasks,
+                TodoTasks = todoTasks,
+                InProgressTasks = inProgressTasks,
+                CompletedTasks = completedTasks,
+                OverdueTasks = overdueTasks,
+                MyTasks = totalTasks
+            };
+        }
+
     }
 }

@@ -34,17 +34,11 @@ export const routes: Routes = [
         (m) => m.TeamsPage
       ),
   },
-  {
-    path: 'team-board',
-    loadComponent: () =>
-      import('./pages/team-board/team-board.page').then(
-        (m) => m.TeamBoardPage
-      ),
-  },
-  {
+   {
     path: 'teams/:id',
     loadComponent: () =>
-      import('./pages/team-board/team-board.page').then(
+      import('./pages/team-board/team-board.page')
+    .then(
         (m) => m.TeamBoardPage
       ),
   },
@@ -70,13 +64,16 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'team-summary',
-    loadComponent: () => import('./pages/team-summary/team-summary.page').then( m => m.TeamSummaryPage)
-  },
- {
   path: 'teams/:id/summary',
   loadComponent: () =>
     import('./pages/team-summary/team-summary.page')
       .then(m => m.TeamSummaryPage)
+},
+  {
+  path: 'teams/:id/calendar',
+  loadComponent: () =>
+    import('./pages/team-calendar/team-calendar.page').then(
+      m => m.TeamCalendarPage
+    )
 },
 ];

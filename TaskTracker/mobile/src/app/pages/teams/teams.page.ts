@@ -25,7 +25,7 @@ import {
 } from 'ionicons/icons';
 
 import { Team } from '../../models/team';
-import { TeamService } from '../../services/team';
+import { TeamService } from '../../services/teams';
 
 @Component({
   selector: 'app-teams',

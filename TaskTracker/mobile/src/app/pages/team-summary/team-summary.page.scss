@@ -1,17 +1,20 @@
 :host {
-  display: block;
-
   --page-background: #000000;
-  --surface: #1d1d1f;
+  --surface-color: #1d1d1f;
   --surface-secondary: #242529;
   --surface-hover: #2b2c31;
-  --border: #34353a;
+  --border-color: #34353a;
 
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1a8;
-  --text-muted: #73737a;
+  --primary-text: #ffffff;
+  --secondary-text: #a1a1a8;
+  --muted-text: #73737a;
 
-  --accent: #72a7ff;
+  --accent-color: #72a7ff;
+
+  display: block;
+  min-height: 100%;
+
+  background: var(--page-background);
 }
 
 ion-content {
@@ -20,94 +23,114 @@ ion-content {
 
 button {
   font: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .summary-page {
   min-height: 100%;
-  width: 100%;
 
   padding:
-    calc(env(safe-area-inset-top) + 20px)
-    18px
+    calc(env(safe-area-inset-top) + 18px)
+    0
     calc(env(safe-area-inset-bottom) + 40px);
 
+  color: var(--primary-text);
   background: var(--page-background);
-  color: var(--text-primary);
 }
 
-/* Header */
+/* =========================================================
+   ORTAK ÜST HEADER
+========================================================= */
 
-.page-header {
+.top-header {
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr) 52px;
   align-items: center;
   gap: 14px;
+
+  padding: 0 20px 18px;
 }
 
 .circle-button {
-  width: 52px;
-  height: 52px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border: 1px solid var(--border);
+  width: 52px;
+  height: 52px;
+
+  padding: 0;
+
+  border: 1px solid var(--border-color);
   border-radius: 50%;
 
-  background: var(--surface);
-  color: var(--text-primary);
+  color: var(--primary-text);
+  background: #151517;
 
   cursor: pointer;
 
   transition:
-    background 160ms ease,
-    transform 160ms ease;
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
 
 .circle-button:hover {
+  border-color: #4b4d55;
   background: var(--surface-hover);
 }
 
 .circle-button:active {
-  transform: scale(0.94);
+  transform: scale(0.96);
 }
 
 .circle-button ion-icon {
-  font-size: 25px;
+  font-size: 27px;
 }
 
-.team-title-button {
-  min-width: 0;
-
+.team-selector {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
 
-  padding: 0;
+  min-width: 0;
+
+  padding: 10px 8px;
 
   border: 0;
+
+  color: var(--primary-text);
   background: transparent;
-  color: var(--text-primary);
-
-  cursor: pointer;
-}
-
-.team-title-button span {
-  overflow: hidden;
 
   font-size: 20px;
-  font-weight: 750;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease;
+}
+
+.team-selector:hover {
+  color: var(--accent-color);
+}
+
+.team-selector:active {
+  background: rgba(114, 167, 255, 0.06);
+}
+
+.team-selector span {
+  overflow: hidden;
 
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.team-title-button ion-icon {
-  flex: 0 0 auto;
+.team-selector ion-icon {
+  flex-shrink: 0;
 
-  color: var(--text-secondary);
   font-size: 17px;
 }
 
@@ -116,24 +139,63 @@ button {
   height: 52px;
 }
 
-/* Tabs */
+/* =========================================================
+   ÜST SEKMELER
+========================================================= */
 
 .workspace-tabs {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: stretch;
 
-  width: 100%;
-  margin-top: 18px;
+  border-bottom: 1px solid #242428;
+}
+
+.menu-tab {
+  display: flex;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  color: var(--primary-text);
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease;
+}
+
+.menu-tab:hover {
+  color: var(--accent-color);
+  background: rgba(114, 167, 255, 0.06);
+}
+
+.menu-tab:active {
+  background: rgba(114, 167, 255, 0.12);
+}
+
+.menu-tab ion-icon {
+  font-size: 27px;
+}
+
+.tabs-scroll {
+  display: flex;
+  flex: 1;
+  gap: 6px;
+
+  min-width: 0;
 
   overflow-x: auto;
-
-  border-bottom: 1px solid #28292e;
 
   scrollbar-width: none;
 }
 
-.workspace-tabs::-webkit-scrollbar {
+.tabs-scroll::-webkit-scrollbar {
   display: none;
 }
 
@@ -141,47 +203,696 @@ button {
   position: relative;
 
   flex: 0 0 auto;
-  min-width: 70px;
 
-  padding: 16px 12px;
+  padding: 17px 17px 15px;
 
   border: 0;
-  background: transparent;
-  color: var(--text-secondary);
 
-  font-size: 16px;
-  font-weight: 650;
+  color: var(--secondary-text);
+  background: transparent;
+
+  font-size: 17px;
+  font-weight: 600;
 
   cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease;
 }
 
 .workspace-tab:hover {
-  color: var(--text-primary);
+  color: var(--primary-text);
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .workspace-tab.active {
-  color: var(--text-primary);
+  color: var(--accent-color);
 }
 
 .workspace-tab.active::after {
   position: absolute;
-  right: 10px;
-  bottom: -1px;
-  left: 10px;
+  right: 12px;
+  bottom: 0;
+  left: 12px;
 
   height: 3px;
 
   border-radius: 3px 3px 0 0;
-  background: var(--accent);
+
+  background: var(--accent-color);
 
   content: '';
 }
 
-/* İçerik */
+/* =========================================================
+   TAKIM SEÇİCİ MENÜSÜ
+========================================================= */
+
+.team-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.team-menu {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 88px);
+  left: 50%;
+  z-index: 9201;
+
+  width: min(420px, calc(100vw - 32px));
+  max-height: 70vh;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+
+  color: var(--primary-text);
+  background: var(--surface-color);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.025);
+
+  transform: translateX(-50%);
+
+  animation: team-menu-enter 180ms ease-out;
+}
+
+@keyframes team-menu-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.team-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.team-menu-header h3 {
+  margin: 0;
+
+  color: var(--primary-text);
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.team-menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+
+  color: var(--secondary-text);
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.team-menu-close:hover {
+  border-color: #52535b;
+
+  color: var(--primary-text);
+  background: var(--surface-hover);
+}
+
+.team-menu-close:active {
+  transform: scale(0.94);
+}
+
+.team-menu-close ion-icon {
+  font-size: 22px;
+}
+
+.team-menu-loading,
+.team-menu-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-height: 150px;
+  padding: 40px 24px;
+
+  color: var(--secondary-text);
+
+  text-align: center;
+}
+
+.team-menu-loading ion-spinner {
+  width: 32px;
+  height: 32px;
+
+  color: var(--accent-color);
+}
+
+.team-menu-error {
+  color: #ff8f7a;
+}
+
+.team-menu-list {
+  max-height: 420px;
+
+  overflow-y: auto;
+}
+
+.team-menu-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.team-menu-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team-menu-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #484a52;
+}
+
+.team-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  width: 100%;
+
+  padding: 16px 20px;
+
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+  color: var(--primary-text);
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease;
+}
+
+.team-menu-item:hover {
+  background: var(--surface-hover);
+}
+
+.team-menu-item:last-child {
+  border-bottom: 0;
+}
+
+.team-menu-item.active {
+  background: rgba(114, 167, 255, 0.12);
+}
+
+.team-menu-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 0;
+
+  text-align: left;
+}
+
+.team-menu-item-content strong {
+  overflow: hidden;
+
+  font-size: 16px;
+  font-weight: 650;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-menu-item-content small {
+  color: var(--secondary-text);
+
+  font-size: 13px;
+}
+
+.team-menu-item > ion-icon {
+  flex-shrink: 0;
+
+  color: var(--accent-color);
+
+  font-size: 24px;
+}
+
+/* =========================================================
+   SOL NAVİGASYON DRAWER
+========================================================= */
+
+.navigation-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+
+  background: rgba(0, 0, 0, 0.62);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  animation: navigation-backdrop-enter 180ms ease-out;
+}
+
+@keyframes navigation-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.navigation-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9001;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(84vw, 350px);
+  height: 100%;
+
+  padding:
+    calc(env(safe-area-inset-top) + 18px)
+    16px
+    calc(env(safe-area-inset-bottom) + 18px);
+
+  border-right: 1px solid #38393f;
+
+  color: var(--primary-text);
+  background:
+    linear-gradient(
+      180deg,
+      #202124 0%,
+      #18181b 100%
+    );
+
+  box-shadow:
+    24px 0 70px rgba(0, 0, 0, 0.68);
+
+  transform: translateX(-105%);
+
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 220ms;
+}
+
+.navigation-drawer.open {
+  transform: translateX(0);
+
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.navigation-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  min-height: 68px;
+
+  padding: 5px 4px 18px;
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navigation-team-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.navigation-team-label {
+  color: var(--muted-text);
+
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.navigation-team-info strong {
+  overflow: hidden;
+
+  color: var(--primary-text);
+
+  font-size: 20px;
+  font-weight: 720;
+  line-height: 1.3;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navigation-close-button {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+
+  color: var(--secondary-text);
+  background: #151517;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.navigation-close-button:hover {
+  border-color: #52535b;
+
+  color: var(--primary-text);
+  background: var(--surface-hover);
+}
+
+.navigation-close-button:active {
+  transform: scale(0.94);
+}
+
+.navigation-close-button ion-icon {
+  font-size: 24px;
+}
+
+.navigation-menu {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+
+  padding: 22px 0;
+
+  overflow-y: auto;
+}
+
+.navigation-menu-item {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 58px;
+
+  padding: 7px 13px;
+
+  border: 1px solid transparent;
+  border-radius: 15px;
+
+  color: var(--secondary-text);
+  background: transparent;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.navigation-menu-item:hover {
+  color: var(--primary-text);
+  background: var(--surface-hover);
+}
+
+.navigation-menu-item:active {
+  transform: scale(0.985);
+}
+
+.navigation-menu-item.active {
+  border-color: rgba(114, 167, 255, 0.28);
+
+  color: var(--primary-text);
+  background: rgba(114, 167, 255, 0.12);
+}
+
+.navigation-menu-item.active::before {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 0;
+
+  width: 4px;
+
+  border-radius: 0 5px 5px 0;
+
+  background: var(--accent-color);
+
+  content: '';
+}
+
+.navigation-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 12px;
+
+  color: var(--secondary-text);
+  background: #292a2f;
+}
+
+.navigation-menu-item.active .navigation-menu-icon {
+  color: var(--accent-color);
+  background: rgba(114, 167, 255, 0.14);
+}
+
+.navigation-menu-icon ion-icon {
+  font-size: 22px;
+}
+
+.navigation-menu-text {
+  overflow: hidden;
+
+  font-size: 17px;
+  font-weight: 620;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navigation-active-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  color: #071326;
+  background: var(--accent-color);
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.navigation-drawer-footer {
+  padding-top: 16px;
+
+  border-top: 1px solid var(--border-color);
+}
+
+.navigation-back-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 50px;
+
+  padding: 10px 14px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+
+  color: var(--secondary-text);
+  background: #19191c;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.navigation-back-button:hover {
+  border-color: #4b4d55;
+
+  color: var(--primary-text);
+  background: var(--surface-hover);
+}
+
+.navigation-back-button:active {
+  transform: scale(0.985);
+}
+
+.navigation-back-button ion-icon {
+  flex-shrink: 0;
+
+  font-size: 21px;
+}
+
+/* =========================================================
+   YÜKLENİYOR VE HATA
+========================================================= */
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-height: 320px;
+
+  padding: 30px 20px;
+
+  color: var(--secondary-text);
+
+  text-align: center;
+}
+
+.state-container ion-spinner {
+  width: 34px;
+  height: 34px;
+
+  color: var(--accent-color);
+}
+
+.state-container h2 {
+  margin: 0;
+
+  color: var(--primary-text);
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.state-container p {
+  max-width: 420px;
+
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.error-state {
+  color: #ff8f7a;
+}
+
+.retry-button {
+  margin-top: 8px;
+  padding: 11px 18px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+
+  color: var(--primary-text);
+  background: var(--surface-secondary);
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.retry-button:hover {
+  border-color: #4b4d55;
+  background: var(--surface-hover);
+}
+
+.retry-button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================================
+   ÖZET İÇERİĞİ
+========================================================= */
 
 .summary-content {
   width: 100%;
-  margin-top: 24px;
+
+  padding: 24px 20px 0;
 }
 
 .section-heading {
@@ -195,9 +906,10 @@ button {
 
 .eyebrow {
   display: block;
+
   margin-bottom: 7px;
 
-  color: var(--accent);
+  color: var(--accent-color);
 
   font-size: 11px;
   font-weight: 800;
@@ -206,6 +918,8 @@ button {
 
 .section-heading h1 {
   margin: 0;
+
+  color: var(--primary-text);
 
   font-size: 28px;
   font-weight: 780;
@@ -217,23 +931,26 @@ button {
 
   padding: 8px 12px;
 
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 999px;
 
-  background: var(--surface);
-  color: var(--text-secondary);
+  color: var(--secondary-text);
+  background: var(--surface-color);
 
   font-size: 13px;
   font-weight: 650;
 }
 
-/* Tamamlanma kartı */
+/* =========================================================
+   TAMAMLANMA KARTI
+========================================================= */
 
 .completion-card {
   width: 100%;
+
   padding: 22px;
 
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 22px;
 
   background:
@@ -253,16 +970,17 @@ button {
 
 .card-label {
   display: block;
+
   margin-bottom: 6px;
 
-  color: var(--text-secondary);
+  color: var(--secondary-text);
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .completion-header strong {
-  color: var(--text-primary);
+  color: var(--primary-text);
 
   font-size: 40px;
   font-weight: 800;
@@ -270,17 +988,19 @@ button {
 }
 
 .completion-circle {
-  width: 62px;
-  height: 62px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 62px;
+  height: 62px;
+
+  flex: 0 0 auto;
+
   border: 5px solid rgba(114, 167, 255, 0.25);
   border-radius: 50%;
 
-  color: var(--accent);
+  color: var(--accent-color);
 
   font-size: 14px;
   font-weight: 750;
@@ -288,11 +1008,13 @@ button {
 
 .progress-track {
   height: 9px;
+
   margin-top: 22px;
 
   overflow: hidden;
 
   border-radius: 999px;
+
   background: #303137;
 }
 
@@ -301,7 +1023,8 @@ button {
   height: 100%;
 
   border-radius: inherit;
-  background: var(--accent);
+
+  background: var(--accent-color);
 
   transition: width 400ms ease;
 }
@@ -309,13 +1032,15 @@ button {
 .completion-card p {
   margin: 13px 0 0;
 
-  color: var(--text-secondary);
+  color: var(--secondary-text);
 
   font-size: 13px;
   line-height: 1.5;
 }
 
-/* İstatistik kartları */
+/* =========================================================
+   İSTATİSTİK KARTLARI
+========================================================= */
 
 .statistics-grid {
   display: grid;
@@ -326,16 +1051,27 @@ button {
 }
 
 .stat-card {
-  min-height: 145px;
-  padding: 18px;
-
   display: flex;
   flex-direction: column;
 
-  border: 1px solid var(--border);
+  min-height: 145px;
+
+  padding: 18px;
+
+  border: 1px solid var(--border-color);
   border-radius: 19px;
 
-  background: var(--surface);
+  background: var(--surface-color);
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.stat-card:hover {
+  border-color: #484a52;
+  background: var(--surface-hover);
 }
 
 .stat-top {
@@ -343,7 +1079,7 @@ button {
   align-items: center;
   gap: 8px;
 
-  color: var(--text-secondary);
+  color: var(--secondary-text);
 
   font-size: 13px;
   font-weight: 650;
@@ -356,13 +1092,14 @@ button {
   flex: 0 0 auto;
 
   border-radius: 50%;
-  background: var(--accent);
+
+  background: var(--accent-color);
 }
 
 .stat-card strong {
   margin-top: auto;
 
-  color: var(--text-primary);
+  color: var(--primary-text);
 
   font-size: 34px;
   font-weight: 800;
@@ -372,7 +1109,7 @@ button {
 .stat-card small {
   margin-top: 8px;
 
-  color: var(--text-muted);
+  color: var(--muted-text);
 
   font-size: 12px;
 }
@@ -389,7 +1126,9 @@ button {
   background: #57d9a3;
 }
 
-/* Geciken görev */
+/* =========================================================
+   GECİKEN GÖREVLER
+========================================================= */
 
 .overdue-card {
   display: flex;
@@ -400,10 +1139,10 @@ button {
   margin-top: 14px;
   padding: 18px;
 
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 19px;
 
-  background: var(--surface);
+  background: var(--surface-color);
 }
 
 .overdue-card.has-overdue {
@@ -413,39 +1152,38 @@ button {
     linear-gradient(
       110deg,
       rgba(255, 116, 82, 0.12),
-      var(--surface) 55%
+      var(--surface-color) 55%
     );
 }
 
 .overdue-content {
-  min-width: 0;
-
   display: flex;
   align-items: center;
   gap: 14px;
+
+  min-width: 0;
 }
 
 .overdue-icon {
-  width: 42px;
-  height: 42px;
-
-  flex: 0 0 auto;
-
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
 
+  width: 42px;
+  height: 42px;
+
   border-radius: 13px;
 
-  background: rgba(255, 116, 82, 0.16);
   color: #ff7452;
+  background: rgba(255, 116, 82, 0.16);
 
   font-size: 20px;
   font-weight: 850;
 }
 
 .overdue-content span {
-  color: var(--text-primary);
+  color: var(--primary-text);
 
   font-size: 14px;
   font-weight: 700;
@@ -454,64 +1192,35 @@ button {
 .overdue-content p {
   margin: 4px 0 0;
 
-  color: var(--text-muted);
+  color: var(--muted-text);
 
   font-size: 12px;
   line-height: 1.35;
 }
 
 .overdue-card > strong {
+  flex-shrink: 0;
+
   color: #ff7452;
 
   font-size: 30px;
   font-weight: 800;
 }
 
-/* Yükleniyor ve hata */
+/* =========================================================
+   TABLET VE MASAÜSTÜ
+========================================================= */
 
-.state-container {
-  min-height: 300px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--text-secondary);
-  text-align: center;
+@media (min-width: 700px) {
+  .navigation-drawer {
+    width: 370px;
+  }
 }
-
-.state-container ion-spinner {
-  width: 34px;
-  height: 34px;
-
-  color: var(--accent);
-}
-
-.error-state {
-  color: #ff8f7a;
-}
-
-.retry-button {
-  margin-top: 12px;
-  padding: 11px 17px;
-
-  border: 1px solid var(--border);
-  border-radius: 12px;
-
-  background: var(--surface-secondary);
-  color: var(--text-primary);
-
-  font-weight: 650;
-  cursor: pointer;
-}
-
-/* Tablet ve masaüstü */
 
 @media (min-width: 900px) {
-  .summary-page {
-    padding-right: 18px;
-    padding-left: 18px;
+  .summary-content {
+    padding-right: 24px;
+    padding-left: 24px;
   }
 
   .statistics-grid {
@@ -519,17 +1228,17 @@ button {
   }
 }
 
-/* Mobil */
+/* =========================================================
+   MOBİL
+========================================================= */
 
 @media (max-width: 560px) {
-  .summary-page {
-    padding-right: 14px;
-    padding-left: 14px;
-  }
-
-  .page-header {
+  .top-header {
     grid-template-columns: 48px minmax(0, 1fr) 48px;
     gap: 10px;
+
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .circle-button,
@@ -538,28 +1247,47 @@ button {
     height: 48px;
   }
 
-  .team-title-button span {
+  .team-selector {
     font-size: 18px;
   }
 
-  .workspace-tabs {
+  .menu-tab {
+    flex-basis: 54px;
+  }
+
+  .menu-tab ion-icon {
+    font-size: 25px;
+  }
+
+  .tabs-scroll {
     gap: 2px;
   }
 
   .workspace-tab {
-    min-width: auto;
     padding-right: 13px;
     padding-left: 13px;
 
     font-size: 15px;
   }
 
+  .summary-content {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
   .section-heading {
     align-items: center;
+    gap: 12px;
   }
 
   .section-heading h1 {
     font-size: 24px;
+  }
+
+  .task-count {
+    padding: 7px 10px;
+
+    font-size: 12px;
   }
 
   .completion-card {
@@ -570,17 +1298,70 @@ button {
     font-size: 36px;
   }
 
+  .completion-circle {
+    width: 58px;
+    height: 58px;
+  }
+
   .statistics-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
   .stat-card {
     min-height: 132px;
+
     padding: 15px;
   }
 
   .stat-card strong {
     font-size: 30px;
+  }
+
+  .overdue-card {
+    align-items: flex-start;
+  }
+
+  .overdue-content {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 390px) {
+  .workspace-tab {
+    padding-right: 11px;
+    padding-left: 11px;
+
+    font-size: 14px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    min-height: 125px;
+  }
+}
+
+/* =========================================================
+   HAREKET AZALTMA AYARI
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .navigation-backdrop,
+  .team-menu {
+    animation: none;
+  }
+
+  .navigation-drawer,
+  .progress-value,
+  button,
+  .stat-card {
+    transition: none;
   }
 }

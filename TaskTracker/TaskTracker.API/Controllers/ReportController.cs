@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TaskTracker.Application.Interfaces.Services;
 
 namespace TaskTracker.API.Controllers;
@@ -20,6 +21,22 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetTeamSummary(int teamId)
     {
         var summary = await _reportService.GetTeamSummaryAsync(teamId);
+
+        return Ok(summary);
+    }
+
+    [HttpGet("dashboard-summary")]
+    public async Task<IActionResult> GetDashboardSummary()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+        if (userIdClaim == null ||
+            !int.TryParse(userIdClaim.Value, out var userId))
+        {
+            return Unauthorized();
+        }
+
+        var summary = await _reportService.GetDashboardSummaryAsync(userId);
 
         return Ok(summary);
     }

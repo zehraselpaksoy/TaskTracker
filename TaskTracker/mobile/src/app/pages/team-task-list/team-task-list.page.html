@@ -2,7 +2,7 @@
 
   <main class="list-page">
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="page-header">
 
       <button
@@ -10,13 +10,16 @@
         class="back-button"
         aria-label="Takımlara geri dön"
         (click)="goBack()">
-
         <ion-icon name="arrow-back-outline"></ion-icon>
       </button>
 
+      <!-- TAKIM SEÇİCİ -->
       <button
         type="button"
-        class="team-title-button">
+        class="team-title-button"
+        aria-label="Takım seç"
+        [attr.aria-expanded]="isTeamMenuOpen"
+        (click)="openTeamMenu()">
 
         <span>{{ teamName }}</span>
 
@@ -27,27 +30,42 @@
 
     </header>
 
-    <!-- Workspace tabs -->
+    <!-- WORKSPACE TABS -->
     <nav
       class="workspace-tabs"
       aria-label="Takım çalışma alanı">
 
       <button
         type="button"
-        class="workspace-tab"
-        *ngFor="let tab of tabs"
-        [class.active]="activeTab === tab.id"
-        (click)="navigateToTab(tab.id)">
+        class="menu-tab"
+        aria-label="Çalışma alanı menüsünü aç"
+        [attr.aria-expanded]="isNavigationMenuOpen"
+        (click)="toggleNavigationMenu()">
 
-        {{ tab.label }}
+        <ion-icon name="menu-outline"></ion-icon>
       </button>
+
+      <div class="tabs-scroll">
+
+        <button
+          type="button"
+          class="workspace-tab"
+          *ngFor="let tab of tabs"
+          [class.active]="activeTab === tab.id"
+          (click)="navigateToTab(tab.id)">
+
+          {{ tab.label }}
+        </button>
+
+      </div>
 
     </nav>
 
-    <!-- Toolbar -->
+    <!-- TOOLBAR -->
     <section class="toolbar">
 
       <label class="search-box">
+
         <ion-icon name="search-outline"></ion-icon>
 
         <input
@@ -56,11 +74,12 @@
           placeholder="Görev ara"
           autocomplete="off"
           aria-label="Görev ara">
+
       </label>
 
       <div class="filters">
 
-        <!-- Assignee filter -->
+        <!-- ATANAN FİLTRESİ -->
         <div class="filter-wrapper">
 
           <button
@@ -98,9 +117,10 @@
             </button>
 
           </div>
+
         </div>
 
-        <!-- Priority filter -->
+        <!-- ÖNCELİK FİLTRESİ -->
         <div class="filter-wrapper">
 
           <button
@@ -153,9 +173,10 @@
             </button>
 
           </div>
+
         </div>
 
-        <!-- Status filter -->
+        <!-- DURUM FİLTRESİ -->
         <div class="filter-wrapper">
 
           <button
@@ -208,13 +229,14 @@
             </button>
 
           </div>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- Loading -->
+    <!-- LOADING -->
     <section
       class="state-panel"
       *ngIf="isLoading">
@@ -222,9 +244,10 @@
       <ion-spinner name="crescent"></ion-spinner>
 
       <p>Görevler yükleniyor...</p>
+
     </section>
 
-    <!-- Error -->
+    <!-- ERROR -->
     <section
       class="state-panel error"
       *ngIf="!isLoading && errorMessage">
@@ -237,9 +260,10 @@
 
         Tekrar dene
       </button>
+
     </section>
 
-    <!-- Task list -->
+    <!-- TASK LIST -->
     <section
       class="task-list"
       *ngIf="!isLoading && !errorMessage">
@@ -247,14 +271,16 @@
       <div class="list-summary">
 
         <div>
+
           <ion-icon name="list-outline"></ion-icon>
 
           <span>
             {{ getFilteredTasks().length }} görev
           </span>
+
         </div>
 
-        <span>
+        <span class="total-task-count">
           Toplam {{ tasks.length }}
         </span>
 
@@ -311,6 +337,7 @@
                 </strong>
 
                 {{ getPriorityLabel(task.priority) }}
+
               </span>
 
               <span class="due-date">
@@ -318,27 +345,63 @@
                 <ion-icon name="calendar-outline"></ion-icon>
 
                 {{ formatDueDate(task.dueDate) }}
+
               </span>
 
             </div>
 
           </div>
+
         </div>
 
-        <div class="assignee">
+        <!-- ATAYAN VE ATANAN -->
+        <div class="task-users">
 
-          <div class="assignee-avatar">
-            {{ task.assigneeInitials }}
+          <div class="user-block">
+
+            <span class="user-role">
+              Atayan
+            </span>
+
+            <div class="user-details">
+
+              <div class="user-avatar creator-avatar">
+                {{ task['createdInitials'] || '?' }}
+              </div>
+
+              <span class="user-name">
+                {{ task['createdByName'] || 'Atayan Yok' }}
+              </span>
+
+            </div>
+
           </div>
 
-          <span>
-            {{ task.assigneeName }}
-          </span>
+          <div class="user-block">
+
+            <span class="user-role">
+              Atanan
+            </span>
+
+            <div class="user-details">
+
+              <div class="user-avatar assignee-avatar">
+                {{ task.assigneeInitials || '?' }}
+              </div>
+
+              <span class="user-name">
+                {{ task.assigneeName || 'Atanan Yok' }}
+              </span>
+
+            </div>
+
+          </div>
 
         </div>
 
       </article>
 
+      <!-- BOŞ DURUM -->
       <div
         class="empty-state"
         *ngIf="getFilteredTasks().length === 0">
@@ -358,3 +421,230 @@
   </main>
 
 </ion-content>
+
+<!-- TAKIM SEÇİCİ BACKDROP -->
+<div
+  *ngIf="isTeamMenuOpen"
+  class="team-menu-backdrop"
+  (click)="closeTeamMenu()">
+</div>
+
+<!-- TAKIM SEÇİCİ MODAL -->
+<section
+  *ngIf="isTeamMenuOpen"
+  class="team-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="team-menu-title">
+
+  <header class="team-menu-header">
+
+    <h3 id="team-menu-title">
+      Takım Seç
+    </h3>
+
+    <button
+      type="button"
+      class="team-menu-close"
+      aria-label="Takım menüsünü kapat"
+      (click)="closeTeamMenu()">
+
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+  </header>
+
+  <div class="team-menu-list">
+
+    <button
+      *ngFor="let team of myTeams"
+      type="button"
+      class="team-menu-item"
+      [class.active]="team.id === teamId"
+      (click)="selectTeam(team)">
+
+      <span class="team-menu-item-content">
+
+        <strong>
+          {{ team.name }}
+        </strong>
+
+        <small>
+          {{ team.memberCount || 1 }} üye
+        </small>
+
+      </span>
+
+      <ion-icon
+        *ngIf="team.id === teamId"
+        name="checkmark-circle-outline">
+      </ion-icon>
+
+    </button>
+
+    <div
+      *ngIf="myTeams.length === 0"
+      class="team-menu-empty">
+
+      Henüz bir takıma üye değilsiniz.
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SOL NAVİGASYON BACKDROP -->
+<div
+  *ngIf="isNavigationMenuOpen"
+  class="navigation-backdrop"
+  (click)="closeNavigationMenu()">
+</div>
+
+<!-- SOL NAVİGASYON DRAWER -->
+<aside
+  class="navigation-drawer"
+  [class.open]="isNavigationMenuOpen"
+  [attr.aria-hidden]="!isNavigationMenuOpen"
+  aria-label="Takım çalışma alanı menüsü">
+
+  <header class="navigation-drawer-header">
+
+    <div class="navigation-team-info">
+
+      <span class="navigation-team-label">
+        Çalışma alanı
+      </span>
+
+      <strong>
+        {{ teamName }}
+      </strong>
+
+    </div>
+
+    <button
+      type="button"
+      class="navigation-close-button"
+      aria-label="Menüyü kapat"
+      (click)="closeNavigationMenu()">
+
+      <ion-icon name="close-outline"></ion-icon>
+
+    </button>
+
+  </header>
+
+  <nav class="navigation-menu">
+
+    <button
+      type="button"
+      class="navigation-menu-item"
+      [class.active]="activeTab === 'summary'"
+      (click)="navigateToTab('summary')">
+
+      <span class="navigation-menu-icon">
+        <ion-icon name="stats-chart-outline"></ion-icon>
+      </span>
+
+      <span class="navigation-menu-text">
+        Özet
+      </span>
+
+      <span
+        *ngIf="activeTab === 'summary'"
+        class="navigation-active-indicator">
+
+        ✓
+      </span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-menu-item"
+      [class.active]="activeTab === 'board'"
+      (click)="navigateToTab('board')">
+
+      <span class="navigation-menu-icon">
+        <ion-icon name="grid-outline"></ion-icon>
+      </span>
+
+      <span class="navigation-menu-text">
+        Pano
+      </span>
+
+      <span
+        *ngIf="activeTab === 'board'"
+        class="navigation-active-indicator">
+
+        ✓
+      </span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-menu-item"
+      [class.active]="activeTab === 'list'"
+      (click)="navigateToTab('list')">
+
+      <span class="navigation-menu-icon">
+        <ion-icon name="list-outline"></ion-icon>
+      </span>
+
+      <span class="navigation-menu-text">
+        Liste
+      </span>
+
+      <span
+        *ngIf="activeTab === 'list'"
+        class="navigation-active-indicator">
+
+        ✓
+      </span>
+
+    </button>
+
+    <button
+      type="button"
+      class="navigation-menu-item"
+      [class.active]="activeTab === 'calendar'"
+      (click)="navigateToTab('calendar')">
+
+      <span class="navigation-menu-icon">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </span>
+
+      <span class="navigation-menu-text">
+        Takvim
+      </span>
+
+      <span
+        *ngIf="activeTab === 'calendar'"
+        class="navigation-active-indicator">
+
+        ✓
+      </span>
+
+    </button>
+
+  </nav>
+
+  <footer class="navigation-drawer-footer">
+
+    <button
+      type="button"
+      class="navigation-back-button"
+      (click)="goBack()">
+
+      <ion-icon name="arrow-back-outline"></ion-icon>
+
+      <span>
+        Takımlara dön
+      </span>
+
+    </button>
+
+  </footer>
+
+</aside>

@@ -115,6 +115,18 @@
         }
       }
     },
+    "/api/Reports/dashboard-summary": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/tasks": {
       "post": {
         "tags": [

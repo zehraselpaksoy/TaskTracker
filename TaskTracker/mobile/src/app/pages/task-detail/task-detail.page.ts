@@ -1546,4 +1546,9 @@ private getNumericPriority(
 
     return fallbackMessage;
   }
+  getCreatorInitials(): string {
+    return this.getInitials(
+      this.task?.createdByName ?? null
+    );
+  }
 }

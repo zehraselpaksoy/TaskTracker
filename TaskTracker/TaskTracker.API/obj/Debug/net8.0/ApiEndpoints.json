@@ -122,6 +122,16 @@
   },
   {
     "ContainingType": "TaskTracker.API.Controllers.ReportsController",
+    "Method": "GetDashboardSummary",
+    "RelativePath": "api/Reports/dashboard-summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.ReportsController",
     "Method": "GetTeamSummary",
     "RelativePath": "api/Reports/teams/{teamId}/summary",
     "HttpMethod": "GET",
