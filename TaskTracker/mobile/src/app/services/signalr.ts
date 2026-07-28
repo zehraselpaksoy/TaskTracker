@@ -5,7 +5,9 @@ import {
   HubConnectionState,
   LogLevel
 } from '@microsoft/signalr';
+
 import { AuthService } from './auth';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class SignalRService {
   private hubConnection?: HubConnection;
 
   private readonly hubUrl =
-    'https://localhost:7164/hubs/task';
+    `${environment.apiUrl.replace('/api', '')}/hubs/task`;
 
   constructor() { }
 
@@ -112,14 +114,10 @@ export class SignalRService {
   }
 
   removeTaskStatusUpdated(): void {
-
-    this.hubConnection?.off(
-      'TaskStatusUpdated'
-    );
+    this.hubConnection?.off('TaskStatusUpdated');
   }
 
   isConnected(): boolean {
-
     return this.hubConnection?.state ===
       HubConnectionState.Connected;
   }

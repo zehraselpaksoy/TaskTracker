@@ -9,11 +9,16 @@ using TaskTracker.Infrastructure.Context;
 using TaskTracker.Infrastructure.Identity;
 using TaskTracker.Infrastructure.Repositories;
 using TaskTracker.Infrastructure.Storage;
+using TaskTracker.Application.Interfaces.Messaging;
+using TaskTracker.Infrastructure.RabbitMq;
+
 
 namespace TaskTracker.Infrastructure;
 
 public static class DependencyInjection
 {
+
+
     public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
@@ -22,10 +27,19 @@ public static class DependencyInjection
         AddMinioServices(services, configuration);
         AddRepositories(services);
         AddIdentityServices(services, configuration);
+        AddRabbitMqServices(services);
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
+    }
+
+    private static void AddRabbitMqServices(
+     IServiceCollection services)
+    {
+        services.AddSingleton<
+            IRabbitMqPublisher,
+            RabbitMqPublisher>();
     }
 
     private static void AddDatabaseServices(
@@ -97,10 +111,9 @@ public static class DependencyInjection
         services.AddScoped<ITeamRepository, TeamRepository>();
         services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
         services.AddScoped<ITaskCommentRepository, TaskCommentRepository>();
-
-        services.AddScoped<
-            ICommentAttachmentRepository,
-            CommentAttachmentRepository>();
+        services.AddScoped<IActivityRepository, ActivityRepository>();
+        services.AddScoped<ICommentAttachmentRepository,CommentAttachmentRepository>();
+        services.AddScoped<IUserDeviceTokenRepository,UserDeviceTokenRepository>();
     }
 
     private static void AddIdentityServices(

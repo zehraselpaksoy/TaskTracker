@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface TeamSummary {
   totalTasks: number;
@@ -42,8 +43,7 @@ export class ReportService {
 
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl =
-    'https://localhost:7164/api/reports';
+  private readonly apiUrl = `${environment.apiUrl}/reports`;
 
   getTeamSummary(
     teamId: number
@@ -52,12 +52,12 @@ export class ReportService {
       `${this.apiUrl}/teams/${teamId}/summary`
     );
   }
-  
-  getUpcomingDeadlines() {
-  return this.http.get<UpcomingTask[]>(
-    `${this.apiUrl}/upcoming-deadlines`
-  );
-}
+
+  getUpcomingDeadlines(): Observable<UpcomingTask[]> {
+    return this.http.get<UpcomingTask[]>(
+      `${this.apiUrl}/upcoming-deadlines`
+    );
+  }
 
   getDashboardSummary(): Observable<DashboardSummary> {
     return this.http.get<DashboardSummary>(
@@ -65,9 +65,9 @@ export class ReportService {
     );
   }
 
-  getWeeklyProgress() {
-  return this.http.get<WeeklyProgress[]>(
-    `${this.apiUrl}/weekly-progress`
-  );
+  getWeeklyProgress(): Observable<WeeklyProgress[]> {
+    return this.http.get<WeeklyProgress[]>(
+      `${this.apiUrl}/weekly-progress`
+    );
   }
 }

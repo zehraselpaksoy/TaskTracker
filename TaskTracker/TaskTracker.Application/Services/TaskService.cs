@@ -3,16 +3,21 @@ using TaskTracker.Application.Interfaces.Repositories;
 using TaskTracker.Application.Interfaces.Services;
 using TaskTracker.Domain.Entities;
 using TaskTracker.Domain.Enums;
+using TaskTracker.Application.Interfaces.Messaging;
+using TaskTracker.Contracts.Events;
 
 namespace TaskTracker.Application.Services
 {
     public class TaskService : ITaskService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public TaskService(IUnitOfWork unitOfWork)
+        private readonly IActivityService _activityService;
+        private readonly IRabbitMqPublisher _rabbitMqPublisher;
+        public TaskService(IUnitOfWork unitOfWork, IActivityService activityService, IRabbitMqPublisher rabbitMqPublisher)
         {
             _unitOfWork = unitOfWork;
+            _activityService = activityService;
+            _rabbitMqPublisher = rabbitMqPublisher;
         }
 
         public async Task CreateTaskAsync(
@@ -89,13 +94,40 @@ namespace TaskTracker.Application.Services
             _unitOfWork.Tasks.Add(taskItem);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _activityService.LogAsync(
+                teamId: taskItem.TeamId,
+                userId: createdByUserId,
+                taskId: taskItem.Id,
+                type: ActivityType.TaskCreated,
+                description: $"\"{taskItem.Title}\" görevi oluşturuldu."
+            );
+            if (taskItem.AssignedToUserId.HasValue)
+            {
+                var createdByUser = await _unitOfWork.Users
+                    .GetByIdAsync(createdByUserId);
+
+                var assignedByUserName = createdByUser is null
+                    ? "Takım lideri"
+                    : $"{createdByUser.FirstName} {createdByUser.LastName}".Trim();
+
+                var taskAssignedEvent = new TaskAssignedEvent
+                {
+                    TaskId = taskItem.Id,
+                    AssignedUserId = taskItem.AssignedToUserId.Value,
+                    TaskTitle = taskItem.Title,
+                    AssignedByUserName = assignedByUserName
+                };
+
+                await _rabbitMqPublisher.PublishAsync(
+                    queueName: "task-assigned-queue",
+                    message: taskAssignedEvent);
+            }
         }
 
-        public async Task UpdateTaskAsync(
-            int taskId,
-            UpdateTaskDto updateTaskDto,
-            int currentUserId)
+        public async Task UpdateTaskAsync(int taskId,UpdateTaskDto updateTaskDto,int currentUserId)
         {
+
             var task = await _unitOfWork.Tasks
                 .GetByIdWithDetailsAsync(taskId);
 
@@ -142,7 +174,8 @@ namespace TaskTracker.Application.Services
                         "Görev yalnızca aynı takımın bir üyesine atanabilir.");
                 }
             }
-
+            var previousAssignedUserId = task.AssignedToUserId;
+            var previousTitle = task.Title;
             task.Title = updateTaskDto.Title;
             task.Description = updateTaskDto.Description;
             task.Priority = updateTaskDto.Priority;
@@ -153,12 +186,61 @@ namespace TaskTracker.Application.Services
             _unitOfWork.Tasks.Update(task);
 
             await _unitOfWork.SaveChangesAsync();
+
+            var assignmentChanged =
+                previousAssignedUserId != task.AssignedToUserId;
+
+            if (assignmentChanged)
+            {
+                var assignmentDescription =
+                    task.AssignedToUserId.HasValue
+                        ? $"\"{task.Title}\" görevinin atanan kişisi değiştirildi."
+                        : $"\"{task.Title}\" görevinin kullanıcı ataması kaldırıldı.";
+
+                await _activityService.LogAsync(
+                    teamId: task.TeamId,
+                    userId: currentUserId,
+                    taskId: task.Id,
+                    type: ActivityType.TaskAssigned,
+                    description: assignmentDescription
+                );
+
+                // Yeni bir kullanıcıya atandıysa bildirim mesajı gönder.
+                if (task.AssignedToUserId.HasValue)
+                {
+                    var assignedByUser = await _unitOfWork.Users
+                        .GetByIdAsync(currentUserId);
+
+                    var assignedByUserName = assignedByUser is null
+                        ? "Takım lideri"
+                        : $"{assignedByUser.FirstName} {assignedByUser.LastName}".Trim();
+
+                    var taskAssignedEvent = new TaskAssignedEvent
+                    {
+                        TaskId = task.Id,
+                        AssignedUserId = task.AssignedToUserId.Value,
+                        TaskTitle = task.Title,
+                        AssignedByUserName = assignedByUserName
+                    };
+
+                    await _rabbitMqPublisher.PublishAsync(
+                        queueName: "task-assigned-queue",
+                        message: taskAssignedEvent);
+                }
+            }
+            else
+            {
+                await _activityService.LogAsync(
+                    teamId: task.TeamId,
+                    userId: currentUserId,
+                    taskId: task.Id,
+                    type: ActivityType.TaskUpdated,
+                    description: $"\"{task.Title}\" görevi güncellendi."
+                );
+            }
         }
 
-        public async Task<int> UpdateTaskStatusAsync(
-    int taskId,
-    UpdateTaskStatusDto updateTaskStatusDto,
-    int currentUserId)
+        public async Task<int> UpdateTaskStatusAsync(int taskId, UpdateTaskStatusDto updateTaskStatusDto,int currentUserId)
         {
             var task = await _unitOfWork.Tasks
                 .GetByIdWithDetailsAsync(taskId);
@@ -180,6 +262,8 @@ namespace TaskTracker.Application.Services
                     "Bu görevin durumunu değiştirme yetkiniz yok.");
             }
 
+            var previousStatus = task.Status;
+
             UpdateTaskDates(
                 task,
                 updateTaskStatusDto.Status);
@@ -187,9 +271,60 @@ namespace TaskTracker.Application.Services
             task.Status = updateTaskStatusDto.Status;
             task.UpdatedAt = DateTime.UtcNow;
 
-            _unitOfWork.Tasks.Update(task);
-
             await _unitOfWork.SaveChangesAsync();
+
+            if (previousStatus != task.Status)
+            {
+                await _activityService.LogAsync(
+                    teamId: task.TeamId,
+                    userId: currentUserId,
+                    taskId: task.Id,
+                    type: ActivityType.TaskStatusChanged,
+                    description:
+                        $"\"{task.Title}\" görevi " +
+                        $"\"{GetStatusLabel(previousStatus)}\" durumundan " +
+                        $"\"{GetStatusLabel(task.Status)}\" durumuna taşındı."
+                );
+                var recipientUserIds = new HashSet<int>();
+
+                // Görevi oluşturan kişi, durumu değiştiren kişi değilse bildir.
+                if (task.CreatedByUserId != currentUserId)
+                {
+                    recipientUserIds.Add(task.CreatedByUserId);
+                }
+
+                // Atanan kullanıcı varsa ve durumu değiştiren kişi değilse bildir.
+                if (task.AssignedToUserId.HasValue &&
+                    task.AssignedToUserId.Value != currentUserId)
+                {
+                    recipientUserIds.Add(task.AssignedToUserId.Value);
+                }
+
+                if (recipientUserIds.Count > 0)
+                {
+                    var changedByUser = await _unitOfWork.Users
+                        .GetByIdAsync(currentUserId);
+
+                    var changedByUserName = changedByUser is null
+                        ? "Bir takım üyesi"
+                        : $"{changedByUser.FirstName} {changedByUser.LastName}".Trim();
+
+                    var statusChangedEvent = new TaskStatusChangedEvent
+                    {
+                        TaskId = task.Id,
+                        TaskTitle = task.Title,
+                        PreviousStatus = GetStatusLabel(previousStatus),
+                        NewStatus = GetStatusLabel(task.Status),
+                        ChangedByUserId = currentUserId,
+                        ChangedByUserName = changedByUserName,
+                        RecipientUserIds = recipientUserIds.ToList()
+                    };
+
+                    await _rabbitMqPublisher.PublishAsync(
+                        queueName: "task-status-changed-queue",
+                        message: statusChangedEvent);
+                }
+            }
 
             return task.TeamId;
         }
@@ -214,9 +349,20 @@ namespace TaskTracker.Application.Services
                     "Bu görevi yalnızca takım lideri silebilir.");
             }
 
+            var deletedTaskTitle = task.Title;
+            var teamId = task.TeamId;
+
             _unitOfWork.Tasks.Delete(task);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _activityService.LogAsync(
+                teamId: teamId,
+                userId: currentUserId,
+                taskId: null,
+                type: ActivityType.TaskDeleted,
+                description: $"\"{deletedTaskTitle}\" görevi silindi."
+            );
         }
 
         public async Task<TaskDto?> GetTaskByIdAsync(
@@ -369,6 +515,16 @@ namespace TaskTracker.Application.Services
                 AssignedToName = task.AssignedToUser == null
                     ? null
                     : $"{task.AssignedToUser.FirstName} {task.AssignedToUser.LastName}"
+            };
+        }
+        private static string GetStatusLabel(TaskItemStatus status)
+        {
+            return status switch
+            {
+                TaskItemStatus.Pending => "Yapılacak",
+                TaskItemStatus.InProgress => "Devam Ediyor",
+                TaskItemStatus.Completed => "Tamamlandı",
+                _ => status.ToString()
             };
         }
     }

@@ -48,7 +48,7 @@ namespace TaskTracker.API.Controllers
             var teams = await _teamService.GetAllTeamsAsync();
             return Ok(teams);
         }
-        [HttpGet("{id}")] 
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var currentUserId = GetCurrentUserId();
@@ -65,7 +65,7 @@ namespace TaskTracker.API.Controllers
             return Ok(team);
         }
         [HttpPost("{teamId}/members/{userId}")]
-        public async Task<IActionResult> AddMember(int teamId,int userId)
+        public async Task<IActionResult> AddMember(int teamId, int userId)
         {
             var currentUserId = GetCurrentUserId();
 

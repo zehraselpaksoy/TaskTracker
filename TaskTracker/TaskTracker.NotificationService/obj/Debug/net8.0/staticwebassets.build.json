@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "YursaVKjOerEWiWQZ2ENJKYYHqC9+JPk35PT77zjrEM=",
+  "Source": "TaskTracker.NotificationService",
+  "BasePath": "_content/TaskTracker.NotificationService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

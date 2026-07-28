@@ -8,16 +8,25 @@ using TaskTracker.Application.Interfaces.Repositories;
 using TaskTracker.Application.Interfaces.Services;
 using TaskTracker.Domain.Entities;
 using TaskTracker.Domain.Enums;
+using TaskTracker.Application.Interfaces.Messaging;
+using TaskTracker.Contracts.Events;
 
 namespace TaskTracker.Application.Services
 {
     public class TeamService : ITeamService 
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IActivityService _activityService;
+        private readonly IRabbitMqPublisher _rabbitMqPublisher;
 
-        public TeamService(IUnitOfWork unitOfWork)
+        public TeamService(
+            IUnitOfWork unitOfWork,
+            IActivityService activityService,
+            IRabbitMqPublisher rabbitMqPublisher)
         {
             _unitOfWork = unitOfWork;
+            _activityService = activityService;
+            _rabbitMqPublisher = rabbitMqPublisher;
         }
         public async Task<CreateTeamDto> CreateTeamAsync(CreateTeamDto createTeamDto, int currentUserId)
         {
@@ -62,15 +71,21 @@ namespace TaskTracker.Application.Services
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _activityService.LogAsync(
+                teamId: team.Id,
+                userId: currentUserId,
+                taskId: null,
+                type: ActivityType.TeamCreated,
+                description: $"\"{team.Name}\" takımı oluşturuldu."
+            );
+
             return new CreateTeamDto
             {
                 Id = team.Id,
                 Name = team.Name
             };
-        }
-        public async Task<TeamDetailDto?> GetTeamByIdAsync(
-            int teamId,
-            int currentUserId)
+            }
+        public async Task<TeamDetailDto?> GetTeamByIdAsync(int teamId,int currentUserId)
         {
             var isMember = await _unitOfWork.TeamMembers
                 .IsTeamMemberAsync(teamId, currentUserId);
@@ -200,11 +215,38 @@ namespace TaskTracker.Application.Services
             _unitOfWork.TeamMembers.Add(teamMember);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _activityService.LogAsync(
+                teamId: teamId,
+                userId: currentUserId,
+                taskId: null,
+                type: ActivityType.MemberAdded,
+                description:
+                    $"\"{user.FirstName} {user.LastName}\" takıma eklendi."
+            );
+            var addedByUser = await _unitOfWork.Users
+             .GetByIdAsync(currentUserId);
+
+            var addedByUserName = addedByUser is null
+                ? "Takım lideri"
+                : $"{addedByUser.FirstName} {addedByUser.LastName}".Trim();
+
+            var teamMemberAddedEvent = new TeamMemberAddedEvent
+            {
+                TeamId = team.Id,
+                TeamName = team.Name,
+                AddedUserId = user.Id,
+                AddedByUserName = addedByUserName
+            };
+
+            await _rabbitMqPublisher.PublishAsync(
+                queueName: "team-member-added-queue",
+                message: teamMemberAddedEvent);
         }
         public async Task RemoveMemberAsync(
-            int teamId,
-            int userId,
-            int currentUserId)
+     int teamId,
+     int userId,
+     int currentUserId)
         {
             var team = await _unitOfWork.Teams
                 .GetByIdAsync(teamId);
@@ -212,6 +254,14 @@ namespace TaskTracker.Application.Services
             if (team == null)
             {
                 throw new Exception("Takım bulunamadı.");
+            }
+
+            var user = await _unitOfWork.Users
+                .GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("Kullanıcı bulunamadı.");
             }
 
             var isLeader = await _unitOfWork.TeamMembers
@@ -241,6 +291,15 @@ namespace TaskTracker.Application.Services
             _unitOfWork.TeamMembers.Delete(teamMember);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _activityService.LogAsync(
+                teamId: teamId,
+                userId: currentUserId,
+                taskId: null,
+                type: ActivityType.MemberRemoved,
+                description:
+                    $"\"{user.FirstName} {user.LastName}\" takımdan çıkarıldı."
+            );
         }
         public async Task<List<TeamMemberDto>> GetTeamMembersAsync(
             int teamId,

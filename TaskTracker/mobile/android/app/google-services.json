@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "422954334864",
+    "project_id": "tasktracker-db4e2",
+    "storage_bucket": "tasktracker-db4e2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422954334864:android:9cbe6f84230d1caaffb615",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVgxhHyGKSn7vMLC7_vTz1OpnWfd1XRCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

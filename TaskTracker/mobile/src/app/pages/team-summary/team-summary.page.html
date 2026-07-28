@@ -229,9 +229,7 @@
           (click)="selectNavigationTab('summary')">
 
           <span class="navigation-menu-icon">
-
             <ion-icon name="stats-chart-outline"></ion-icon>
-
           </span>
 
           <span class="navigation-menu-text">
@@ -250,9 +248,7 @@
           (click)="selectNavigationTab('board')">
 
           <span class="navigation-menu-icon">
-
             <ion-icon name="grid-outline"></ion-icon>
-
           </span>
 
           <span class="navigation-menu-text">
@@ -267,9 +263,7 @@
           (click)="selectNavigationTab('list')">
 
           <span class="navigation-menu-icon">
-
             <ion-icon name="list-outline"></ion-icon>
-
           </span>
 
           <span class="navigation-menu-text">
@@ -284,9 +278,7 @@
           (click)="selectNavigationTab('calendar')">
 
           <span class="navigation-menu-icon">
-
             <ion-icon name="calendar-outline"></ion-icon>
-
           </span>
 
           <span class="navigation-menu-text">
@@ -390,9 +382,7 @@
           </div>
 
           <div class="completion-circle">
-
             {{ summary.doneTasks }}/{{ summary.totalTasks }}
-
           </div>
 
         </div>
@@ -413,10 +403,8 @@
         </div>
 
         <p>
-
           Toplam {{ summary.totalTasks }} görevden
           {{ summary.doneTasks }} tanesi tamamlandı.
-
         </p>
 
       </article>
@@ -522,9 +510,7 @@
           <div
             class="overdue-icon"
             aria-hidden="true">
-
             !
-
           </div>
 
           <div>
@@ -544,6 +530,68 @@
         </strong>
 
       </article>
+
+      <!-- SON AKTİVİTELER -->
+
+      <section class="activity-card">
+
+        <div class="activity-header">
+
+          <h2>Son Aktiviteler</h2>
+
+          <button
+            type="button"
+            class="view-all-button">
+
+            Tümünü Gör
+
+          </button>
+
+        </div>
+
+        <div
+          class="activity-empty"
+          *ngIf="activities.length === 0">
+
+          Henüz aktivite bulunmuyor.
+
+        </div>
+
+        <div
+          class="activity-item"
+          *ngFor="let activity of activities">
+
+          <div
+            class="activity-icon"
+            [style.background-color]="
+              getActivityColor(activity.type)
+            ">
+
+            <ion-icon
+              [name]="getActivityIcon(activity.type)">
+            </ion-icon>
+
+          </div>
+
+          <div class="activity-content">
+
+            <div class="activity-user">
+              {{ activity.userName }}
+            </div>
+
+            <div class="activity-description">
+              {{ activity.description }}
+            </div>
+
+            <div class="activity-date">
+              {{ getRelativeTime(activity.createdAt) }}
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
     </section>
 

@@ -7,6 +7,7 @@ import {
   ViewChild
 } from '@angular/core';
 
+
 import { FormsModule } from '@angular/forms';
 
 import {
@@ -26,7 +27,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-
+import { environment } from '../../../environments/environment';
 import {
   arrowBackOutline,
   attachOutline,
@@ -111,9 +112,8 @@ export class TaskDetailPage implements OnInit {
 
   @ViewChild('commentFileInput')
   commentFileInput?: ElementRef<HTMLInputElement>;
-
-  private readonly apiBaseUrl =
-    'https://localhost:7164/api';
+private readonly apiBaseUrl =
+  environment.apiUrl;
 
   teamId = 0;
 

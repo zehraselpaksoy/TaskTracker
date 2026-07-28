@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { RegisterRequest } from '../models/register';
+import { environment } from '../../environments/environment';
 
 export interface LoginRequest {
   email: string;
@@ -20,8 +21,7 @@ export class AuthService {
 
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl =
-    'https://localhost:7164/api/auth';
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   login(
     loginRequest: LoginRequest

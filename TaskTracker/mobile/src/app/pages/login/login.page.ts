@@ -11,6 +11,10 @@ import {
   IonLabel
 } from '@ionic/angular/standalone';
 
+import {
+  DeviceTokenService
+} from '../../services/device-token.service';
+
 import { AuthService } from '../../services/auth';
 
 interface LoginResponse {
@@ -48,6 +52,7 @@ export class LoginPage {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly deviceTokenService: DeviceTokenService,
     private readonly router: Router
   ) {}
 
@@ -72,13 +77,41 @@ export class LoginPage {
       email,
       password
     }).subscribe({
-      next: (response: LoginResponse) => {
+     next: (response: LoginResponse) => {
+  localStorage.setItem('token', response.token);
+
+  const fcmToken = localStorage.getItem('fcmToken');
+
+  if (!fcmToken) {
+    this.isLoading = false;
+    void this.router.navigate(['/teams']);
+    return;
+  }
+
+  this.deviceTokenService
+    .register(fcmToken)
+    .subscribe({
+      next: () => {
+        console.log(
+          'Cihaz tokenı backend’e kaydedildi.'
+        );
+
         this.isLoading = false;
-
-        localStorage.setItem('token', response.token);
-
-        this.router.navigate(['/teams']);
+        void this.router.navigate(['/teams']);
       },
+
+      error: (tokenError: unknown) => {
+        // Token kaydı başarısız olsa bile kullanıcı giriş yapabilir.
+        console.error(
+          'Cihaz tokenı kaydedilemedi:',
+          tokenError
+        );
+
+        this.isLoading = false;
+        void this.router.navigate(['/teams']);
+      }
+    });
+},
 
       error: (error: ApiError) => {
         this.isLoading = false;

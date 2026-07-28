@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface TaskResponse {
   id: number;
@@ -35,11 +36,10 @@ export interface TaskResponse {
 })
 export class TaskService {
 
-  private readonly http =
-    inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   private readonly apiUrl =
-    'https://localhost:7164/api/tasks';
+    `${environment.apiUrl}/tasks`;
 
   getMyTasks(): Observable<TaskResponse[]> {
     return this.http.get<TaskResponse[]>(

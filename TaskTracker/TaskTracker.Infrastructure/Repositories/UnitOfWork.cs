@@ -7,6 +7,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly TaskTrackerDbContext _context;
 
+    public IUserDeviceTokenRepository UserDeviceTokens { get; }
     public IUserRepository Users { get; }
 
     public ITaskItemRepository Tasks { get; }
@@ -20,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
     public ITaskCommentRepository TaskComments { get; }
 
     public ICommentAttachmentRepository CommentAttachments { get; }
+    public IActivityRepository Activities { get; }
 
     public UnitOfWork(
         TaskTrackerDbContext context,
@@ -29,7 +31,9 @@ public class UnitOfWork : IUnitOfWork
         ITeamRepository teamRepository,
         ITeamMemberRepository teamMemberRepository,
         ITaskCommentRepository taskCommentRepository,
-        ICommentAttachmentRepository commentAttachmentRepository)
+        ICommentAttachmentRepository commentAttachmentRepository,
+        IActivityRepository activities,
+        IUserDeviceTokenRepository userDeviceTokens )
     {
         _context = context;
 
@@ -40,6 +44,8 @@ public class UnitOfWork : IUnitOfWork
         TeamMembers = teamMemberRepository;
         TaskComments = taskCommentRepository;
         CommentAttachments = commentAttachmentRepository;
+        Activities = activities;
+        UserDeviceTokens = userDeviceTokens;
     }
 
     public async Task<int> SaveChangesAsync()

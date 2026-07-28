@@ -23,5 +23,7 @@ namespace TaskTracker.Domain.Entities
             = new List<TeamMember>();
         public ICollection<TaskComment> Comments { get; set; }
             = new List<TaskComment>();
+
+        public ICollection<UserDeviceToken> DeviceTokens { get; set; } = new List<UserDeviceToken>();
     }
 }

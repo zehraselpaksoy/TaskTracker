@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-
+import { environment } from '../../../environments/environment';
 import {
   HttpClient,
   HttpErrorResponse
@@ -128,12 +128,11 @@ interface UpdateTaskStatusRequest {
   ]
 })
 export class TeamBoardPage implements OnInit, OnDestroy {
+private readonly taskApiUrl =
+  `${environment.apiUrl}/tasks`;
 
-  private readonly taskApiUrl =
-    'https://localhost:7164/api/tasks';
-
-  private readonly categoryApiUrl =
-    'https://localhost:7164/api/categories';
+private readonly categoryApiUrl =
+  `${environment.apiUrl}/categories`;
 
 
   memberSearchText = '';
@@ -336,9 +335,13 @@ addedMemberMessage = '';
 }
 
   loadBoard(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-    this.dragDropErrorMessage = '';
+  this.selectedPriority = null;
+  this.selectedAssigneeId = null;
+  this.searchText = '';
+
+  this.isLoading = true;
+  this.errorMessage = '';
+  this.dragDropErrorMessage = '';
 
     forkJoin({
       team:

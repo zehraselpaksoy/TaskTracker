@@ -1365,3 +1365,123 @@ button {
     transition: none;
   }
 }
+
+.activity-card {
+
+  margin-top: 28px;
+
+  padding: 20px;
+
+  background: #1d1d1f;
+
+  border-radius: 18px;
+
+  border: 1px solid #34353a;
+}
+
+.activity-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.activity-header h2 {
+
+  margin: 0;
+
+  color: white;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+.view-all-button {
+
+  background: transparent;
+
+  border: none;
+
+  color: #72a7ff;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+.activity-item {
+
+  display: flex;
+
+  gap: 14px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #2c2d31;
+}
+
+.activity-item:last-child {
+
+  border-bottom: none;
+}
+
+.activity-icon {
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: white;
+
+  flex-shrink: 0;
+}
+
+.activity-icon ion-icon {
+
+  font-size: 22px;
+}
+
+.activity-content {
+
+  flex: 1;
+}
+
+.activity-user {
+
+  color: white;
+
+  font-weight: 600;
+
+  margin-bottom: 4px;
+}
+
+.activity-description {
+
+  color: #b6b6bc;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.activity-date {
+
+  margin-top: 6px;
+
+  color: #7c7d82;
+
+  font-size: 12px;
+}

@@ -3,6 +3,9 @@ using TaskTracker.Application.Interfaces.Repositories;
 using TaskTracker.Application.Interfaces.Services;
 using TaskTracker.Application.Interfaces.Storage;
 using TaskTracker.Domain.Entities;
+using TaskTracker.Domain.Enums;
+using TaskTracker.Application.Interfaces.Messaging;
+using TaskTracker.Contracts.Events;
 
 namespace TaskTracker.Application.Services;
 
@@ -10,13 +13,19 @@ public class TaskCommentService : ITaskCommentService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFileStorageService _fileStorageService;
+    private readonly IActivityService _activityService;
+    private readonly IRabbitMqPublisher _rabbitMqPublisher;
 
     public TaskCommentService(
         IUnitOfWork unitOfWork,
-        IFileStorageService fileStorageService)
+        IFileStorageService fileStorageService,
+        IActivityService activityService,
+        IRabbitMqPublisher rabbitMqPublisher    )
     {
         _unitOfWork = unitOfWork;
         _fileStorageService = fileStorageService;
+        _activityService = activityService;
+        _rabbitMqPublisher = rabbitMqPublisher;
     }
 
     public async Task<List<CommentDto>> GetCommentsByTaskIdAsync(
@@ -49,9 +58,7 @@ public class TaskCommentService : ITaskCommentService
         return commentDtos.ToList();
     }
 
-    public async Task<CommentDto?> GetCommentByIdAsync(
-        int commentId,
-        int currentUserId)
+    public async Task<CommentDto?> GetCommentByIdAsync(int commentId,int currentUserId)
     {
         var comment = await _unitOfWork.TaskComments
             .GetByIdWithDetailsAsync(commentId);
@@ -75,10 +82,7 @@ public class TaskCommentService : ITaskCommentService
         return await MapToDtoAsync(comment);
     }
 
-    public async Task<CommentDto> CreateCommentAsync(
-        int taskId,
-        CreateCommentDto createCommentDto,
-        int currentUserId)
+    public async Task<CommentDto> CreateCommentAsync(int taskId, CreateCommentDto createCommentDto, int currentUserId)
     {
         var task = await _unitOfWork.Tasks
             .GetByIdWithDetailsAsync(taskId);
@@ -143,6 +147,59 @@ public class TaskCommentService : ITaskCommentService
 
             await _unitOfWork.SaveChangesAsync();
 
+
+            await _activityService.LogAsync(
+                teamId: task.TeamId,
+                userId: currentUserId,
+                taskId: task.Id,
+                type: ActivityType.CommentAdded,
+                description: $"\"{task.Title}\" görevine yorum eklendi."
+            );
+            var recipientUserIds = new HashSet<int>();
+
+            // Görevi oluşturan kullanıcı, yorumu yazan kişi değilse ekle.
+            if (task.CreatedByUserId != currentUserId)
+            {
+                recipientUserIds.Add(task.CreatedByUserId);
+            }
+
+            // Göreve atanan kullanıcı varsa ve yorumu yazan kişi değilse ekle.
+            if (task.AssignedToUserId.HasValue &&
+                task.AssignedToUserId.Value != currentUserId)
+            {
+                recipientUserIds.Add(task.AssignedToUserId.Value);
+            }
+
+            if (recipientUserIds.Count > 0)
+            {
+                var commentedByUser = await _unitOfWork.Users
+                    .GetByIdAsync(currentUserId);
+
+                var commentedByUserName = commentedByUser is null
+                    ? "Bir takım üyesi"
+                    : $"{commentedByUser.FirstName} {commentedByUser.LastName}".Trim();
+
+                var commentContent = comment.Content;
+
+                var commentPreview = commentContent.Length > 100
+                    ? $"{commentContent[..100]}..."
+                    : commentContent;
+
+                var commentAddedEvent = new TaskCommentAddedEvent
+                {
+                    TaskId = task.Id,
+                    TaskTitle = task.Title,
+                    CommentedByUserId = currentUserId,
+                    CommentedByUserName = commentedByUserName,
+                    CommentPreview = commentPreview,
+                    RecipientUserIds = recipientUserIds.ToList()
+                };
+
+                await _rabbitMqPublisher.PublishAsync(
+                    queueName: "task-comment-added-queue",
+                    message: commentAddedEvent);
+            }
+
             var createdComment = await _unitOfWork.TaskComments
                 .GetByIdWithDetailsAsync(comment.Id)
                 ?? throw new Exception("Yorum oluşturulamadı.");
@@ -156,10 +213,7 @@ public class TaskCommentService : ITaskCommentService
         }
     }
 
-    public async Task<CommentDto> UpdateCommentAsync(
-        int commentId,
-        UpdateCommentDto updateCommentDto,
-        int currentUserId)
+    public async Task<CommentDto> UpdateCommentAsync(int commentId,UpdateCommentDto updateCommentDto,int currentUserId)
     {
         var comment = await _unitOfWork.TaskComments
             .GetByIdWithDetailsAsync(commentId);
@@ -188,12 +242,19 @@ public class TaskCommentService : ITaskCommentService
 
         await _unitOfWork.SaveChangesAsync();
 
+        await _activityService.LogAsync(
+            teamId: comment.TaskItem.TeamId,
+            userId: currentUserId,
+            taskId: comment.TaskItemId,
+            type: ActivityType.CommentUpdated,
+            description:
+                $"\"{comment.TaskItem.Title}\" görevindeki yorum güncellendi."
+        );
+
         return await MapToDtoAsync(comment);
     }
 
-    public async Task DeleteCommentAsync(
-        int commentId,
-        int currentUserId)
+    public async Task DeleteCommentAsync(int commentId,int currentUserId)
     {
         var comment = await _unitOfWork.TaskComments
             .GetByIdWithDetailsAsync(commentId);
@@ -222,9 +283,22 @@ public class TaskCommentService : ITaskCommentService
             .Select(attachment => attachment.ObjectKey)
             .ToList();
 
+        var teamId = comment.TaskItem.TeamId;
+        var taskId = comment.TaskItemId;
+        var taskTitle = comment.TaskItem.Title;
+                
         _unitOfWork.TaskComments.Delete(comment);
 
         await _unitOfWork.SaveChangesAsync();
+
+        await _activityService.LogAsync(
+            teamId: teamId,
+            userId: currentUserId,
+            taskId: taskId,
+            type: ActivityType.CommentDeleted,
+            description:
+                $"\"{taskTitle}\" görevindeki yorum silindi."
+        );
 
         await DeleteUploadedFilesSafelyAsync(objectKeys);
     }

@@ -30,7 +30,7 @@ namespace TaskTracker.API.Middleware
 
                 await WriteResponseAsync(
                     context,
-                    HttpStatusCode.Forbidden,   
+                    HttpStatusCode.Forbidden,
                     exception.Message);
             }
             catch (KeyNotFoundException exception)

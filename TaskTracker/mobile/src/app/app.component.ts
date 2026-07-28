@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import {
+  IonApp,
+  IonRouterOutlet
+} from '@ionic/angular/standalone';
+import {
+  PushNotificationService
+} from './services/push-notification.service';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +20,10 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   ]
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private readonly pushNotificationService:
+      PushNotificationService
+  ) {
+    void this.pushNotificationService.initialize();
+  }
 }

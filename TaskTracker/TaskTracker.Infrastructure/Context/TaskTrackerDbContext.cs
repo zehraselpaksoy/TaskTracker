@@ -19,8 +19,9 @@ namespace TaskTracker.Infrastructure.Context
         public DbSet<TaskItem> TaskItems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
-
+        public DbSet<Activity> Activities => Set<Activity>();
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<UserDeviceToken> UserDeviceTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

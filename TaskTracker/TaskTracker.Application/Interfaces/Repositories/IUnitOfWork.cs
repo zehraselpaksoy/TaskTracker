@@ -20,5 +20,10 @@ namespace TaskTracker.Application.Interfaces.Repositories
         ITeamMemberRepository TeamMembers { get; }
         ITaskCommentRepository TaskComments { get; }
         ICommentAttachmentRepository CommentAttachments { get; }
+        IActivityRepository Activities { get; }
+
+        IUserDeviceTokenRepository UserDeviceTokens { get; }
+
+
     }
 }

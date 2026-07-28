@@ -78,5 +78,5 @@ public class ReportsController : ControllerBase
                 .GetUpcomingDeadlinesAsync(userId);
 
         return Ok(result);
-    } 
+    }
 }

@@ -1250,6 +1250,24 @@ button {
   background: rgba(114, 167, 255, 0.12);
   color: var(--text-primary);
 }
+.navigation-menu-item {
+  position: relative;
+}
+
+.navigation-menu-item.active::before {
+  content: '';
+
+  position: absolute;
+  left: -1px;
+  top: 10px;
+  bottom: 10px;
+
+  width: 4px;
+
+  border-radius: 0 4px 4px 0;
+
+  background: var(--accent);
+}
 
 .navigation-menu-icon {
   width: 36px;
@@ -1279,12 +1297,23 @@ button {
 }
 
 .navigation-active-indicator {
-  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 16px;
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+  color: #071326;
+
+  font-size: 18px;
   font-weight: 900;
-
-  text-align: center;
+  line-height: 1;
 }
 
 .navigation-drawer-footer {
@@ -1295,38 +1324,53 @@ button {
 
 .navigation-back-button {
   width: 100%;
-  min-height: 48px;
+  min-height: 50px;
 
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 9px;
+  justify-content: flex-start;
+  gap: 12px;
 
-  padding: 0 14px;
+  padding: 10px 14px;
 
   border: 1px solid #383940;
-  border-radius: 12px;
+  border-radius: 14px;
 
-  background: #242529;
-  color: var(--text-primary);
+  background: #19191c;
+  color: var(--text-secondary);
 
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 650;
+  text-align: left;
 
   transition:
     border-color 150ms ease,
-    background-color 150ms ease;
+    background-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
 }
 
 .navigation-back-button:hover {
   border-color: #4b4d55;
 
-  background: #2d2e34;
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.navigation-back-button:active {
+  transform: scale(0.985);
+}
+.navigation-back-button span {
+  min-width: 0;
+  text-align: left;
 }
 
 .navigation-back-button ion-icon {
-  font-size: 19px;
+  flex: 0 0 auto;
+
+  font-size: 21px;
 }
+
 
 /* =========================================================
    TABLET / DESKTOP

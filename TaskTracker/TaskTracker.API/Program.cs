@@ -7,6 +7,7 @@ using TaskTracker.API.Middleware;
 using TaskTracker.Application;
 using TaskTracker.Infrastructure;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Service Registrations
@@ -104,7 +105,10 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:8100",
-                "http://127.0.0.1:8100"
+                "http://127.0.0.1:8100",
+                "http://localhost",
+                "https://localhost",
+                "capacitor://localhost"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -178,10 +182,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// HTTP isteklerini HTTPS'e yönlendirir
-app.UseHttpsRedirection();
+// Geliþtirme ortamýnda Android emülatörü HTTP kullanýr.
+// Production ortamýnda HTTP istekleri HTTPS'e yönlendirilir.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
-// Ionic frontend eriþimi
+// Ionic ve Capacitor eriþimi
 app.UseCors("AllowIonic");
 
 // Kullanýcý kimlik doðrulamasý

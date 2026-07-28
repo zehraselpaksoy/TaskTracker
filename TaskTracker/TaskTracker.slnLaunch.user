@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "TaskTracker.API\\TaskTracker.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "TaskTracker.NotificationService\\TaskTracker.NotificationService.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

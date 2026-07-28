@@ -24,15 +24,25 @@ import {
 import { addIcons } from 'ionicons';
 
 import {
+  addCircleOutline,
   arrowBackOutline,
   calendarOutline,
+  chatbubbleOutline,
   checkmarkCircleOutline,
   chevronDownOutline,
   closeOutline,
+  createOutline,
+  ellipseOutline,
   gridOutline,
   listOutline,
   menuOutline,
-  statsChartOutline
+  peopleOutline,
+  personAddOutline,
+  personOutline,
+  personRemoveOutline,
+  statsChartOutline,
+  swapHorizontalOutline,
+  trashOutline
 } from 'ionicons/icons';
 
 import { forkJoin } from 'rxjs';
@@ -46,7 +56,9 @@ import {
 } from '../../services/report';
 
 import { TeamService } from '../../services/teams';
+import { Activity } from '../../models/activity';
 
+import { ActivityService } from '../../services/activity';
 @Component({
   selector: 'app-team-summary',
   templateUrl: './team-summary.page.html',
@@ -61,6 +73,11 @@ import { TeamService } from '../../services/teams';
 })
 export class TeamSummaryPage implements OnInit {
 
+  activities: Activity[] = [];
+
+isActivitiesLoading = false;
+
+activityError = '';
   teamId = 0;
 
   teamName = 'Takım yükleniyor...';
@@ -95,19 +112,30 @@ export class TeamSummaryPage implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly reportService: ReportService,
-    private readonly teamService: TeamService
+    private readonly teamService: TeamService,
+    private readonly activityService: ActivityService,
   ) {
-    addIcons({
-      arrowBackOutline,
-      calendarOutline,
-      checkmarkCircleOutline,
-      chevronDownOutline,
-      closeOutline,
-      gridOutline,
-      listOutline,
-      menuOutline,
-      statsChartOutline
-    });
+   addIcons({
+  addCircleOutline,
+  arrowBackOutline,
+  calendarOutline,
+  chatbubbleOutline,
+  checkmarkCircleOutline,
+  chevronDownOutline,
+  closeOutline,
+  createOutline,
+  ellipseOutline,
+  gridOutline,
+  listOutline,
+  menuOutline,
+  peopleOutline,
+  personAddOutline,
+  personOutline,
+  personRemoveOutline,
+  statsChartOutline,
+  swapHorizontalOutline,
+  trashOutline
+});
   }
 
   ngOnInit(): void {
@@ -127,8 +155,12 @@ export class TeamSummaryPage implements OnInit {
     }
 
     this.teamId = id;
+  }
 
-    this.loadSummary();
+  ionViewWillEnter(): void {
+    if (this.teamId > 0) {
+      this.loadSummary();
+    }
   }
 
   @HostListener('document:keydown.escape')
@@ -153,32 +185,39 @@ export class TeamSummaryPage implements OnInit {
 
     this.errorMessage = '';
 
-    this.summary = null;
+   this.summary = null;
+this.activities = [];
 
-    forkJoin({
-      team:
-        this.teamService.getTeamById(
-          this.teamId
-        ),
+ forkJoin({
+  team:
+    this.teamService.getTeamById(
+      this.teamId
+    ),
 
-      summary:
-        this.reportService.getTeamSummary(
-          this.teamId
-        )
-    }).subscribe({
+  summary:
+    this.reportService.getTeamSummary(
+      this.teamId
+    ),
+
+  activities:
+    this.activityService.getTeamActivities(
+      this.teamId
+    )
+}).subscribe({
       next: ({
         team,
-        summary
+        summary,activities
       }) => {
         this.teamName = team.name;
 
         this.summary = summary;
+         this.activities = activities;
 
         localStorage.setItem(
           `teamName_${this.teamId}`,
           team.name
         );
-
+        
         this.isLoading = false;
       },
 
@@ -227,6 +266,112 @@ export class TeamSummaryPage implements OnInit {
   onNavigationBackdropClick(): void {
     this.closeNavigationMenu();
   }
+getActivityIcon(type: number): string {
+
+  switch (type) {
+
+    case 1:
+      return 'add-circle-outline';
+
+    case 2:
+      return 'create-outline';
+
+    case 3:
+      return 'swap-horizontal-outline';
+
+    case 4:
+      return 'person-outline';
+
+    case 5:
+      return 'trash-outline';
+
+    case 6:
+      return 'people-outline';
+
+    case 7:
+      return 'person-add-outline';
+
+    case 8:
+      return 'person-remove-outline';
+
+    case 9:
+    case 10:
+    case 11:
+      return 'chatbubble-outline';
+
+    default:
+      return 'ellipse-outline';
+  }
+}
+
+getActivityColor(type: number): string {
+
+  switch (type) {
+
+    case 1:
+      return '#22c55e';
+
+    case 2:
+      return '#3b82f6';
+
+    case 3:
+      return '#f59e0b';
+
+    case 4:
+      return '#8b5cf6';
+
+    case 5:
+      return '#ef4444';
+
+    case 6:
+      return '#14b8a6';
+
+    case 7:
+      return '#06b6d4';
+
+    case 8:
+      return '#f97316';
+
+    case 9:
+    case 10:
+    case 11:
+      return '#6366f1';
+
+    default:
+      return '#6b7280';
+  }
+}
+
+getRelativeTime(date: string): string {
+
+  const now = new Date();
+
+  const activityDate = new Date(date);
+
+  const diff =
+    Math.floor(
+      (now.getTime() - activityDate.getTime()) / 1000
+    );
+
+  if (diff < 60) {
+    return 'Az önce';
+  }
+
+  if (diff < 3600) {
+    return `${Math.floor(diff / 60)} dakika önce`;
+  }
+
+  if (diff < 86400) {
+    return `${Math.floor(diff / 3600)} saat önce`;
+  }
+
+  if (diff < 604800) {
+    return `${Math.floor(diff / 86400)} gün önce`;
+  }
+
+  return activityDate.toLocaleDateString('tr-TR');
+}
+
 
   selectNavigationTab(
     tab: BoardTab

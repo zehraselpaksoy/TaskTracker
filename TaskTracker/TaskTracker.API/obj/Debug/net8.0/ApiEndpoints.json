@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "TaskTracker.API.Controllers.ActivitiesController",
+    "Method": "GetTeamActivities",
+    "RelativePath": "api/Activities/team/{teamId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskTracker.API.Controllers.TaskCommentsController",
     "Method": "DeleteAttachment",
     "RelativePath": "api/attachments/{attachmentId}",
@@ -115,6 +131,22 @@
       {
         "Name": "commentId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskTracker.API.Controllers.DeviceTokensController",
+    "Method": "Register",
+    "RelativePath": "api/device-tokens",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDeviceTokenDto",
+        "Type": "TaskTracker.Application.DTOs.Notifications.RegisterDeviceTokenDto",
         "IsRequired": true
       }
     ],

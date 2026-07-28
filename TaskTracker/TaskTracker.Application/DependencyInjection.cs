@@ -14,6 +14,8 @@ namespace TaskTracker.Application
             services.AddScoped<ITaskCommentService, TaskCommentService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IActivityService, ActivityService>();
+            services.AddScoped<IDeviceTokenService,DeviceTokenService>();
 
             return services;
         }
