@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+**/.vs/
+
+# .NET
+**/bin/
+**/obj/
+
+# Node ve Ionic
+**/node_modules/
+**/www/
+**/.angular/
+
+# Firebase Admin gizli anahtarı
+*firebase-adminsdk*.json
+**/serviceAccountKey.json
+
+# Yerel ayarlar
+**/appsettings.Development.json
