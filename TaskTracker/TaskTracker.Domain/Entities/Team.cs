@@ -16,5 +16,7 @@ namespace TaskTracker.Domain.Entities
 
         public ICollection<TaskItem> Tasks { get; set; }
             = new List<TaskItem>();
+        public ICollection<TeamInvitation> Invitations { get; set; }
+            = new List<TeamInvitation>();
     }
 }

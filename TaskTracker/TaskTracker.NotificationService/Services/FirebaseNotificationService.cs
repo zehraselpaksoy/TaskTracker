@@ -26,9 +26,22 @@ public sealed class FirebaseNotificationService
                 Body = body
             },
 
+            Android = new AndroidConfig
+            {
+                Priority = Priority.High,
+                TimeToLive = TimeSpan.FromHours(1),
+
+                Notification = new AndroidNotification
+                {
+                    Priority = NotificationPriority.HIGH,
+                    DefaultSound = true,
+                    DefaultVibrateTimings = true
+                }
+            },
+
             Data = data is null
-                ? null
-                : new Dictionary<string, string>(data)
+        ? null
+        : new Dictionary<string, string>(data)
         };
 
 #pragma warning disable CS0618

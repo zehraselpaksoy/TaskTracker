@@ -1,0 +1,20 @@
+# Visual Studio
+.vs/
+**/.vs/
+
+# .NET
+**/bin/
+**/obj/
+
+# Node ve Ionic
+**/node_modules/
+**/www/
+**/.angular/
+
+# Firebase
+**/google-services.json
+**/*firebase-adminsdk*.json
+**/serviceAccountKey.json
+
+# Yerel ayarlar
+**/appsettings.Development.json
