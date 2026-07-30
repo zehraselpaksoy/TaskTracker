@@ -11,55 +11,18 @@ export interface CreateTeamRequest {
   description?: string | null;
 }
 
-export interface UserSearchResult {
-  id: number;
-  fullName: string;
-  email: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
-
-  private readonly http = inject(HttpClient);
+  private readonly http =
+    inject(HttpClient);
 
   private readonly apiBaseUrl =
     `${environment.apiUrl}/teams`;
 
   private readonly taskApiUrl =
     `${environment.apiUrl}/tasks`;
-
-  private readonly userApiUrl =
-    `${environment.apiUrl}/users`;
-
-  searchUsers(
-    query: string,
-    teamId: number
-  ): Observable<UserSearchResult[]> {
-    return this.http.get<UserSearchResult[]>(
-      `${this.userApiUrl}/search`,
-      {
-        params: {
-          query,
-          teamId
-        }
-      }
-    );
-  }
-
-  addMember(
-    teamId: number,
-    userId: number
-  ): Observable<string> {
-    return this.http.post(
-      `${this.apiBaseUrl}/${teamId}/members/${userId}`,
-      null,
-      {
-        responseType: 'text'
-      }
-    );
-  }
 
   createTeam(
     request: CreateTeamRequest
@@ -83,6 +46,18 @@ export class TeamService {
       `${this.apiBaseUrl}/${teamId}`
     );
   }
+
+  removeMember(
+  teamId: number,
+  userId: number
+): Observable<string> {
+  return this.http.delete(
+    `${this.apiBaseUrl}/${teamId}/members/${userId}`,
+    {
+      responseType: 'text'
+    }
+  );
+}
 
   getTeamTasks(
     teamId: number

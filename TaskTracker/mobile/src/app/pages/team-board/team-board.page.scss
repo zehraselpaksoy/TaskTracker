@@ -2397,7 +2397,6 @@ button {
   color: #a1a1a8;
   font-size: 20px;
 }
-
 .members-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -2414,8 +2413,12 @@ button {
 }
 
 .members-modal {
-  width: min(100%, 500px);
+  width: min(92vw, 520px);
   max-height: calc(100vh - 40px);
+
+  display: flex;
+  flex-direction: column;
+
   overflow-y: auto;
 
   padding: 24px;
@@ -2424,11 +2427,14 @@ button {
   border-radius: 22px;
 
   background: #1d1d1f;
+  color: #ffffff;
 
   box-shadow:
     0 24px 80px
     rgba(0, 0, 0, 0.55);
 }
+
+/* Üye listesi modalı */
 
 .members-modal-header {
   display: flex;
@@ -2439,11 +2445,14 @@ button {
 
 .members-modal-label {
   display: block;
+
   margin-bottom: 7px;
 
   color: #72a7ff;
+
   font-size: 12px;
   font-weight: 700;
+
   text-transform: uppercase;
 }
 
@@ -2451,6 +2460,7 @@ button {
   margin: 0;
 
   color: #ffffff;
+
   font-size: 24px;
 }
 
@@ -2465,6 +2475,7 @@ button {
   color: #ffffff;
 
   font-size: 24px;
+
   cursor: pointer;
 }
 
@@ -2497,6 +2508,8 @@ button {
   align-items: center;
   justify-content: center;
 
+  flex: 0 0 40px;
+
   border-radius: 50%;
 
   background: #72a7ff;
@@ -2523,6 +2536,7 @@ button {
   margin: 24px 0 0;
 
   color: #a1a1a8;
+
   text-align: center;
 }
 
@@ -2533,151 +2547,295 @@ button {
 
   margin-top: 22px;
 }
-.members-modal {
-  width: min(92vw, 520px);
-  max-height: 80vh;
-  overflow-y: auto;
 
-  background: #1d1d1f;
-  border: 1px solid #34353a;
-  border-radius: 20px;
+/* Davet gönderme modalı */
 
-  padding: 24px;
-
+.invitation-modal-header {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-  color: #ffffff;
-}
-
-.members-modal h2 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.member-search {
-  display: flex;
-  gap: 12px;
-}
-
-.member-search input {
-  flex: 1;
-
-  height: 46px;
-
-  border: 1px solid #34353a;
-  border-radius: 12px;
-
-  background: #242529;
-  color: white;
-
-  padding: 0 16px;
-
-  outline: none;
-
-  transition: .2s;
-}
-
-.member-search input:focus {
-  border-color: #72a7ff;
-}
-
-.member-search button {
-  height: 46px;
-
-  padding: 0 22px;
-
-  border: none;
-  border-radius: 12px;
-
-  background: #72a7ff;
-  color: white;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: .2s;
-}
-
-.member-search button:hover {
-  opacity: .9;
-}
-
-.user-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  max-height: 320px;
-  overflow-y: auto;
-}
-
-.user-item {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 14px;
 
-  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.invitation-modal-icon {
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 46px;
 
   border-radius: 14px;
 
-  background: #242529;
-  border: 1px solid #34353a;
+  background:
+    rgba(114, 167, 255, 0.14);
+
+  color: #72a7ff;
 }
 
-.user-item strong {
+.invitation-modal-icon ion-icon {
+  font-size: 23px;
+}
+
+.invitation-modal-header span {
   display: block;
+
   margin-bottom: 4px;
+
+  color: #72a7ff;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
-.user-item div:last-child {
-  color: #a1a1a8;
-  font-size: 14px;
-}
-
-.user-item button {
-  border: none;
-  border-radius: 10px;
-
-  padding: 10px 18px;
-
-  background: #579dff;
-  color: white;
-
-  cursor: pointer;
-
-  font-weight: 600;
-}
-
-.user-item button:hover {
-  opacity: .9;
-}
-
-.error-message {
-  color: #ff7452;
+.invitation-modal-header h2 {
   margin: 0;
-  font-size: 14px;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 800;
 }
 
-.members-modal > button {
-  align-self: flex-end;
+.invitation-description {
+  margin: 0 0 22px;
 
-  margin-top: 8px;
+  color: #a1a1a8;
 
-  padding: 10px 18px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.invitation-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invitation-field span {
+  color: #d7d7dc;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.invitation-field input {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 14px;
 
   border: 1px solid #34353a;
   border-radius: 12px;
 
-  background: transparent;
-  color: white;
+  outline: none;
+
+  background: #242529;
+  color: #ffffff;
+
+  font-size: 14px;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.invitation-field input::placeholder {
+  color: #73737a;
+}
+
+.invitation-field input:focus {
+  border-color: #579dff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(87, 157, 255, 0.14);
+}
+
+.invitation-field input:disabled {
+  opacity: 0.65;
+}
+
+.error-message,
+.success-message {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.error-message {
+  border:
+    1px solid
+    rgba(255, 116, 82, 0.35);
+
+  background:
+    rgba(255, 116, 82, 0.08);
+
+  color: #ff9b83;
+}
+
+.success-message {
+  border:
+    1px solid
+    rgba(87, 199, 133, 0.35);
+
+  background:
+    rgba(87, 199, 133, 0.08);
+
+  color: #7ed9a3;
+}
+
+.invitation-modal-actions {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.4fr);
+
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.cancel-invitation-button,
+.send-invitation-button {
+  min-height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 0 16px;
+
+  border-radius: 12px;
+
+padding: 24
+px;
+
+  font-size: 13px;
+  font-weight: 750;
 
   cursor: pointer;
 }
 
-.members-modal > button:hover {
-  background: #2b2c31;
+.cancel-invitation-button {
+  border: 1px solid #34353a;
+
+  background: #242529;
+  color: #ffffff;
+}
+
+.send-invitation-button {
+  border: 1px solid #579dff;
+
+  background: #2d63b8;
+  color: #ffffff;
+}
+
+.send-invitation-button ion-spinner {
+  width: 18px;
+  height: 18px;
+}
+
+.cancel-invitation-button:disabled,
+.send-invitation-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 480px) {
+  .members-modal {
+    padding: 20px;
+  }
+
+  .invitation-modal-actions {
+    grid-template-columns: 1fr;
+  }
+}
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.member-info {
+  min-width: 0;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.member-remove-button {
+  min-height: 36px;
+
+  flex: 0 0 auto;
+
+  padding: 0 13px;
+
+  border:
+    1px solid
+    rgba(255, 116, 82, 0.38);
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 116, 82, 0.08);
+
+  color: #ff9b83;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.member-remove-button:hover {
+  border-color:
+    rgba(255, 116, 82, 0.65);
+
+  background:
+    rgba(255, 116, 82, 0.15);
+}
+
+.member-remove-button:active {
+  transform: scale(0.97);
+}
+
+.member-remove-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 480px) {
+  .member-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .member-info {
+    min-width:
+      calc(100% - 56px);
+  }
+
+  .member-remove-button {
+    width: 100%;
+
+    margin-top: 4px;
+  }
 }

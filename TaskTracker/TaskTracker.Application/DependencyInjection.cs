@@ -2,6 +2,7 @@
 using TaskTracker.Application.Interfaces.Services;
 using TaskTracker.Application.Services;
 
+
 namespace TaskTracker.Application
 {
     public static class DependencyInjection
@@ -16,6 +17,8 @@ namespace TaskTracker.Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<IDeviceTokenService,DeviceTokenService>();
+            services.AddScoped<ITeamInvitationService,TeamInvitationService>();
+
 
             return services;
         }

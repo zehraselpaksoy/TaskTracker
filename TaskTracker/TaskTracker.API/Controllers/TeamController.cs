@@ -64,18 +64,7 @@ namespace TaskTracker.API.Controllers
 
             return Ok(team);
         }
-        [HttpPost("{teamId}/members/{userId}")]
-        public async Task<IActionResult> AddMember(int teamId, int userId)
-        {
-            var currentUserId = GetCurrentUserId();
-
-            await _teamService.AddMemberAsync(
-                teamId,
-                userId,
-                currentUserId);
-
-            return Ok("Üye takıma eklendi.");
-        }
+       
         [HttpDelete("{teamId}/members/{userId}")]
         public async Task<IActionResult> RemoveMember(
             int teamId,

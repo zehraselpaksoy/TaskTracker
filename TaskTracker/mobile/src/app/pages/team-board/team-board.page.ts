@@ -64,10 +64,8 @@ import {
 
 import { Team } from '../../models/team';
 
-import {
-  TeamService,
-  UserSearchResult
-} from '../../services/teams';
+import { TeamService } from '../../services/teams';
+import { TeamInvitationService } from '../../services/team-invitation';
 import { SignalRService } from '../../services/signalr';
 import {
   peopleOutline,
@@ -82,6 +80,7 @@ interface CategoryOption {
 interface TeamMemberOption {
   userId: number;
   fullName: string;
+  role: string | number;
 }
 
 interface CreateTaskForm {
@@ -134,19 +133,23 @@ private readonly taskApiUrl =
 private readonly categoryApiUrl =
   `${environment.apiUrl}/categories`;
 
+  currentUserId = 0;
 
-  memberSearchText = '';
+  isCurrentUserTeamLeader = false;
 
-userSearchResults: UserSearchResult[] = [];
+  removingMemberIds = new Set<number>();
 
-isSearchingUsers = false;
+  memberRemoveError = '';
 
-isAddingMember = false;
+  invitationEmail = '';
 
-addMemberError = '';
+  isSendingInvitation = false;
 
-addedMemberMessage = '';
-    isBoardMenuOpen = false;
+  invitationError = '';
+
+  invitationSuccessMessage = '';
+
+  isBoardMenuOpen = false;
 
   isMembersModalOpen = false;
 
@@ -242,6 +245,7 @@ addedMemberMessage = '';
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly teamService: TeamService,
+    private readonly teamInvitationService: TeamInvitationService,
     private readonly http: HttpClient,
     private readonly signalRService: SignalRService
   ) {
@@ -264,6 +268,9 @@ addedMemberMessage = '';
   }
 
   ngOnInit(): void {
+      this.currentUserId =
+    this.getCurrentUserIdFromToken();
+
     const id = Number(
       this.route.snapshot.paramMap.get('id')
     );
@@ -308,8 +315,94 @@ addedMemberMessage = '';
     this.closeAssigneeMenu();
     this.closePriorityMenu();
   }
-  
-  private refreshTeamMembers(): void {
+  removeTeamMember(
+  member: TeamMemberOption
+): void {
+  if (
+    !this.isCurrentUserTeamLeader ||
+    member.userId === this.currentUserId ||
+    this.isRemovingMember(member.userId)
+  ) {
+    return;
+  }
+
+  const confirmed = window.confirm(
+    `${member.fullName} adlı kullanıcı takımdan çıkarılsın mı?`
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  this.memberRemoveError = '';
+
+  this.removingMemberIds.add(
+    member.userId
+  );
+
+  this.teamService
+    .removeMember(
+      this.teamId,
+      member.userId
+    )
+    .subscribe({
+      next: () => {
+        this.removingMemberIds.delete(
+          member.userId
+        );
+
+        this.teamMembers =
+          this.teamMembers.filter(
+            item =>
+              item.userId !== member.userId
+          );
+
+        this.updateCurrentUserTeamRole();
+      },
+
+      error: (
+        error: HttpErrorResponse
+      ) => {
+        console.error(
+          'Üye çıkarma hatası:',
+          error
+        );
+
+        this.removingMemberIds.delete(
+          member.userId
+        );
+
+        if (error.status === 403) {
+          this.memberRemoveError =
+            'Yalnızca takım lideri üye çıkarabilir.';
+
+          return;
+        }
+
+        if (error.status === 404) {
+          this.memberRemoveError =
+            'Takım üyesi bulunamadı.';
+
+          return;
+        }
+
+        this.memberRemoveError =
+          this.extractBackendError(
+            error,
+            'Üye takımdan çıkarılamadı.'
+          );
+      }
+    });
+}
+
+isRemovingMember(
+  userId: number
+): boolean {
+  return this.removingMemberIds.has(
+    userId
+  );
+}
+ private refreshTeamMembers(): void {
   this.teamService
     .getTeamById(this.teamId)
     .subscribe({
@@ -318,9 +411,12 @@ addedMemberMessage = '';
           (team.members ?? []).map(
             member => ({
               userId: member.userId,
-              fullName: member.fullName
+              fullName: member.fullName,
+              role: member.role
             })
           );
+
+        this.updateCurrentUserTeamRole();
       },
 
       error: (
@@ -361,11 +457,14 @@ addedMemberMessage = '';
         this.teamName = team.name;
 
         this.teamMembers = (
-          team.members ?? []
-        ).map(member => ({
-          userId: member.userId,
-          fullName: member.fullName
-        }));
+  team.members ?? []
+).map(member => ({
+  userId: member.userId,
+  fullName: member.fullName,
+  role: member.role
+}));
+
+this.updateCurrentUserTeamRole();
 
         this.tasks = tasks.map(
           task => this.mapBoardTask(task)
@@ -967,188 +1066,115 @@ closeMembersModal(): void {
 openAddMemberModal(): void {
   this.closeBoardMenu();
 
-  this.memberSearchText = '';
-  this.userSearchResults = [];
-  this.addMemberError = '';
-  this.addedMemberMessage = '';
+  this.invitationEmail = '';
+  this.invitationError = '';
+  this.invitationSuccessMessage = '';
 
   this.isAddMemberModalOpen = true;
 }
 
 closeAddMemberModal(): void {
-  if (
-    this.isSearchingUsers ||
-    this.isAddingMember
-  ) {
+  if (this.isSendingInvitation) {
     return;
   }
 
   this.isAddMemberModalOpen = false;
 
-  this.memberSearchText = '';
-  this.userSearchResults = [];
-  this.addMemberError = '';
-  this.addedMemberMessage = '';
+  this.invitationEmail = '';
+  this.invitationError = '';
+  this.invitationSuccessMessage = '';
 }
-searchUsers(): void {
-  const query =
-    this.memberSearchText.trim();
 
-  this.addMemberError = '';
-  this.addedMemberMessage = '';
+sendTeamInvitation(): void {
+  if (this.isSendingInvitation) {
+    return;
+  }
 
-  if (query.length < 2) {
-    this.userSearchResults = [];
+  const email = this.invitationEmail
+    .trim()
+    .toLowerCase();
 
-    if (query.length === 1) {
-      this.addMemberError =
-        'Arama için en az 2 karakter girin.';
-    }
+  this.invitationError = '';
+  this.invitationSuccessMessage = '';
+
+  if (!email) {
+    this.invitationError =
+      'E-posta adresi boş bırakılamaz.';
 
     return;
   }
 
-  this.isSearchingUsers = true;
+  const emailPattern =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  this.teamService
-    .searchUsers(
-      query,
-      this.teamId
-    )
-    .subscribe({
-      next: users => {
-        this.userSearchResults = users;
-        this.isSearchingUsers = false;
+  if (!emailPattern.test(email)) {
+    this.invitationError =
+      'Geçerli bir e-posta adresi girin.';
 
-        if (users.length === 0) {
-          this.addMemberError =
-            'Eşleşen ve henüz takımda olmayan kullanıcı bulunamadı.';
-        }
-      },
-
-      error: (
-        error: HttpErrorResponse
-      ) => {
-        console.error(
-          'Kullanıcı arama hatası:',
-          error
-        );
-
-        this.isSearchingUsers = false;
-        this.userSearchResults = [];
-
-        if (error.status === 0) {
-          this.addMemberError =
-            'Backend sunucusuna ulaşılamadı.';
-
-          return;
-        }
-
-        if (error.status === 401) {
-          this.addMemberError =
-            'Oturumunuz sona ermiş olabilir.';
-
-          return;
-        }
-
-        if (error.status === 403) {
-          this.addMemberError =
-            'Kullanıcı arama yetkiniz bulunmuyor.';
-
-          return;
-        }
-
-        this.addMemberError =
-          this.extractBackendError(
-            error,
-            'Kullanıcılar aranırken bir hata oluştu.'
-          );
-      }
-    });
-}
-addTeamMember(
-  user: UserSearchResult
-): void {
-  if (this.isAddingMember) {
     return;
   }
 
-  this.isAddingMember = true;
-  this.addMemberError = '';
-  this.addedMemberMessage = '';
+  this.isSendingInvitation = true;
 
-  this.teamService
-    .addMember(
+  this.teamInvitationService
+    .sendInvitation(
       this.teamId,
-      user.id
+      {
+        email
+      }
     )
     .subscribe({
-      next: () => {
-        this.isAddingMember = false;
+      next: response => {
+        this.isSendingInvitation = false;
 
-        this.addedMemberMessage =
-          `${user.fullName} takıma eklendi.`;
+        this.invitationSuccessMessage =
+          response.message;
 
-        this.userSearchResults =
-          this.userSearchResults.filter(
-            item => item.id !== user.id
-          );
-
-        this.refreshTeamMembers();
+        this.invitationEmail = '';
       },
 
       error: (
         error: HttpErrorResponse
       ) => {
         console.error(
-          'Takıma üye ekleme hatası:',
+          'Takım daveti gönderme hatası:',
           error
         );
 
-        this.isAddingMember = false;
+        this.isSendingInvitation = false;
 
         if (error.status === 0) {
-          this.addMemberError =
+          this.invitationError =
             'Backend sunucusuna ulaşılamadı.';
 
           return;
         }
 
-        if (error.status === 400) {
-          this.addMemberError =
-            this.extractBackendError(
-              error,
-              'Kullanıcı takıma eklenemedi.'
-            );
-
-          return;
-        }
-
         if (error.status === 401) {
-          this.addMemberError =
+          this.invitationError =
             'Oturumunuz sona ermiş olabilir.';
 
           return;
         }
 
         if (error.status === 403) {
-          this.addMemberError =
-            'Takıma üye eklemek için takım lideri olmalısınız.';
+          this.invitationError =
+            'Yalnızca takım üyeleri davet gönderebilir.';
 
           return;
         }
 
         if (error.status === 404) {
-          this.addMemberError =
-            'Takım veya kullanıcı bulunamadı.';
+          this.invitationError =
+            'Takım bulunamadı.';
 
           return;
         }
 
-        this.addMemberError =
+        this.invitationError =
           this.extractBackendError(
             error,
-            'Kullanıcı takıma eklenirken bir hata oluştu.'
+            'Takım daveti gönderilemedi.'
           );
       }
     });
@@ -1831,4 +1857,87 @@ addTeamMember(
       );
     }
   }
+  private updateCurrentUserTeamRole(): void {
+  const currentMembership =
+    this.teamMembers.find(
+      member =>
+        member.userId ===
+        this.currentUserId
+    );
+
+  this.isCurrentUserTeamLeader =
+    currentMembership !== undefined &&
+    this.isLeaderRole(
+      currentMembership.role
+    );
+}
+
+private isLeaderRole(
+  role: string | number
+): boolean {
+  if (typeof role === 'number') {
+    return role === 2;
+  }
+
+  const normalizedRole = role
+    .trim()
+    .toLocaleLowerCase('tr-TR');
+
+  return (
+    normalizedRole === 'leader' ||
+    normalizedRole === 'lider' ||
+    normalizedRole === '2'
+  );
+}
+
+private getCurrentUserIdFromToken(): number {
+  const token =
+    localStorage.getItem('token');
+
+  if (!token) {
+    return 0;
+  }
+
+  try {
+    const tokenParts =
+      token.split('.');
+
+    if (tokenParts.length !== 3) {
+      return 0;
+    }
+
+    let base64 = tokenParts[1]
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+
+    while (base64.length % 4 !== 0) {
+      base64 += '=';
+    }
+
+    const payload = JSON.parse(
+      atob(base64)
+    ) as Record<string, unknown>;
+
+    const nameIdentifierClaim =
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier';
+
+    const userIdValue =
+      payload[nameIdentifierClaim] ??
+      payload['nameid'] ??
+      payload['sub'];
+
+    const userId = Number(userIdValue);
+
+    return Number.isNaN(userId)
+      ? 0
+      : userId;
+  } catch (error) {
+    console.error(
+      'Kullanıcı kimliği JWT üzerinden okunamadı:',
+      error
+    );
+
+    return 0;
+  }
+}
 }

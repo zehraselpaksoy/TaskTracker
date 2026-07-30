@@ -133,42 +133,58 @@ export class RegisterPage {
     });
   }
 
-  private loginAfterRegister(
-    email: string,
-    password: string
-  ): void {
-    this.authService.login({
-      email,
-      password
-    }).subscribe({
-      next: (response) => {
-        localStorage.setItem(
-          'token',
-          response.token
+ private loginAfterRegister(
+  email: string,
+  password: string
+): void {
+  this.authService.login({
+    email,
+    password
+  }).subscribe({
+    next: (response) => {
+      localStorage.setItem(
+        'token',
+        response.token
+      );
+
+      this.isLoading = false;
+
+      const pendingInvitationToken =
+        localStorage.getItem(
+          'pendingTeamInvitationToken'
         );
 
-        this.isLoading = false;
-
-        this.router.navigate(['/teams']);
-      },
-
-      error: (error) => {
-        this.isLoading = false;
-
-        console.error(
-          'Otomatik giriş hatası:',
-          error
+      if (pendingInvitationToken) {
+        void this.router.navigate(
+          ['/team-invitation'],
+          {
+            queryParams: {
+              token: pendingInvitationToken
+            }
+          }
         );
 
-        this.successMessage =
-          'Kayıt başarılı ancak otomatik giriş yapılamadı.';
-
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 1500);
+        return;
       }
-    });
-  }
+
+      void this.router.navigate(['/teams']);
+    },
+
+    error: (error) => {
+      this.isLoading = false;
+
+      console.error(
+        'Otomatik giriş hatası:',
+        error
+      );
+
+      this.successMessage =
+        'Kayıt başarılı ancak otomatik giriş yapılamadı. Lütfen giriş yapın.';
+
+      void this.router.navigate(['/login']);
+    }
+  });
+}
 
   goToLogin(): void {
     this.router.navigate(['/login']);

@@ -1,42 +1,156 @@
-.login-container{
-  margin-top:120px;
+:host {
+  display: block;
 }
 
-h1{
-  text-align:center;
-  font-size:32px;
-  font-weight:bold;
+ion-content {
+  --background: #0f1115;
 }
 
-p{
-  text-align:center;
-  margin-bottom:40px;
-  color:gray;
+.login-page {
+  min-height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    calc(env(safe-area-inset-top) + 24px)
+    20px
+    calc(env(safe-area-inset-bottom) + 24px);
 }
 
-ion-button{
-  margin-top:30px;
+.login-card {
+  width: 100%;
+  max-width: 460px;
+
+  padding: 30px 24px;
+
+  border: 1px solid #2f333d;
+  border-radius: 24px;
+
+  background: #181b21;
+
+  box-shadow:
+    0 24px 70px
+    rgba(0, 0, 0, 0.35);
 }
+
+.brand-symbol {
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  margin: 0 auto 16px;
+
+  border-radius: 17px;
+
+  background: rgba(110, 168, 254, 0.14);
+  color: #6ea8fe;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+h1 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-size: 32px;
+  font-weight: 750;
+
+  text-align: center;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+
+  color: #9ca3af;
+
+  line-height: 1.5;
+  text-align: center;
+}
+
+ion-item {
+  --background: #232730;
+  --color: #ffffff;
+  --border-color: transparent;
+  --highlight-color-focused: #6ea8fe;
+
+  margin-bottom: 14px;
+
+  border: 1px solid #303541;
+  border-radius: 14px;
+}
+
+ion-label {
+  color: #b7bec9 !important;
+}
+
+ion-input {
+  --color: #ffffff;
+  --placeholder-color: #7b8492;
+}
+
+ion-button {
+  --background: #6ea8fe;
+  --background-hover: #5f98ed;
+  --color: #10141b;
+
+  min-height: 48px;
+  margin-top: 20px;
+
+  font-weight: 750;
+}
+
+.error-message {
+  margin: 12px 0 0;
+  padding: 11px 13px;
+
+  border: 1px solid rgba(255, 116, 82, 0.35);
+  border-radius: 10px;
+
+  background: rgba(255, 116, 82, 0.08);
+  color: #ff9b83;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .register-link {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  margin-top: 28px;
+
+  margin-top: 24px;
+
   color: #9b9ba1;
+
   font-size: 14px;
 }
 
 .register-link button {
   padding: 4px;
+
   border: 0;
-  color: #72a7ff;
+
   background: transparent;
+  color: #72a7ff;
+
   font: inherit;
   font-weight: 700;
+
   cursor: pointer;
 }
 
 .register-link button:hover {
   text-decoration: underline;
+}
+
+.register-link button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
 }

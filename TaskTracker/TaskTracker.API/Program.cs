@@ -6,7 +6,7 @@ using TaskTracker.API.Hubs;
 using TaskTracker.API.Middleware;
 using TaskTracker.Application;
 using TaskTracker.Infrastructure;
-
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,6 +104,8 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
+                "http://localhost:4200",
+                "http://127.0.0.1:4200",
                 "http://localhost:8100",
                 "http://127.0.0.1:8100",
                 "http://localhost",
@@ -115,7 +117,13 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-
+builder.Services.AddResend(options =>
+{
+    options.ApiToken =
+        Environment.GetEnvironmentVariable("RESEND_APITOKEN")
+        ?? throw new InvalidOperationException(
+            "RESEND_APITOKEN ortam deðiþkeni bulunamadý.");
+});
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 

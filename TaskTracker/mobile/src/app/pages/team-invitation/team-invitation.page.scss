@@ -1,0 +1,275 @@
+:host {
+  display: block;
+
+  --page-background: #000000;
+  --surface: #1d1d1f;
+  --surface-hover: #242529;
+  --border: #34353a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1a8;
+  --text-muted: #73737a;
+
+  --accent: #72a7ff;
+  --success: #57c785;
+  --danger: #ff7452;
+}
+
+ion-content {
+  --background: var(--page-background);
+}
+
+.invitation-page {
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    calc(env(safe-area-inset-top) + 28px)
+    18px
+    calc(env(safe-area-inset-bottom) + 36px);
+
+  background: var(--page-background);
+  color: var(--text-primary);
+}
+
+.invitation-header {
+  width: 100%;
+  max-width: 560px;
+
+  margin: 0 auto 24px;
+}
+
+.invitation-eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--accent);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.invitation-header h1 {
+  margin: 0 0 10px;
+
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.invitation-header p {
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.invitation-card {
+  width: 100%;
+  max-width: 560px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 0 auto;
+  padding: 32px 24px;
+
+  border: 1px solid var(--border);
+  border-radius: 22px;
+
+  background: var(--surface);
+
+  text-align: center;
+}
+
+.invitation-symbol,
+.status-icon {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 20px;
+
+  border-radius: 18px;
+
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.invitation-symbol {
+  background: rgba(114, 167, 255, 0.14);
+  color: var(--accent);
+}
+
+.status-icon {
+  border-radius: 50%;
+}
+
+.success-icon {
+  background: rgba(87, 199, 133, 0.14);
+  color: var(--success);
+}
+
+.error-icon {
+  background: rgba(255, 116, 82, 0.14);
+  color: var(--danger);
+}
+
+.card-label {
+  margin-bottom: 10px;
+
+  color: var(--accent);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 0.09em;
+}
+
+.invitation-card h2 {
+  margin: 0 0 12px;
+
+  color: var(--text-primary);
+
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.invitation-card p {
+  max-width: 410px;
+
+  margin: 0 0 26px;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.button-group {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primary-button,
+.secondary-button,
+.danger-button {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 18px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.primary-button {
+  border: 1px solid #579dff;
+
+  background: #2d63b8;
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  background: #3474d4;
+}
+
+.secondary-button {
+  border: 1px solid var(--border);
+
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.danger-button {
+  border: 1px solid rgba(255, 116, 82, 0.45);
+
+  background: rgba(255, 116, 82, 0.08);
+  color: #ff9b83;
+}
+
+.danger-button:hover {
+  background: rgba(255, 116, 82, 0.15);
+}
+
+.primary-button:active,
+.secondary-button:active,
+.danger-button:active {
+  transform: scale(0.98);
+}
+
+.loading-state {
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.loader {
+  width: 25px;
+  height: 25px;
+
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+
+  animation: spin 800ms linear infinite;
+}
+
+.success-card {
+  border-color: rgba(87, 199, 133, 0.4);
+}
+
+.error-card {
+  border-color: rgba(255, 116, 82, 0.4);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .invitation-page {
+    justify-content: center;
+
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .invitation-card {
+    padding: 40px;
+  }
+}
+.register-button {
+  margin-top: 10px;
+}

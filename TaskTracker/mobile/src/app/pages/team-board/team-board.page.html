@@ -1116,31 +1116,53 @@
       class="members-list"
       *ngIf="teamMembers.length > 0">
 
-      <article
-        class="member-card"
-        *ngFor="let member of teamMembers">
+     <article
+  class="member-card"
+  *ngFor="let member of teamMembers">
 
-        <span class="member-avatar">
-          {{
-            member.fullName
-              .charAt(0)
-              .toLocaleUpperCase('tr-TR')
-          }}
-        </span>
+  <span class="member-avatar">
+    {{
+      member.fullName
+        .charAt(0)
+        .toLocaleUpperCase('tr-TR')
+    }}
+  </span>
 
-        <div class="member-info">
+  <div class="member-info">
 
-          <strong>
-            {{ member.fullName }}
-          </strong>
+    <strong>
+      {{ member.fullName }}
+    </strong>
 
-          <small>
-            Takım üyesi
-          </small>
+    <small>
+      {{
+        member.userId === currentUserId
+          ? 'Sen'
+          : 'Takım üyesi'
+      }}
+    </small>
 
-        </div>
+  </div>
 
-      </article>
+  <button
+    type="button"
+    class="member-remove-button"
+    *ngIf="
+      isCurrentUserTeamLeader &&
+      member.userId !== currentUserId
+    "
+    [disabled]="isRemovingMember(member.userId)"
+    (click)="removeTeamMember(member)">
+
+    {{
+      isRemovingMember(member.userId)
+        ? 'Çıkarılıyor...'
+        : 'Üyeyi Çıkar'
+    }}
+
+  </button>
+
+</article>
 
     </div>
 
@@ -1183,72 +1205,97 @@
   (click)="closeAddMemberModal()">
 
   <section
-    class="members-modal"
+    class="members-modal invitation-modal"
     (click)="$event.stopPropagation()">
 
-    <h2>Üye Ekle</h2>
+    <header class="invitation-modal-header">
 
-    <div class="member-search">
+      <div class="invitation-modal-icon">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </div>
+
+      <div>
+        <span>Takım yönetimi</span>
+
+        <h2>Üye Davet Et</h2>
+      </div>
+
+    </header>
+
+    <p class="invitation-description">
+      Davet etmek istediğin kişinin e-posta
+      adresini gir. Kullanıcı daveti kabul
+      ettiğinde takıma eklenecek.
+    </p>
+
+    <label
+      class="invitation-field"
+      for="invitationEmail">
+
+      <span>E-posta adresi</span>
 
       <input
-        type="text"
-        placeholder="Ad veya e-posta ile ara..."
-        [(ngModel)]="memberSearchText"
-        (keyup.enter)="searchUsers()">
+        id="invitationEmail"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="ornek@email.com"
+        [(ngModel)]="invitationEmail"
+        [disabled]="isSendingInvitation"
+        (keyup.enter)="sendTeamInvitation()">
+
+    </label>
+
+    <p
+      class="error-message"
+      *ngIf="invitationError">
+
+      {{ invitationError }}
+
+    </p>
+
+    <p
+      class="success-message"
+      *ngIf="invitationSuccessMessage">
+
+      {{ invitationSuccessMessage }}
+
+    </p>
+
+    <div class="invitation-modal-actions">
 
       <button
         type="button"
-        (click)="searchUsers()">
+        class="cancel-invitation-button"
+        [disabled]="isSendingInvitation"
+        (click)="closeAddMemberModal()">
 
-        Ara
+        Kapat
+
+      </button>
+
+      <button
+        type="button"
+        class="send-invitation-button"
+        [disabled]="isSendingInvitation"
+        (click)="sendTeamInvitation()">
+
+        <ion-spinner
+          name="crescent"
+          *ngIf="isSendingInvitation">
+        </ion-spinner>
+
+        <span>
+          {{
+            isSendingInvitation
+              ? 'Gönderiliyor...'
+              : 'Daveti Gönder'
+          }}
+        </span>
 
       </button>
 
     </div>
-
-    <p
-      class="error-message"
-      *ngIf="addMemberError">
-
-      {{ addMemberError }}
-
-    </p>
-
-    <div
-      class="user-list"
-      *ngIf="userSearchResults.length > 0">
-
-      <div
-        class="user-item"
-        *ngFor="let user of userSearchResults">
-
-        <div>
-
-          <strong>{{ user.fullName }}</strong>
-
-          <div>{{ user.email }}</div>
-
-        </div>
-
-        <button
-          type="button"
-          (click)="addTeamMember(user)">
-
-          Ekle
-
-        </button>
-
-      </div>
-
-    </div>
-
-    <button
-      type="button"
-      (click)="closeAddMemberModal()">
-
-      Kapat
-
-    </button>
 
   </section>
 

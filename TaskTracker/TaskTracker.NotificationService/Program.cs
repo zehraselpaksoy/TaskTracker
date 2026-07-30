@@ -40,6 +40,7 @@ builder.Services.AddHostedService<TaskStatusChangedConsumer>();
 builder.Services.AddHostedService<TeamMemberAddedConsumer>();
 builder.Services.AddSingleton<IFirebaseNotificationService,FirebaseNotificationService>();
 builder.Services.AddSingleton<IDeviceTokenProvider,DeviceTokenProvider>();
+builder.Services.AddHostedService<TeamInvitationAcceptedConsumer>();
 
 var app = builder.Build();
 

@@ -10,10 +10,7 @@ namespace TaskTracker.Application.Interfaces.Services
         Task<TeamDetailDto?> GetTeamByIdAsync(int teamId, int currentUserId);
 
         Task<List<TeamDto>> GetAllTeamsAsync();
-        Task AddMemberAsync(
-            int teamId,
-            int userId,
-            int currentUserId);
+      
         Task RemoveMemberAsync(
             int teamId,
             int userId,

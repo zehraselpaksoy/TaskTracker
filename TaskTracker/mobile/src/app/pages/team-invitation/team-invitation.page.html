@@ -1,0 +1,180 @@
+<ion-content [fullscreen]="true">
+
+  <main class="invitation-page">
+
+    <header class="invitation-header">
+
+      <span class="invitation-eyebrow">
+        Takım yönetimi
+      </span>
+
+      <h1>Takım Daveti</h1>
+
+      <p>
+        Sana gönderilen takım davetini buradan
+        kabul edebilir veya reddedebilirsin.
+      </p>
+
+    </header>
+
+    <section
+      class="invitation-card error-card"
+      *ngIf="errorMessage">
+
+      <div class="status-icon error-icon">
+        !
+      </div>
+
+      <h2>İşlem gerçekleştirilemedi</h2>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="goToTeams()">
+
+        Takımlara Dön
+
+      </button>
+
+    </section>
+
+    <section
+      class="invitation-card success-card"
+      *ngIf="!errorMessage && isCompleted">
+
+      <div class="status-icon success-icon">
+        ✓
+      </div>
+
+      <h2>İşlem tamamlandı</h2>
+
+      <p>
+        {{ successMessage }}
+      </p>
+
+      <button
+        type="button"
+        class="primary-button"
+        (click)="goToTeams()">
+
+        Takımları Görüntüle
+
+      </button>
+
+    </section>
+
+    <section
+      class="invitation-card"
+      *ngIf="
+        !errorMessage &&
+        !isCompleted &&
+        !isLoggedIn
+      ">
+
+      <div class="invitation-symbol">
+        T
+      </div>
+
+      <span class="card-label">
+        DAVET BEKLİYOR
+      </span>
+
+      <h2>Devam etmek için giriş yap</h2>
+
+      <p>
+        Davetin gönderildiği e-posta adresine ait
+        TaskTracker hesabıyla giriş yapmalısın.
+      </p>
+
+      <div class="button-group">
+
+  <button
+    type="button"
+    class="primary-button"
+    (click)="goToLogin()">
+
+    Giriş Yap
+
+  </button>
+
+  <button
+    type="button"
+    class="secondary-button"
+    (click)="goToRegister()">
+
+    Hesap Oluştur
+
+  </button>
+
+</div>
+    </section>
+
+    <section
+      class="invitation-card"
+      *ngIf="
+        !errorMessage &&
+        !isCompleted &&
+        isLoggedIn
+      ">
+
+      <div class="invitation-symbol">
+        T
+      </div>
+
+      <span class="card-label">
+        YENİ TAKIM DAVETİ
+      </span>
+
+      <h2>Takıma katılmak ister misin?</h2>
+
+      <p>
+        Daveti kabul ettiğinde takımın görevlerini,
+        üyelerini ve çalışma panosunu
+        görüntüleyebilirsin.
+      </p>
+
+      <div
+        class="loading-state"
+        *ngIf="isLoading">
+
+        <span class="loader"></span>
+
+        <span>
+          Davet yanıtlanıyor...
+        </span>
+
+      </div>
+
+      <div
+        class="button-group"
+        *ngIf="!isLoading">
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="acceptInvitation()">
+
+          Daveti Kabul Et
+
+        </button>
+
+        <button
+          type="button"
+          class="danger-button"
+          (click)="rejectInvitation()">
+
+          Daveti Reddet
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</ion-content>

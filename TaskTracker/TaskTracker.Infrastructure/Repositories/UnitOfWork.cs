@@ -6,7 +6,7 @@ namespace TaskTracker.Infrastructure.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly TaskTrackerDbContext _context;
-
+    public ITeamInvitationRepository TeamInvitations { get; }
     public IUserDeviceTokenRepository UserDeviceTokens { get; }
     public IUserRepository Users { get; }
 
@@ -33,7 +33,8 @@ public class UnitOfWork : IUnitOfWork
         ITaskCommentRepository taskCommentRepository,
         ICommentAttachmentRepository commentAttachmentRepository,
         IActivityRepository activities,
-        IUserDeviceTokenRepository userDeviceTokens )
+        IUserDeviceTokenRepository userDeviceTokens,
+        ITeamInvitationRepository teamInvitationRepository)
     {
         _context = context;
 
@@ -46,6 +47,7 @@ public class UnitOfWork : IUnitOfWork
         CommentAttachments = commentAttachmentRepository;
         Activities = activities;
         UserDeviceTokens = userDeviceTokens;
+        TeamInvitations = teamInvitationRepository;
     }
 
     public async Task<int> SaveChangesAsync()

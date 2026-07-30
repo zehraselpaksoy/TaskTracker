@@ -2,23 +2,21 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Minio;
+using TaskTracker.Application.Interfaces.Messaging;
 using TaskTracker.Application.Interfaces.Repositories;
 using TaskTracker.Application.Interfaces.Services;
 using TaskTracker.Application.Interfaces.Storage;
 using TaskTracker.Infrastructure.Context;
 using TaskTracker.Infrastructure.Identity;
-using TaskTracker.Infrastructure.Repositories;
-using TaskTracker.Infrastructure.Storage;
-using TaskTracker.Application.Interfaces.Messaging;
 using TaskTracker.Infrastructure.RabbitMq;
-
+using TaskTracker.Infrastructure.Repositories;
+using TaskTracker.Infrastructure.Services;
+using TaskTracker.Infrastructure.Storage;
 
 namespace TaskTracker.Infrastructure;
 
 public static class DependencyInjection
 {
-
-
     public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
@@ -28,18 +26,11 @@ public static class DependencyInjection
         AddRepositories(services);
         AddIdentityServices(services, configuration);
         AddRabbitMqServices(services);
+        AddInvitationServices(services);
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
-    }
-
-    private static void AddRabbitMqServices(
-     IServiceCollection services)
-    {
-        services.AddSingleton<
-            IRabbitMqPublisher,
-            RabbitMqPublisher>();
     }
 
     private static void AddDatabaseServices(
@@ -58,7 +49,9 @@ public static class DependencyInjection
                 sqlOptions =>
                 {
                     sqlOptions.MigrationsAssembly(
-                        typeof(TaskTrackerDbContext).Assembly.FullName);
+                        typeof(TaskTrackerDbContext)
+                            .Assembly
+                            .FullName);
 
                     sqlOptions.EnableRetryOnFailure(
                         maxRetryCount: 5,
@@ -72,7 +65,8 @@ public static class DependencyInjection
         IServiceCollection services,
         IConfiguration configuration)
     {
-        var minioSection = configuration.GetSection("Minio");
+        var minioSection =
+            configuration.GetSection("Minio");
 
         if (!minioSection.Exists())
         {
@@ -82,7 +76,8 @@ public static class DependencyInjection
 
         services.Configure<MinioSettings>(minioSection);
 
-        var minioSettings = minioSection.Get<MinioSettings>()
+        var minioSettings =
+            minioSection.Get<MinioSettings>()
             ?? throw new InvalidOperationException(
                 "Minio yapılandırması okunamadı.");
 
@@ -105,22 +100,53 @@ public static class DependencyInjection
     private static void AddRepositories(
         IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<ITaskItemRepository, TaskItemRepository>();
-        services.AddScoped<ITeamRepository, TeamRepository>();
-        services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
-        services.AddScoped<ITaskCommentRepository, TaskCommentRepository>();
-        services.AddScoped<IActivityRepository, ActivityRepository>();
-        services.AddScoped<ICommentAttachmentRepository,CommentAttachmentRepository>();
-        services.AddScoped<IUserDeviceTokenRepository,UserDeviceTokenRepository>();
+        services.AddScoped<
+            IUserRepository,
+            UserRepository>();
+
+        services.AddScoped<
+            ICategoryRepository,
+            CategoryRepository>();
+
+        services.AddScoped<
+            ITaskItemRepository,
+            TaskItemRepository>();
+
+        services.AddScoped<
+            ITeamRepository,
+            TeamRepository>();
+
+        services.AddScoped<
+            ITeamMemberRepository,
+            TeamMemberRepository>();
+
+        services.AddScoped<
+            ITaskCommentRepository,
+            TaskCommentRepository>();
+
+        services.AddScoped<
+            IActivityRepository,
+            ActivityRepository>();
+
+        services.AddScoped<
+            ICommentAttachmentRepository,
+            CommentAttachmentRepository>();
+
+        services.AddScoped<
+            IUserDeviceTokenRepository,
+            UserDeviceTokenRepository>();
+
+        services.AddScoped<
+            ITeamInvitationRepository,
+            TeamInvitationRepository>();
     }
 
     private static void AddIdentityServices(
         IServiceCollection services,
         IConfiguration configuration)
     {
-        var jwtSection = configuration.GetSection("Jwt");
+        var jwtSection =
+            configuration.GetSection("Jwt");
 
         if (!jwtSection.Exists())
         {
@@ -130,8 +156,34 @@ public static class DependencyInjection
 
         services.Configure<JwtSettings>(jwtSection);
 
-        services.AddScoped<IPasswordHasher, PasswordHasher>();
-        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<
+            IPasswordHasher,
+            PasswordHasher>();
+
+        services.AddScoped<
+            IJwtService,
+            JwtService>();
+    }
+
+    private static void AddRabbitMqServices(
+        IServiceCollection services)
+    {
+        services.AddSingleton<
+            IRabbitMqPublisher,
+            RabbitMqPublisher>();
+    }
+
+    private static void AddInvitationServices(
+        IServiceCollection services)
+    {
+        services.AddScoped<
+            ITeamInvitationLinkService,
+            TeamInvitationLinkService>();
+
+        services.AddScoped<
+            ITeamInvitationEmailService,
+            GmailTeamInvitationEmailService>();
+           // ResendTeamInvitationEmailService>();
     }
 
     private static void ValidateMinioSettings(

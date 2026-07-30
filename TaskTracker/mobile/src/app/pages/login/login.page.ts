@@ -60,88 +60,128 @@ export class LoginPage {
     this.router.navigate(['/register']);
   }
 
-  login(): void {
-    this.errorMessage = '';
+login(): void {
+  this.errorMessage = '';
 
-    const email = this.email.trim().toLowerCase();
-    const password = this.password;
+  const email = this.email
+    .trim()
+    .toLowerCase();
 
-    if (!email || !password) {
-      this.errorMessage = 'E-posta ve şifre alanlarını doldurun.';
-      return;
-    }
+  const password = this.password;
 
-    this.isLoading = true;
+  if (!email || !password) {
+    this.errorMessage =
+      'E-posta ve şifre alanlarını doldurun.';
 
-    this.authService.login({
-      email,
-      password
-    }).subscribe({
-     next: (response: LoginResponse) => {
-  localStorage.setItem('token', response.token);
-
-  const fcmToken = localStorage.getItem('fcmToken');
-
-  if (!fcmToken) {
-    this.isLoading = false;
-    void this.router.navigate(['/teams']);
     return;
   }
 
-  this.deviceTokenService
-    .register(fcmToken)
-    .subscribe({
-      next: () => {
-        console.log(
-          'Cihaz tokenı backend’e kaydedildi.'
-        );
+  this.isLoading = true;
 
-        this.isLoading = false;
-        void this.router.navigate(['/teams']);
-      },
+  this.authService.login({
+    email,
+    password
+  }).subscribe({
+    next: (response: LoginResponse) => {
+      localStorage.setItem(
+        'token',
+        response.token
+      );
 
-      error: (tokenError: unknown) => {
-        // Token kaydı başarısız olsa bile kullanıcı giriş yapabilir.
-        console.error(
-          'Cihaz tokenı kaydedilemedi:',
-          tokenError
-        );
+      const fcmToken =
+        localStorage.getItem('fcmToken');
 
-        this.isLoading = false;
-        void this.router.navigate(['/teams']);
+      if (!fcmToken) {
+        this.completeLoginNavigation();
+        return;
       }
-    });
-},
 
-      error: (error: ApiError) => {
-        this.isLoading = false;
+      this.deviceTokenService
+        .register(fcmToken)
+        .subscribe({
+          next: () => {
+            console.log(
+              'Cihaz tokenı backend’e kaydedildi.'
+            );
 
-        console.error('Login hatası:', error);
+            this.completeLoginNavigation();
+          },
 
-        if (error.status === 0) {
-          this.errorMessage =
-            'Sunucuya bağlanılamadı. Backend projesinin çalıştığını kontrol edin.';
-          return;
-        }
+          error: (tokenError: unknown) => {
+            // Cihaz tokenı kaydedilemese bile
+            // kullanıcının giriş yapmasına izin verilir.
+            console.error(
+              'Cihaz tokenı kaydedilemedi:',
+              tokenError
+            );
 
-        if (
-          typeof error.error === 'object' &&
-          error.error?.message
-        ) {
-          this.errorMessage = error.error.message;
-          return;
-        }
+            this.completeLoginNavigation();
+          }
+        });
+    },
 
-        if (
-          typeof error.error === 'string' &&
-          error.error.trim()
-        ) {
-          this.errorMessage = error.error;
-          return;
-        }
+    error: (error: ApiError) => {
+      this.isLoading = false;
 
-        this.errorMessage = 'E-posta veya şifre hatalı.';
+      console.error(
+        'Login hatası:',
+        error
+      );
+
+      if (error.status === 0) {
+        this.errorMessage =
+          'Sunucuya bağlanılamadı. Backend projesinin çalıştığını kontrol edin.';
+
+        return;
       }
-    });
+
+      if (
+        typeof error.error === 'object' &&
+        error.error?.message
+      ) {
+        this.errorMessage =
+          error.error.message;
+
+        return;
+      }
+
+      if (
+        typeof error.error === 'string' &&
+        error.error.trim()
+      ) {
+        this.errorMessage =
+          error.error;
+
+        return;
+      }
+
+      this.errorMessage =
+        'E-posta veya şifre hatalı.';
+    }
+  });
+}
+
+private completeLoginNavigation(): void {
+  this.isLoading = false;
+
+  const pendingInvitationToken =
+    localStorage.getItem(
+      'pendingTeamInvitationToken'
+    );
+
+  if (pendingInvitationToken) {
+    void this.router.navigate(
+      ['/team-invitation'],
+      {
+        queryParams: {
+          token: pendingInvitationToken
+        }
+      }
+    );
+
+    return;
   }
+
+  void this.router.navigate(['/teams']);
+}
 }
