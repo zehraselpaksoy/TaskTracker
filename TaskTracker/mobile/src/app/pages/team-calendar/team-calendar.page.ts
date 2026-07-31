@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   HostListener,
-  OnInit
+  OnInit,
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -77,6 +79,9 @@ interface CalendarDay {
   ]
 })
 export class TeamCalendarPage implements OnInit {
+  @ViewChild('selectedDayPanel')
+private selectedDayPanel?:
+  ElementRef<HTMLElement>;
 
   teamId = 0;
 
@@ -86,6 +91,7 @@ export class TeamCalendarPage implements OnInit {
     'calendar';
 
   currentDate = new Date();
+  selectedDate = new Date();
 
   tasks: TaskResponse[] = [];
 
@@ -284,7 +290,6 @@ export class TeamCalendarPage implements OnInit {
    */
 
   openTeamMenu(): void {
-  console.log('OPEN TEAM MENU');
 
   const willOpen = !this.isTeamMenuOpen;
 
@@ -297,11 +302,7 @@ export class TeamCalendarPage implements OnInit {
   this.isTeamMenuOpen = true;
   this.teamMenuError = '';
 
-  console.log(
-    'isTeamMenuOpen:',
-    this.isTeamMenuOpen
-  );
-
+ 
   if (this.myTeams.length === 0) {
     this.loadMyTeams();
   }
@@ -569,33 +570,189 @@ export class TeamCalendarPage implements OnInit {
   }
 
   previousMonth(): void {
+  this.currentDate =
+    new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth() - 1,
+      1
+    );
+
+  this.selectedDate =
+    new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth(),
+      1
+    );
+
+  this.generateCalendar();
+}
+
+ nextMonth(): void {
+  this.currentDate =
+    new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth() + 1,
+      1
+    );
+
+  this.selectedDate =
+    new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth(),
+      1
+    );
+
+  this.generateCalendar();
+}
+
+ goToToday(): void {
+  const today = new Date();
+
+  this.currentDate =
+    new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+
+  this.selectedDate =
+    new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+
+  this.generateCalendar();
+}
+
+selectDay(
+  day: CalendarDay
+): void {
+  this.selectedDate =
+    new Date(
+      day.date.getFullYear(),
+      day.date.getMonth(),
+      day.date.getDate()
+    );
+
+  if (!day.isCurrentMonth) {
     this.currentDate =
       new Date(
-        this.currentDate.getFullYear(),
-        this.currentDate.getMonth() - 1,
+        day.date.getFullYear(),
+        day.date.getMonth(),
         1
       );
 
     this.generateCalendar();
   }
 
-  nextMonth(): void {
-    this.currentDate =
-      new Date(
-        this.currentDate.getFullYear(),
-        this.currentDate.getMonth() + 1,
-        1
-      );
+  /*
+   * Tablet ve mobil görünümde seçilen
+   * günün görev paneline kaydır.
+   */
+  if (window.innerWidth <= 1100) {
+    window.setTimeout(() => {
+      this.selectedDayPanel
+        ?.nativeElement
+        .scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+    }, 50);
+  }
+}
+isSelectedDay(
+  day: CalendarDay
+): boolean {
+  return this.isSameDate(
+    day.date,
+    this.selectedDate
+  );
+}
 
-    this.generateCalendar();
+get selectedDayTasks():
+  TaskResponse[] {
+  const selectedDay =
+    this.calendarDays.find(
+      day =>
+        this.isSameDate(
+          day.date,
+          this.selectedDate
+        )
+    );
+
+  return selectedDay?.tasks ?? [];
+}
+
+getSelectedDateTitle(): string {
+  return this.selectedDate
+    .toLocaleDateString(
+      'tr-TR',
+      {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }
+    );
+}
+
+getVisibleTasks(
+  day: CalendarDay
+): TaskResponse[] {
+  return day.tasks.slice(0, 3);
+}
+
+getRemainingTaskCount(
+  day: CalendarDay
+): number {
+  return Math.max(
+    day.tasks.length - 3,
+    0
+  );
+}
+
+get monthTaskCount(): number {
+  return this.calendarDays
+    .filter(
+      day =>
+        day.isCurrentMonth
+    )
+    .reduce(
+      (
+        total,
+        day
+      ) =>
+        total +
+        day.tasks.length,
+      0
+    );
+}
+
+getTaskStatusLabel(
+  status: number | string
+): string {
+  const statusClass =
+    this.getTaskStatusClass(
+      status
+    );
+
+  if (
+    statusClass ===
+    'task-done'
+  ) {
+    return 'Tamamlandı';
   }
 
-  goToToday(): void {
-    this.currentDate =
-      new Date();
-
-    this.generateCalendar();
+  if (
+    statusClass ===
+    'task-in-progress'
+  ) {
+    return 'Devam ediyor';
   }
+
+  return 'Yapılacak';
+}
 
   /*
    * Sayfa yönlendirmeleri

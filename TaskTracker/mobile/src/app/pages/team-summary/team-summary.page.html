@@ -502,8 +502,21 @@
       <!-- GECİKEN GÖREVLER -->
 
       <article
-        class="overdue-card"
-        [class.has-overdue]="summary.overdueTasks > 0">
+      class="overdue-card"
+      [class.has-overdue]="overdueTasks.length > 0"
+      [class.clickable]="overdueTasks.length > 0"
+      [attr.role]="
+        overdueTasks.length > 0
+         ? 'button'
+         : null
+      "
+      [attr.tabindex]="
+        overdueTasks.length > 0
+        ? 0
+        : null
+      "
+      (click)="openOverdueModal()"
+      (keyup.enter)="openOverdueModal()">
 
         <div class="overdue-content">
 
@@ -595,6 +608,107 @@
 
     </section>
 
+    <div
+  class="overdue-modal-backdrop"
+  *ngIf="isOverdueModalOpen"
+  (click)="closeOverdueModal()">
+
+  <section
+    class="overdue-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="overdue-modal-title"
+    (click)="$event.stopPropagation()">
+
+    <header class="overdue-modal-header">
+
+      <div>
+
+        <span>GECİKEN GÖREVLER</span>
+
+        <h2 id="overdue-modal-title">
+          Tamamlanmayı bekleyenler
+        </h2>
+
+        <p>
+          {{ overdueTasks.length }}
+          görev son teslim tarihini geçti.
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="overdue-modal-close"
+        aria-label="Geciken görevleri kapat"
+        (click)="closeOverdueModal()">
+
+        <ion-icon name="close-outline"></ion-icon>
+
+      </button>
+
+    </header>
+
+    <div class="overdue-task-list">
+
+      <button
+        type="button"
+        class="overdue-task-item"
+        *ngFor="let task of overdueTasks"
+        (click)="openOverdueTask(task)">
+
+        <span
+          class="overdue-task-line"
+          aria-hidden="true">
+        </span>
+
+        <span class="overdue-task-information">
+
+          <small>
+            TASK-{{ task.id }}
+          </small>
+
+          <strong>
+            {{ task.title }}
+          </strong>
+
+          <span class="overdue-task-date">
+
+            <ion-icon name="calendar-outline"></ion-icon>
+
+            {{
+              formatTaskDueDate(
+                task.dueDate
+              )
+            }}
+
+          </span>
+
+        </span>
+
+        <span
+          class="overdue-task-priority"
+          [attr.data-priority]="
+            getTaskPriorityLabel(
+              task.priority
+            )
+          ">
+
+          {{
+            getTaskPriorityLabel(
+              task.priority
+            )
+          }}
+
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
   </main>
 
 </ion-content>

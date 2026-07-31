@@ -1,5 +1,9 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  registerLocaleData
+} from '@angular/common';
 
+import localeTr from '@angular/common/locales/tr';
 import {
   Component,
   OnInit,
@@ -32,9 +36,10 @@ import {
   DashboardSummary,
   ReportService,
   WeeklyProgress,
-  UpcomingTask
+  UpcomingTask,
+  OverdueTask
 } from '../../services/report';
-
+registerLocaleData(localeTr);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -54,7 +59,13 @@ export class DashboardPage implements OnInit {
 
   private readonly router =
     inject(Router);
-  
+  overdueTasks: OverdueTask[] = [];
+
+isOverdueModalOpen = false;
+
+isOverdueTasksLoading = false;
+
+overdueTasksError = '';
   upcomingTasks: UpcomingTask[] = [];
 
   summary: DashboardSummary | null = null;
@@ -74,18 +85,16 @@ export class DashboardPage implements OnInit {
       'Yapılacaklar',
       'Devam Ediyor',
       'Tamamlandı',
-      'Geciken'
     ],
     datasets: [
       {
-        data: [0, 0, 0, 0],
+        data: [0, 0, 0],
 
         backgroundColor: [
-          '#8c8c94',
-          '#4f8cff',
-          '#57c785',
-          '#ff7452'
-        ],
+  '#ffab00',
+  '#4f8cff',
+  '#57c785'
+],
 
         borderColor: '#1d1d20',
 
@@ -256,11 +265,110 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDashboardSummary();
-    this.loadWeeklyProgress();
-    this.loadUpcomingTasks();
+   
+  }
+ionViewWillEnter(): void {
+  this.isOverdueModalOpen = false;
+
+  this.loadDashboardSummary();
+  this.loadWeeklyProgress();
+  this.loadUpcomingTasks();
+}
+loadOverdueTasks(): void {
+ 
+  this.isOverdueTasksLoading =
+    this.overdueTasks.length === 0;
+
+  this.overdueTasksError = '';
+
+  this.reportService
+    .getOverdueTasks()
+    .subscribe({
+      next: tasks => {
+        this.overdueTasks =
+          tasks ?? [];
+
+        this.isOverdueTasksLoading =
+          false;
+      },
+
+      error: error => {
+        console.error(
+          'Geciken görevler alınamadı:',
+          error
+        );
+
+        this.isOverdueTasksLoading =
+          false;
+
+        /*
+         * Eski liste varsa onu silme.
+         */
+        if (
+          this.overdueTasks.length === 0
+        ) {
+          this.overdueTasksError =
+            'Geciken görevler yüklenemedi.';
+        }
+      }
+    });
+}
+openOverdueModal(): void {
+  this.isOverdueModalOpen = true;
+}
+
+closeOverdueModal(): void {
+  this.isOverdueModalOpen = false;
+}
+
+openOverdueTask(
+  task: OverdueTask
+): void {
+  this.closeOverdueModal();
+
+  void this.router.navigate([
+    '/teams',
+    task.teamId,
+    'tasks',
+    task.id
+  ]);
+}
+
+getPriorityLabel(
+  priority: string
+): string {
+  const value =
+    priority
+      .trim()
+      .toLocaleLowerCase('tr-TR');
+
+  if (
+    value === 'high' ||
+    value === 'yüksek' ||
+    value === 'yuksek' ||
+    value === '2'
+  ) {
+    return 'Yüksek';
   }
 
+  if (
+    value === 'low' ||
+    value === 'düşük' ||
+    value === 'dusuk' ||
+    value === '0'
+  ) {
+    return 'Düşük';
+  }
+
+  return 'Orta';
+}
+
+trackByOverdueTaskId(
+  index: number,
+  task: OverdueTask
+): number {
+  return task.id;
+}
   loadUpcomingTasks(): void {
 
   this.reportService
@@ -286,34 +394,53 @@ export class DashboardPage implements OnInit {
 
 }
 
-  loadDashboardSummary(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
+ loadDashboardSummary(): void {
+  this.isLoading = true;
+  this.errorMessage = '';
 
-    this.reportService
-      .getDashboardSummary()
-      .subscribe({
-        next: (response) => {
-          this.summary = response;
+  this.reportService
+    .getDashboardSummary()
+    .subscribe({
+      next: response => {
+        this.summary = response;
 
-          this.updateDoughnutChart(response);
+        /*
+         * Yeni dizi oluşturarak Angular'ın
+         * bütün modal satırlarını yenilemesini sağlar.
+         */
+        this.overdueTasks = [
+          ...(response.overdueTaskItems ?? [])
+        ];
 
-          this.isLoading = false;
-        },
+        this.isOverdueTasksLoading = false;
+        this.overdueTasksError = '';
 
-        error: (error: unknown) => {
-          console.error(
-            'Dashboard bilgileri yüklenemedi:',
-            error
-          );
+        this.updateDoughnutChart(
+          response
+        );
 
-          this.errorMessage =
-            'Dashboard bilgileri yüklenirken bir hata oluştu.';
+        this.isLoading = false;
+      },
 
-          this.isLoading = false;
-        }
-      });
-  }
+      error: (
+        error: unknown
+      ) => {
+        console.error(
+          'Dashboard bilgileri yüklenemedi:',
+          error
+        );
+
+        this.summary = null;
+        this.overdueTasks = [];
+
+        this.errorMessage =
+          'Dashboard bilgileri yüklenirken bir hata oluştu.';
+
+        this.isOverdueTasksLoading = false;
+        this.isLoading = false;
+      }
+    });
+}
 
   loadWeeklyProgress(): void {
     this.reportService
@@ -365,8 +492,7 @@ export class DashboardPage implements OnInit {
           data: [
             summary.todoTasks,
             summary.inProgressTasks,
-            summary.completedTasks,
-            summary.overdueTasks
+            summary.completedTasks
           ]
         }
       ]

@@ -153,38 +153,32 @@ export class TasksPage implements OnInit {
   ).length;
 }
   get filteredTasks(): UserTask[] {
-    const searchValue = this.searchTerm
+  const searchValue =
+    this.searchTerm
       .trim()
       .toLocaleLowerCase('tr-TR');
 
-    return this.tasks.filter((task) => {
-      const title = task.title
+  return this.tasks.filter(task => {
+    const normalizedTitle =
+      task.title
+        .trim()
         .toLocaleLowerCase('tr-TR');
 
-      const teamName = task.teamName
-        .toLocaleLowerCase('tr-TR');
+    const matchesSearch =
+      !searchValue ||
+      normalizedTitle.startsWith(
+        searchValue
+      );
 
-      const categoryName = task.categoryName
-        .toLocaleLowerCase('tr-TR');
+    const matchesFilter =
+      this.matchesStatusFilter(task);
 
-      const assigneeName =
-        (task.assignedToUserName ?? '')
-          .toLocaleLowerCase('tr-TR');
-
-      const matchesSearch =
-        !searchValue ||
-        title.includes(searchValue) ||
-        teamName.includes(searchValue) ||
-        categoryName.includes(searchValue) ||
-        assigneeName.includes(searchValue) ||
-        task.id.toString().includes(searchValue);
-
-      const matchesFilter =
-        this.matchesStatusFilter(task);
-
-      return matchesSearch && matchesFilter;
-    });
-  }
+    return (
+      matchesSearch &&
+      matchesFilter
+    );
+  });
+}
 
   get allTaskCount(): number {
     return this.tasks.length;
@@ -311,7 +305,7 @@ export class TasksPage implements OnInit {
       this.normalizeStatus(status)
     ) {
       case 'open':
-        return 'Açık';
+        return 'Yapılacak';
 
       case 'inProgress':
         return 'Devam Ediyor';

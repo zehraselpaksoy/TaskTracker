@@ -240,26 +240,31 @@ namespace TaskTracker.Application.Services
             }
         }
 
-        public async Task<int> UpdateTaskStatusAsync(int taskId, UpdateTaskStatusDto updateTaskStatusDto,int currentUserId)
+        public async Task<int> UpdateTaskStatusAsync(
+    int taskId,
+    UpdateTaskStatusDto updateTaskStatusDto,
+    int currentUserId)
         {
             var task = await _unitOfWork.Tasks
                 .GetByIdWithDetailsAsync(taskId);
 
             if (task == null)
             {
-                throw new Exception("Görev bulunamadı.");
+                throw new Exception(
+                    "Görev bulunamadı.");
             }
 
-            var isLeader = await _unitOfWork.TeamMembers
-                .IsTeamLeaderAsync(task.TeamId, currentUserId);
+            // Görev durumunu takımda bulunan bütün üyeler değiştirebilir.
+            var isTeamMember =
+                await _unitOfWork.TeamMembers
+                    .IsTeamMemberAsync(
+                        task.TeamId,
+                        currentUserId);
 
-            var isAssignedUser =
-                task.AssignedToUserId == currentUserId;
-
-            if (!isLeader && !isAssignedUser)
+            if (!isTeamMember)
             {
                 throw new UnauthorizedAccessException(
-                    "Bu görevin durumunu değiştirme yetkiniz yok.");
+                    "Yalnızca takım üyeleri görev durumunu değiştirebilir.");
             }
 
             var previousStatus = task.Status;
@@ -268,8 +273,11 @@ namespace TaskTracker.Application.Services
                 task,
                 updateTaskStatusDto.Status);
 
-            task.Status = updateTaskStatusDto.Status;
-            task.UpdatedAt = DateTime.UtcNow;
+            task.Status =
+                updateTaskStatusDto.Status;
+
+            task.UpdatedAt =
+                DateTime.UtcNow;
 
             await _unitOfWork.SaveChangesAsync();
 
@@ -285,44 +293,75 @@ namespace TaskTracker.Application.Services
                         $"\"{GetStatusLabel(previousStatus)}\" durumundan " +
                         $"\"{GetStatusLabel(task.Status)}\" durumuna taşındı."
                 );
-                var recipientUserIds = new HashSet<int>();
 
-                // Görevi oluşturan kişi, durumu değiştiren kişi değilse bildir.
-                if (task.CreatedByUserId != currentUserId)
+                var recipientUserIds =
+                    new HashSet<int>();
+
+                // Görevi oluşturan kişi işlemi yapan kişi değilse bildirim gönder.
+                if (
+                    task.CreatedByUserId !=
+                    currentUserId
+                )
                 {
-                    recipientUserIds.Add(task.CreatedByUserId);
+                    recipientUserIds.Add(
+                        task.CreatedByUserId);
                 }
 
-                // Atanan kullanıcı varsa ve durumu değiştiren kişi değilse bildir.
-                if (task.AssignedToUserId.HasValue &&
-                    task.AssignedToUserId.Value != currentUserId)
+                // Atanan kullanıcı işlemi yapan kişi değilse bildirim gönder.
+                if (
+                    task.AssignedToUserId.HasValue &&
+                    task.AssignedToUserId.Value !=
+                    currentUserId
+                )
                 {
-                    recipientUserIds.Add(task.AssignedToUserId.Value);
+                    recipientUserIds.Add(
+                        task.AssignedToUserId.Value);
                 }
 
                 if (recipientUserIds.Count > 0)
                 {
-                    var changedByUser = await _unitOfWork.Users
-                        .GetByIdAsync(currentUserId);
+                    var changedByUser =
+                        await _unitOfWork.Users
+                            .GetByIdAsync(
+                                currentUserId);
 
-                    var changedByUserName = changedByUser is null
-                        ? "Bir takım üyesi"
-                        : $"{changedByUser.FirstName} {changedByUser.LastName}".Trim();
+                    var changedByUserName =
+                        changedByUser is null
+                            ? "Bir takım üyesi"
+                            : $"{changedByUser.FirstName} " +
+                              $"{changedByUser.LastName}".Trim();
 
-                    var statusChangedEvent = new TaskStatusChangedEvent
-                    {
-                        TaskId = task.Id,
-                        TaskTitle = task.Title,
-                        PreviousStatus = GetStatusLabel(previousStatus),
-                        NewStatus = GetStatusLabel(task.Status),
-                        ChangedByUserId = currentUserId,
-                        ChangedByUserName = changedByUserName,
-                        RecipientUserIds = recipientUserIds.ToList()
-                    };
+                    var statusChangedEvent =
+                        new TaskStatusChangedEvent
+                        {
+                            TaskId = task.Id,
+                            TaskTitle = task.Title,
 
-                    await _rabbitMqPublisher.PublishAsync(
-                        queueName: "task-status-changed-queue",
-                        message: statusChangedEvent);
+                            PreviousStatus =
+                                GetStatusLabel(
+                                    previousStatus),
+
+                            NewStatus =
+                                GetStatusLabel(
+                                    task.Status),
+
+                            ChangedByUserId =
+                                currentUserId,
+
+                            ChangedByUserName =
+                                changedByUserName,
+
+                            RecipientUserIds =
+                                recipientUserIds.ToList()
+                        };
+
+                    await _rabbitMqPublisher
+                        .PublishAsync(
+                            queueName:
+                                "task-status-changed-queue",
+
+                            message:
+                                statusChangedEvent);
                 }
             }
 

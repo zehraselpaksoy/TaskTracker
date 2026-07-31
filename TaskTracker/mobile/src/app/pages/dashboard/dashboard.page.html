@@ -1,329 +1,453 @@
-<ion-content [fullscreen]="true">
+  <ion-content [fullscreen]="true">
 
-  <main class="dashboard-page">
+    <main class="dashboard-page">
 
-    <header class="dashboard-header">
-      <div>
-        <span class="dashboard-eyebrow">
-          Görev yönetimi
-        </span>
+      <header class="dashboard-header">
+        <div>
+          <span class="dashboard-eyebrow">
+            Görev yönetimi
+          </span>
 
-        <h1>Raporlar</h1>
+          <h1>Raporlar</h1>
 
-        <p>
-          Sana atanmış görevlerin genel durumunu buradan takip edebilirsin.
-        </p>
+          <p>
+            Sana atanmış görevlerin genel durumunu buradan takip edebilirsin.
+          </p>
+        </div>
+      </header>
+
+      <section
+        class="state-card"
+        *ngIf="isLoading">
+
+        <div class="loader"></div>
+
+        <p>Dashboard bilgileri yükleniyor...</p>
+
+      </section>
+
+      <section
+        class="state-card error-state"
+        *ngIf="!isLoading && errorMessage">
+
+        <h2>Veriler yüklenemedi</h2>
+
+        <p>{{ errorMessage }}</p>
+
+        <button
+          type="button"
+          (click)="loadDashboardSummary()">
+
+          Tekrar dene
+
+        </button>
+
+      </section>
+
+  <section
+    class="summary-grid"
+    *ngIf="!isLoading && !errorMessage && summary">
+
+    <article
+      class="summary-card clickable"
+      (click)="openTaskFilter('all')">
+
+      <div class="card-top">
+        <span class="card-label">Toplam Görev</span>
+        <span class="card-icon total-icon">T</span>
       </div>
-    </header>
 
-    <section
-      class="state-card"
-      *ngIf="isLoading">
+      <strong class="card-value">
+        {{ summary.totalTasks }}
+      </strong>
 
-      <div class="loader"></div>
+      <span class="card-description">
+        Dahil olduğun takımlardaki tüm görevler
+      </span>
 
-      <p>Dashboard bilgileri yükleniyor...</p>
+    </article>
 
-    </section>
+    <article
+      class="summary-card clickable"
+      (click)="openTaskFilter('pending')">
 
-    <section
-      class="state-card error-state"
-      *ngIf="!isLoading && errorMessage">
+      <div class="card-top">
+        <span class="card-label">Yapılacaklar</span>
+        <span class="card-icon todo-icon">Y</span>
+      </div>
 
-      <h2>Veriler yüklenemedi</h2>
+      <strong class="card-value">
+        {{ summary.todoTasks }}
+      </strong>
 
-      <p>{{ errorMessage }}</p>
+      <span class="card-description">
+        Henüz başlanmamış görevler
+      </span>
 
-      <button
-        type="button"
-        (click)="loadDashboardSummary()">
+    </article>
 
-        Tekrar dene
+    <article
+      class="summary-card clickable"
+      (click)="openTaskFilter('inProgress')">
 
-      </button>
+      <div class="card-top">
+        <span class="card-label">Devam Edenler</span>
+        <span class="card-icon progress-icon">D</span>
+      </div>
 
-    </section>
+      <strong class="card-value">
+        {{ summary.inProgressTasks }}
+      </strong>
 
-<section
-  class="summary-grid"
-  *ngIf="!isLoading && !errorMessage && summary">
+      <span class="card-description">
+        Üzerinde çalışılan görevler
+      </span>
 
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('all')">
+    </article>
 
-    <div class="card-top">
-      <span class="card-label">Toplam Görev</span>
-      <span class="card-icon total-icon">T</span>
-    </div>
+    <article
+      class="summary-card clickable"
+      (click)="openTaskFilter('completed')">
 
-    <strong class="card-value">
-      {{ summary.totalTasks }}
-    </strong>
+      <div class="card-top">
+        <span class="card-label">Tamamlananlar</span>
+        <span class="card-icon completed-icon">✓</span>
+      </div>
 
-    <span class="card-description">
-      Sana atanmış toplam görev
-    </span>
-
-  </article>
-
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('pending')">
-
-    <div class="card-top">
-      <span class="card-label">Yapılacaklar</span>
-      <span class="card-icon todo-icon">Y</span>
-    </div>
-
-    <strong class="card-value">
-      {{ summary.todoTasks }}
-    </strong>
-
-    <span class="card-description">
-      Henüz başlanmamış görevler
-    </span>
-
-  </article>
-
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('inProgress')">
-
-    <div class="card-top">
-      <span class="card-label">Devam Edenler</span>
-      <span class="card-icon progress-icon">D</span>
-    </div>
-
-    <strong class="card-value">
-      {{ summary.inProgressTasks }}
-    </strong>
-
-    <span class="card-description">
-      Üzerinde çalışılan görevler
-    </span>
-
-  </article>
-
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('completed')">
-
-    <div class="card-top">
-      <span class="card-label">Tamamlananlar</span>
-      <span class="card-icon completed-icon">✓</span>
-    </div>
-
-    <strong class="card-value">
-      {{ summary.completedTasks }}
-    </strong>
-
-    <span class="card-description">
-      Başarıyla tamamlanan görevler
-    </span>
-
-  </article>
-
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('overdue')">
-
-    <div class="card-top">
-      <span class="card-label">Gecikenler</span>
-      <span class="card-icon overdue-icon">!</span>
-    </div>
-
-    <strong class="card-value">
-      {{ summary.overdueTasks }}
-    </strong>
-
-    <span class="card-description">
-      Son tarihi geçmiş görevler
-    </span>
-
-  </article>
-
-  <article
-    class="summary-card clickable"
-    (click)="openTaskFilter('all')">
-
-    <div class="card-top">
-      <span class="card-label">Benim Görevlerim</span>
-      <span class="card-icon mine-icon">B</span>
-    </div>
-
-    <strong class="card-value">
-      {{ summary.myTasks }}
-    </strong>
-
-    <span class="card-description">
-      Hesabına atanmış görevler
-    </span>
-
-  </article>
-
-</section>
-
-<!-- Doughnut Chart -->
-
-<section
-  class="chart-card"
-  *ngIf="!isLoading && !errorMessage && summary">
-
-  <div class="chart-header">
-
-    <div>
-      <h2>Görev Durumu</h2>
-
-      <p>
-        Görevlerinin mevcut dağılımı
-      </p>
-    </div>
-
-    <span class="chart-total">
-      {{ summary.totalTasks }}
-    </span>
-
-  </div>
-
-  <div class="chart-container">
-
-    <canvas
-      baseChart
-      [type]="doughnutChartType"
-      [data]="doughnutChartData"
-      [options]="doughnutChartOptions">
-    </canvas>
-
-    <div class="chart-center">
-
-      <strong>
+      <strong class="card-value">
         {{ summary.completedTasks }}
       </strong>
 
-      <span>
-        Tamamlandı
+      <span class="card-description">
+        Başarıyla tamamlanan görevler
+      </span>
+
+    </article>
+
+    <article
+      class="summary-card clickable"
+      (click)="openOverdueModal()">
+
+      <div class="card-top">
+        <span class="card-label">Gecikenler</span>
+        <span class="card-icon overdue-icon">!</span>
+      </div>
+
+      <strong class="card-value">
+        {{ summary.overdueTasks }}
+      </strong>
+
+      <span class="card-description">
+        Son tarihi geçmiş görevler
+      </span>
+
+    </article>
+
+    <article
+      class="summary-card clickable"
+      (click)="openTaskFilter('all')">
+
+      <div class="card-top">
+        <span class="card-label">Benim Görevlerim</span>
+        <span class="card-icon mine-icon">B</span>
+      </div>
+
+      <strong class="card-value">
+        {{ summary.myTasks }}
+      </strong>
+
+      <span class="card-description">
+        Sana atanmış görevler
+      </span>
+
+    </article>
+
+  </section>
+
+  <!-- Doughnut Chart -->
+
+  <section
+    class="chart-card"
+    *ngIf="!isLoading && !errorMessage && summary">
+
+    <div class="chart-header">
+
+      <div>
+        <h2>Görev Durumu</h2>
+
+        <p>
+          Görevlerinin mevcut dağılımı
+        </p>
+      </div>
+
+      <span class="chart-total">
+        {{ summary.myTasks }}
       </span>
 
     </div>
 
-  </div>
+    <div class="chart-container">
 
-</section>
+      <canvas
+        baseChart
+        [type]="doughnutChartType"
+        [data]="doughnutChartData"
+        [options]="doughnutChartOptions">
+      </canvas>
 
-<!-- Line Chart -->
+      <div class="chart-center">
 
-<section
-  class="chart-card"
-  *ngIf="!isLoading && !errorMessage && summary">
+        <strong>
+          {{ summary.completedTasks }}
+        </strong>
 
-  <div class="chart-header">
+        <span>
+          Tamamlandı
+        </span>
 
-    <div>
+      </div>
 
-      <h2>Haftalık İlerleme</h2>
+    </div>
+
+  </section>
+
+  <!-- Line Chart -->
+
+  <section
+    class="chart-card"
+    *ngIf="!isLoading && !errorMessage && summary">
+
+    <div class="chart-header">
+
+      <div>
+
+        <h2>Haftalık İlerleme</h2>
+
+        <p>
+          Son 7 gündeki oluşturulan ve tamamlanan görevler
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="line-chart-container">
+
+      <canvas
+        baseChart
+        [type]="lineChartType"
+        [data]="lineChartData"
+        [options]="lineChartOptions">
+      </canvas>
+
+    </div>
+
+  </section>
+  <!-- Upcoming Tasks -->
+
+  <section
+    class="upcoming-card"
+    *ngIf="!isLoading && !errorMessage">
+
+    <div class="upcoming-header">
+
+      <div>
+        <h2>Yaklaşan Görevler</h2>
+
+        <p>
+          Önümüzdeki 7 gün içinde tamamlanması gereken görevler
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="view-all-button"
+        (click)="openTaskFilter('upcoming')">
+
+        Tümünü Gör
+
+      </button>
+
+    </div>
+
+    <div
+      class="upcoming-empty"
+      *ngIf="upcomingTasks.length === 0">
+
+      <span class="upcoming-empty-icon">
+        ✓
+      </span>
+
+      <h3>Yaklaşan görev bulunmuyor</h3>
 
       <p>
-        Son 7 gündeki oluşturulan ve tamamlanan görevler
+        Önümüzdeki 7 gün içinde teslim edilmesi gereken bir görevin yok.
       </p>
 
     </div>
 
-  </div>
+    <div
+      class="upcoming-list"
+      *ngIf="upcomingTasks.length > 0">
 
-  <div class="line-chart-container">
+      <button
+        type="button"
+        class="upcoming-task"
+        *ngFor="
+          let task of upcomingTasks;
+          trackBy: trackByUpcomingTaskId
+        "
+        (click)="openUpcomingTask(task)">
 
-    <canvas
-      baseChart
-      [type]="lineChartType"
-      [data]="lineChartData"
-      [options]="lineChartOptions">
-    </canvas>
+        <span
+          class="priority-indicator"
+          [attr.data-priority]="task.priority">
+        </span>
 
-  </div>
+        <span class="upcoming-task-content">
 
-</section>
-<!-- Upcoming Tasks -->
+          <strong class="upcoming-task-title">
+            {{ task.title }}
+          </strong>
 
-<section
-  class="upcoming-card"
-  *ngIf="!isLoading && !errorMessage">
+          <span class="upcoming-task-team">
+            {{ task.teamName }}
+          </span>
 
-  <div class="upcoming-header">
+        </span>
 
-    <div>
-      <h2>Yaklaşan Görevler</h2>
+        <span class="upcoming-task-date">
 
-      <p>
-        Önümüzdeki 7 gün içinde tamamlanması gereken görevler
-      </p>
+          <strong>
+      {{
+        getRemainingDaysLabel(
+          task.remainingDays
+        )
+      }}
+    </strong>
+
+
+          <small>
+            {{ task.dueDate | date:'dd MMM':'':'tr-TR' }}
+          </small>
+
+        </span>
+
+      </button>
+
     </div>
 
-    <button
-      type="button"
-      class="view-all-button"
-      (click)="openTaskFilter('upcoming')">
+  </section>
+    </main>
+  <div
+    class="overdue-modal-backdrop"
+    *ngIf="isOverdueModalOpen"
+    (click)="closeOverdueModal()">
 
-      Tümünü Gör
+    <section
+      class="overdue-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dashboard-overdue-title"
+      (click)="$event.stopPropagation()">
 
-    </button>
+      <header class="overdue-modal-header">
+
+        <div>
+
+          <span class="overdue-modal-label">
+            GECİKEN GÖREVLER
+          </span>
+
+          <h2 id="dashboard-overdue-title">
+            Son tarihi geçenler
+          </h2>
+
+          <p>
+            Sana atanmış
+            {{ overdueTasks.length }}
+            geciken görev bulunuyor.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="overdue-modal-close"
+          aria-label="Modalı kapat"
+          (click)="closeOverdueModal()">
+
+          ×
+
+        </button>
+
+      </header>
+
+  <div
+    class="overdue-modal-state"
+    *ngIf="overdueTasks.length === 0">
+
+    Geciken görevin bulunmuyor.
 
   </div>
 
   <div
-    class="upcoming-empty"
-    *ngIf="upcomingTasks.length === 0">
-
-    <span class="upcoming-empty-icon">
-      ✓
-    </span>
-
-    <h3>Yaklaşan görev bulunmuyor</h3>
-
-    <p>
-      Önümüzdeki 7 gün içinde teslim edilmesi gereken bir görevin yok.
-    </p>
-
-  </div>
-
-  <div
-    class="upcoming-list"
-    *ngIf="upcomingTasks.length > 0">
+    class="overdue-task-list"
+    *ngIf="overdueTasks.length > 0">
 
     <button
       type="button"
-      class="upcoming-task"
-      *ngFor="
-        let task of upcomingTasks;
-        trackBy: trackByUpcomingTaskId
-      "
-      (click)="openUpcomingTask(task)">
+      class="overdue-task-item"
+      *ngFor="let task of overdueTasks"
+      (click)="openOverdueTask(task)">
 
       <span
-        class="priority-indicator"
-        [attr.data-priority]="task.priority">
+        class="overdue-task-line"
+        aria-hidden="true">
       </span>
 
-      <span class="upcoming-task-content">
+      <span class="overdue-task-content">
 
-        <strong class="upcoming-task-title">
+        <small class="overdue-task-code">
+          TASK-{{ task.id }}
+          ·
+          {{ task.teamName }}
+        </small>
+
+        <strong class="overdue-task-title">
           {{ task.title }}
         </strong>
 
-        <span class="upcoming-task-team">
-          {{ task.teamName }}
+        <span class="overdue-task-date">
+          {{
+            task.dueDate
+              | date:'dd MMMM yyyy':'':'tr-TR'
+          }}
         </span>
 
       </span>
 
-      <span class="upcoming-task-date">
+      <span class="overdue-task-right">
 
-        <strong>
-          {{ getRemainingDaysLabel(task.remainingDays) }}
-        </strong>
+        <span
+          class="overdue-priority"
+          [attr.data-priority]="
+            getPriorityLabel(
+              task.priority
+            )
+          ">
 
-        <small>
-          {{ task.dueDate | date:'dd MMM':'':'tr-TR' }}
+          {{
+            getPriorityLabel(
+              task.priority
+            )
+          }}
+
+        </span>
+
+        <small class="overdue-days">
+          {{ task.overdueDays }}
+          gün gecikti
         </small>
 
       </span>
@@ -331,42 +455,41 @@
     </button>
 
   </div>
+    </section>
 
-</section>
-  </main>
+  </div>
+  </ion-content>
 
-</ion-content>
+  <nav class="bottom-navigation">
 
-<nav class="bottom-navigation">
+    <button
+      type="button"
+      class="navigation-item"
+      (click)="openTeams()">
 
-  <button
-    type="button"
-    class="navigation-item"
-    (click)="openTeams()">
+      <ion-icon name="people-outline"></ion-icon>
+      <span>Takımlar</span>
 
-    <ion-icon name="people-outline"></ion-icon>
-    <span>Takımlar</span>
+    </button>
 
-  </button>
+    <button
+      type="button"
+      class="navigation-item"
+      (click)="openTasks()">
 
-  <button
-    type="button"
-    class="navigation-item"
-    (click)="openTasks()">
+      <ion-icon name="checkbox-outline"></ion-icon>
+      <span>Görevler</span>
 
-    <ion-icon name="checkbox-outline"></ion-icon>
-    <span>Görevler</span>
+    </button>
 
-  </button>
+    <button
+      type="button"
+      class="navigation-item active"
+      (click)="openReports()">
 
-  <button
-    type="button"
-    class="navigation-item active"
-    (click)="openReports()">
+      <ion-icon name="grid-outline"></ion-icon>
+      <span>Raporlar</span>
 
-    <ion-icon name="grid-outline"></ion-icon>
-    <span>Raporlar</span>
+    </button>
 
-  </button>
-
-</nav>
+  </nav>

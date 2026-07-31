@@ -10,5 +10,6 @@ namespace TaskTracker.Application.Interfaces.Repositories
 
         Task<TaskItem?> GetByIdWithDetailsAsync(int taskId);
         Task<List<TaskItem>> GetTasksByTeamIdAsync(int teamId);
+        Task<List<TaskItem>> GetTasksByUserTeamMembershipsAsync(int userId );
     }
 }

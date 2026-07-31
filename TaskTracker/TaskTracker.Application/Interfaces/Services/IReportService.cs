@@ -13,5 +13,6 @@ namespace TaskTracker.Application.Interfaces.Services
         Task<DashboardSummaryDto> GetDashboardSummaryAsync(int userId);
         Task<List<WeeklyProgressDto>> GetWeeklyProgressAsync(int userId);
         Task<List<UpcomingTaskDto>> GetUpcomingDeadlinesAsync(int userId);
+        Task<List<OverdueTaskDto>>GetOverdueTasksAsync(int userId);
     }
 }

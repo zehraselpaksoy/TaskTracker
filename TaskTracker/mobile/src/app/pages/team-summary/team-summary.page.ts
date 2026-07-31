@@ -47,7 +47,7 @@ import {
 
 import { forkJoin } from 'rxjs';
 
-import { BoardTab } from '../../models/board-task';
+import { BoardTab,BoardTaskResponse } from '../../models/board-task';
 import { Team } from '../../models/team';
 
 import {
@@ -73,11 +73,14 @@ import { ActivityService } from '../../services/activity';
 })
 export class TeamSummaryPage implements OnInit {
 
+  overdueTasks: BoardTaskResponse[] = [];
+
+  isOverdueModalOpen = false;
   activities: Activity[] = [];
 
-isActivitiesLoading = false;
+  isActivitiesLoading = false;
 
-activityError = '';
+  activityError = '';
   teamId = 0;
 
   teamName = 'Takım yükleniyor...';
@@ -163,15 +166,17 @@ activityError = '';
     }
   }
 
-  @HostListener('document:keydown.escape')
-  onEscapePressed(): void {
-    this.closeNavigationMenu();
-    this.closeTeamMenu();
-  }
+ @HostListener('document:keydown.escape')
+onEscapePressed(): void {
+  this.closeNavigationMenu();
+  this.closeTeamMenu();
+  this.closeOverdueModal();
+}
 
   /*
    * Özet verilerini yükleme
    */
+
 
   loadSummary(): void {
     if (this.teamId <= 0) {
@@ -180,15 +185,16 @@ activityError = '';
 
       return;
     }
-
+    this.overdueTasks = [];
+    this.isOverdueModalOpen = false;
     this.isLoading = true;
 
     this.errorMessage = '';
 
-   this.summary = null;
-this.activities = [];
+    this.summary = null;
+    this.activities = [];
 
- forkJoin({
+forkJoin({
   team:
     this.teamService.getTeamById(
       this.teamId
@@ -202,43 +208,199 @@ this.activities = [];
   activities:
     this.activityService.getTeamActivities(
       this.teamId
+    ),
+
+  tasks:
+    this.teamService.getTeamTasks(
+      this.teamId
     )
 }).subscribe({
-      next: ({
-        team,
-        summary,activities
-      }) => {
-        this.teamName = team.name;
+  next: ({
+    team,
+    summary,
+    activities,
+    tasks
+  }) => {
+    this.teamName = team.name;
 
-        this.summary = summary;
-         this.activities = activities;
+    this.summary = summary;
 
-        localStorage.setItem(
-          `teamName_${this.teamId}`,
-          team.name
+    this.activities = activities;
+
+    this.overdueTasks =
+      (tasks ?? [])
+        .filter(task =>
+          this.isTaskOverdue(task)
+        )
+        .sort((firstTask, secondTask) =>
+          this.compareDueDates(
+            firstTask,
+            secondTask
+          )
         );
-        
-        this.isLoading = false;
-      },
 
-      error: (
-        error: HttpErrorResponse
-      ) => {
-        console.error(
-          'Takım özeti yüklenemedi:',
-          error
-        );
+    localStorage.setItem(
+      `teamName_${this.teamId}`,
+      team.name
+    );
 
-        this.isLoading = false;
+    this.isLoading = false;
+  },
 
-        this.errorMessage =
-          this.getLoadErrorMessage(
-            error
-          );
-      }
-    });
+  error: (
+    error: HttpErrorResponse
+  ) => {
+    console.error(
+      'Takım özeti yüklenemedi:',
+      error
+    );
+
+    this.isLoading = false;
+
+    this.errorMessage =
+      this.getLoadErrorMessage(error);
+  }
+});
+  }
+openOverdueModal(): void {
+  if (this.overdueTasks.length === 0) {
+    return;
   }
 
+  this.closeAllMenus();
+
+  this.isOverdueModalOpen = true;
+}
+
+closeOverdueModal(): void {
+  this.isOverdueModalOpen = false;
+}
+
+openOverdueTask(
+  task: BoardTaskResponse
+): void {
+  this.closeOverdueModal();
+
+  void this.router.navigate([
+    '/teams',
+    this.teamId,
+    'tasks',
+    task.id
+  ]);
+}
+formatTaskDueDate(
+  dueDate: string | null
+): string {
+  if (!dueDate) {
+    return 'Tarih belirtilmedi';
+  }
+
+  const date = new Date(dueDate);
+
+  if (Number.isNaN(date.getTime())) {
+    return 'Geçersiz tarih';
+  }
+
+  return new Intl.DateTimeFormat(
+    'tr-TR',
+    {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }
+  ).format(date);
+}
+
+getTaskPriorityLabel(
+  priority: string | number
+): string {
+  const normalizedPriority =
+    typeof priority === 'number'
+      ? priority
+      : priority
+          .trim()
+          .toLocaleLowerCase('tr-TR');
+
+  if (
+    normalizedPriority === 2 ||
+    normalizedPriority === '2' ||
+    normalizedPriority === 'high' ||
+    normalizedPriority === 'yüksek' ||
+    normalizedPriority === 'yuksek'
+  ) {
+    return 'Yüksek';
+  }
+
+  if (
+    normalizedPriority === 0 ||
+    normalizedPriority === '0' ||
+    normalizedPriority === 'low' ||
+    normalizedPriority === 'düşük' ||
+    normalizedPriority === 'dusuk'
+  ) {
+    return 'Düşük';
+  }
+
+  return 'Orta';
+}
+private isTaskOverdue(
+  task: BoardTaskResponse
+): boolean {
+  if (!task.dueDate) {
+    return false;
+  }
+
+  if (this.isCompletedStatus(task.status)) {
+    return false;
+  }
+
+  const dueDate =
+    new Date(task.dueDate);
+
+  if (Number.isNaN(dueDate.getTime())) {
+    return false;
+  }
+
+  return dueDate.getTime() <
+    new Date().getTime();
+}
+
+private isCompletedStatus(
+  status: string | number
+): boolean {
+  if (typeof status === 'number') {
+    return status === 2;
+  }
+
+  const normalizedStatus =
+    String(status)
+      .trim()
+      .replace(/[\s_-]/g, '')
+      .toLocaleLowerCase('tr-TR');
+
+  return (
+    normalizedStatus === '2' ||
+    normalizedStatus === 'done' ||
+    normalizedStatus === 'completed' ||
+    normalizedStatus === 'tamamlandı' ||
+    normalizedStatus === 'tamamlandi'
+  );
+}
+
+private compareDueDates(
+  firstTask: BoardTaskResponse,
+  secondTask: BoardTaskResponse
+): number {
+  const firstTime = firstTask.dueDate
+    ? new Date(firstTask.dueDate).getTime()
+    : Number.MAX_SAFE_INTEGER;
+
+  const secondTime = secondTask.dueDate
+    ? new Date(secondTask.dueDate).getTime()
+    : Number.MAX_SAFE_INTEGER;
+
+  return firstTime - secondTime;
+}
   /*
    * Sol navigasyon menüsü
    */
@@ -584,10 +746,10 @@ getRelativeTime(date: string): string {
    */
 
   private closeAllMenus(): void {
-    this.closeNavigationMenu();
-
-    this.closeTeamMenu();
-  }
+  this.closeNavigationMenu();
+  this.closeTeamMenu();
+  this.closeOverdueModal();
+}
 
   private getLoadErrorMessage(
     error: HttpErrorResponse

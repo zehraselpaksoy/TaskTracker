@@ -19,9 +19,7 @@ import {
   checkboxOutline,
   gridOutline,
   peopleOutline,
-  searchOutline,
-  star,
-  starOutline
+  searchOutline
 } from 'ionicons/icons';
 
 import { Team } from '../../models/team';
@@ -48,7 +46,7 @@ export class TeamsPage implements OnInit {
 
   private readonly router =
     inject(Router);
-
+isProfileMenuOpen = false;
   isCreateTeamModalOpen = false;
 
 isCreatingTeam = false;
@@ -60,9 +58,6 @@ newTeamName = '';
 newTeamDescription = '';  
 
   teams: Team[] = [];
-
-  favoriteTeamIds =
-    new Set<number>();
 
   searchTerm = '';
 
@@ -78,33 +73,32 @@ newTeamDescription = '';
       checkboxOutline,
       gridOutline,
       peopleOutline,
-      searchOutline,
-      star,
-      starOutline
+      searchOutline
     });
   }
 
   ngOnInit(): void {
     this.loadCurrentUser();
-    this.loadFavorites();
     this.loadTeams();
   }
 
   get filteredTeams(): Team[] {
-    const searchValue = this.searchTerm
+  const searchValue =
+    this.searchTerm
       .trim()
       .toLocaleLowerCase('tr-TR');
 
-    if (!searchValue) {
-      return this.teams;
-    }
-
-    return this.teams.filter((team) =>
-      team.name
-        .toLocaleLowerCase('tr-TR')
-        .includes(searchValue)
-    );
+  if (!searchValue) {
+    return this.teams;
   }
+
+  return this.teams.filter(team =>
+    team.name
+      .trim()
+      .toLocaleLowerCase('tr-TR')
+      .startsWith(searchValue)
+  );
+}
 
   get recentTeam(): Team | null {
     if (this.teams.length === 0) {
@@ -174,7 +168,30 @@ newTeamDescription = '';
 
     return fullName.split(/\s+/)[0];
   }
+toggleProfileMenu(): void {
+  this.isProfileMenuOpen =
+    !this.isProfileMenuOpen;
+}
 
+closeProfileMenu(): void {
+  this.isProfileMenuOpen = false;
+}
+
+logout(): void {
+  this.closeProfileMenu();
+
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+
+  sessionStorage.clear();
+
+  void this.router.navigateByUrl(
+    '/login',
+    {
+      replaceUrl: true
+    }
+  );
+}
   loadTeams(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -318,35 +335,6 @@ onCreateModalBackdropClick(
   ]);
 }
 
-  toggleFavorite(
-    event: Event,
-    teamId: number
-  ): void {
-    event.stopPropagation();
-
-    if (
-      this.favoriteTeamIds.has(teamId)
-    ) {
-      this.favoriteTeamIds.delete(
-        teamId
-      );
-    } else {
-      this.favoriteTeamIds.add(
-        teamId
-      );
-    }
-
-    this.saveFavorites();
-  }
-
-  isFavorite(
-    teamId: number
-  ): boolean {
-    return this.favoriteTeamIds.has(
-      teamId
-    );
-  }
-
   getTeamInitials(
     teamName: string
   ): string {
@@ -471,40 +459,4 @@ onCreateModalBackdropClick(
     ) as Record<string, unknown>;
   }
 
-  private loadFavorites(): void {
-    const savedFavorites =
-      localStorage.getItem(
-        'favoriteTeamIds'
-      );
-
-    if (!savedFavorites) {
-      return;
-    }
-
-    try {
-      const ids = JSON.parse(
-        savedFavorites
-      ) as number[];
-
-      this.favoriteTeamIds =
-        new Set(ids);
-    } catch (error) {
-      console.error(
-        'Favoriler okunamadı:',
-        error
-      );
-
-      this.favoriteTeamIds =
-        new Set<number>();
-    }
-  }
-
-  private saveFavorites(): void {
-    localStorage.setItem(
-      'favoriteTeamIds',
-      JSON.stringify([
-        ...this.favoriteTeamIds
-      ])
-    );
-  }
 }

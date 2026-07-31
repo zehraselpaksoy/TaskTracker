@@ -72,149 +72,408 @@
     <!-- Takvim içeriği -->
     <main class="calendar-content">
 
-      <section class="calendar-toolbar">
-        <div class="month-navigation">
-          <button
-            type="button"
-            class="navigation-button"
-            aria-label="Önceki ay"
-            (click)="previousMonth()"
-          >
-            <ion-icon name="chevron-back-outline"></ion-icon>
-          </button>
+  <!-- Takvim başlığı -->
 
-          <div class="month-title">
-            <span class="month-label">
-              {{ getMonthTitle() }}
-            </span>
+  <header class="calendar-heading">
 
-            <span class="month-subtitle">
-              Son teslim tarihine göre görevler
-            </span>
-          </div>
+    <div>
 
-          <button
-            type="button"
-            class="navigation-button"
-            aria-label="Sonraki ay"
-            (click)="nextMonth()"
-          >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </button>
-        </div>
+      <span class="calendar-eyebrow">
+        Planlama
+      </span>
 
-        <button
-          type="button"
-          class="today-button"
-          (click)="goToToday()"
-        >
-          Bugün
-        </button>
-      </section>
+      <h1>Takım takvimi</h1>
 
-      <!-- Yükleniyor -->
-      <div
-        *ngIf="isLoading"
-        class="state-container"
-      >
-        <ion-spinner name="crescent"></ion-spinner>
+      <p>
+        Görevleri son teslim tarihlerine göre
+        görüntüle ve günlük iş planını takip et.
+      </p>
 
-        <p>Görevler yükleniyor...</p>
+    </div>
+
+    <div class="month-task-summary">
+
+      <strong>
+        {{ monthTaskCount }}
+      </strong>
+
+      <span>
+        Bu ayki görev
+      </span>
+
+    </div>
+
+  </header>
+
+  <!-- Ay kontrolleri -->
+
+  <section class="calendar-toolbar">
+
+    <div class="month-navigation">
+
+      <button
+        type="button"
+        class="navigation-button"
+        aria-label="Önceki ay"
+        (click)="previousMonth()">
+
+        <ion-icon
+          name="chevron-back-outline">
+        </ion-icon>
+
+      </button>
+
+      <div class="month-title">
+
+        <span class="month-label">
+          {{ getMonthTitle() }}
+        </span>
+
+        <span class="month-subtitle">
+          Son teslim tarihlerine göre
+        </span>
+
       </div>
 
-      <!-- Hata -->
-      <div
-        *ngIf="!isLoading && errorMessage"
-        class="state-container error-state"
-      >
-        <h2>Takvim yüklenemedi</h2>
+      <button
+        type="button"
+        class="navigation-button"
+        aria-label="Sonraki ay"
+        (click)="nextMonth()">
 
-        <p>{{ errorMessage }}</p>
+        <ion-icon
+          name="chevron-forward-outline">
+        </ion-icon>
 
-        <button
-          type="button"
-          class="retry-button"
-          (click)="loadCalendar()"
-        >
-          Tekrar dene
-        </button>
-      </div>
+      </button>
 
-      <!-- Takvim -->
-      <section
-        *ngIf="!isLoading && !errorMessage"
-        class="calendar-wrapper"
-      >
-        <div class="week-days">
-          <div
-            *ngFor="let weekDay of weekDays"
-            class="week-day"
-          >
-            {{ weekDay }}
-          </div>
+    </div>
+
+    <button
+      type="button"
+      class="today-button"
+      (click)="goToToday()">
+
+      Bugün
+
+    </button>
+
+  </section>
+
+  <!-- Yükleniyor -->
+
+  <section
+    class="state-container"
+    *ngIf="isLoading">
+
+    <ion-spinner name="crescent">
+    </ion-spinner>
+
+    <p>
+      Takvim bilgileri yükleniyor...
+    </p>
+
+  </section>
+
+  <!-- Hata -->
+
+  <section
+    class="state-container error-state"
+    *ngIf="
+      !isLoading &&
+      errorMessage
+    ">
+
+    <h2>
+      Takvim yüklenemedi
+    </h2>
+
+    <p>
+      {{ errorMessage }}
+    </p>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="loadCalendar()">
+
+      Tekrar dene
+
+    </button>
+
+  </section>
+
+  <!-- Takvim -->
+
+  <section
+    class="calendar-layout"
+    *ngIf="
+      !isLoading &&
+      !errorMessage
+    ">
+
+    <div class="calendar-wrapper">
+
+      <!-- Haftanın günleri -->
+
+      <div class="week-days">
+
+        <div
+          class="week-day"
+          *ngFor="
+            let weekDay of weekDays
+          ">
+
+          {{ weekDay }}
+
         </div>
 
-        <div class="calendar-grid">
-          <article
-            *ngFor="
-              let day of calendarDays;
-              trackBy: trackDay
-            "
-            class="calendar-day"
-            [class.other-month]="!day.isCurrentMonth"
-            [class.today]="day.isToday"
-          >
-            <div class="day-header">
-              <span class="day-number">
-                {{ day.dayNumber }}
+      </div>
+
+      <!-- Ay günleri -->
+
+      <div class="calendar-grid">
+
+        <article
+          class="calendar-day"
+          *ngFor="
+            let day of calendarDays;
+            trackBy: trackDay
+          "
+          [class.other-month]="
+            !day.isCurrentMonth
+          "
+          [class.today]="day.isToday"
+          [class.selected]="
+            isSelectedDay(day)
+          "
+          role="button"
+          tabindex="0"
+          (click)="selectDay(day)"
+          (keyup.enter)="selectDay(day)">
+
+          <header class="day-header">
+
+            <span class="day-number">
+              {{ day.dayNumber }}
+            </span>
+
+            <span
+              class="today-label"
+              *ngIf="day.isToday">
+
+              Bugün
+
+            </span>
+
+            <span
+              class="day-task-count"
+              *ngIf="
+                day.tasks.length > 0
+              ">
+
+              {{ day.tasks.length }}
+
+            </span>
+
+          </header>
+
+          <!-- Masaüstü görev kartları -->
+
+          <div class="day-tasks">
+
+            <button
+              type="button"
+              class="calendar-task"
+              *ngFor="
+                let task of
+                  getVisibleTasks(day);
+                trackBy: trackTask
+              "
+              [ngClass]="
+                getTaskStatusClass(
+                  task.status
+                )
+              "
+              (click)="
+                $event.stopPropagation();
+                openTask(task)
+              ">
+
+              <span class="task-title">
+                {{ task.title }}
               </span>
 
               <span
-                *ngIf="day.isToday"
-                class="today-label"
-              >
-                Bugün
-              </span>
-            </div>
-
-            <div class="day-tasks">
-              <button
-                *ngFor="
-                  let task of day.tasks;
-                  trackBy: trackTask
-                "
-                type="button"
-                class="calendar-task"
-                [ngClass]="getTaskStatusClass(task.status)"
-                (click)="openTask(task)"
-              >
-                <span class="task-title">
-                  {{ task.title }}
-                </span>
-
-                <span
-                  *ngIf="task.assignedToName"
-                  class="task-assignee"
-                >
-                  {{ task.assignedToName }}
-                </span>
-              </button>
-
-              <span
+                class="task-assignee"
                 *ngIf="
-                  day.tasks.length === 0 &&
-                  day.isCurrentMonth
-                "
-                class="empty-day"
-              >
-                Görev yok
-              </span>
-            </div>
-          </article>
-        </div>
-      </section>
+                  task.assignedToName
+                ">
 
-    </main>
+                {{ task.assignedToName }}
+
+              </span>
+
+            </button>
+
+            <span
+              class="remaining-task-count"
+              *ngIf="
+                getRemainingTaskCount(day) > 0
+              ">
+
+              +{{
+                getRemainingTaskCount(day)
+              }} görev daha
+
+            </span>
+
+          </div>
+
+          <!-- Mobil durum noktaları -->
+
+          <div
+            class="mobile-task-indicators"
+            *ngIf="
+              day.tasks.length > 0
+            ">
+
+            <span
+              *ngFor="
+                let task of
+                  getVisibleTasks(day)
+              "
+              [ngClass]="
+                getTaskStatusClass(
+                  task.status
+                )
+              ">
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+    <!-- Seçilen günün görevleri -->
+
+   <aside
+  #selectedDayPanel
+  class="selected-day-panel">
+
+      <header class="selected-day-header">
+
+        <div>
+
+          <span class="selected-day-label">
+            Seçilen gün
+          </span>
+
+          <h2>
+            {{ getSelectedDateTitle() }}
+          </h2>
+
+        </div>
+
+        <span class="selected-day-count">
+
+          {{ selectedDayTasks.length }}
+
+        </span>
+
+      </header>
+
+      <div
+        class="selected-day-empty"
+        *ngIf="
+          selectedDayTasks.length === 0
+        ">
+
+        <span class="empty-calendar-icon">
+
+          <ion-icon
+            name="calendar-outline">
+          </ion-icon>
+
+        </span>
+
+        <h3>
+          Bu güne ait görev yok
+        </h3>
+
+        <p>
+          Seçilen tarihe atanmış bir son
+          teslim tarihi bulunmuyor.
+        </p>
+
+      </div>
+
+      <div
+        class="selected-day-tasks"
+        *ngIf="
+          selectedDayTasks.length > 0
+        ">
+
+        <button
+          type="button"
+          class="selected-day-task"
+          *ngFor="
+            let task of selectedDayTasks;
+            trackBy: trackTask
+          "
+          (click)="openTask(task)">
+
+          <span
+            class="selected-task-indicator"
+            [ngClass]="
+              getTaskStatusClass(
+                task.status
+              )
+            ">
+          </span>
+
+          <span class="selected-task-content">
+
+            <strong>
+              {{ task.title }}
+            </strong>
+
+            <small>
+              {{
+                getTaskStatusLabel(
+                  task.status
+                )
+              }}
+            </small>
+
+          </span>
+
+          <span
+            class="selected-task-assignee"
+            *ngIf="
+              task.assignedToName
+            ">
+
+            {{ task.assignedToName }}
+
+          </span>
+
+          <ion-icon
+            name="chevron-forward-outline">
+          </ion-icon>
+
+        </button>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+</main>
   </div>
 
   <!-- Takım menüsü arka planı -->

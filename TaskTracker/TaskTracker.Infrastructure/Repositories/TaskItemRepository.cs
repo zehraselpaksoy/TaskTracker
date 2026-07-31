@@ -55,5 +55,27 @@ namespace TaskTracker.Infrastructure.Repositories
                 .ThenBy(t => t.DueDate)
                 .ToListAsync();
         }
+        public async Task<List<TaskItem>>
+    GetTasksByUserTeamMembershipsAsync(
+        int userId
+    )
+        {
+            return await _context.TaskItems
+                .AsNoTracking()
+                .Include(task => task.Category)
+                .Include(task => task.CreatedByUser)
+                .Include(task => task.AssignedToUser)
+                .Include(task => task.Team)
+                .Where(task =>
+                    _context.TeamMembers.Any(
+                        member =>
+                            member.TeamId ==
+                                task.TeamId &&
+                            member.UserId ==
+                                userId
+                    )
+                )
+                .ToListAsync();
+        }
     }
 }

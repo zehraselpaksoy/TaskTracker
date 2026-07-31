@@ -204,19 +204,20 @@ ion-content {
 }
 
 .task-card {
-  min-height: 78px;
-  padding: 13px 12px;
+  min-height: 96px;
+  padding: 16px;
 
   display: grid;
   grid-template-columns:
-    28px
+    5px
     minmax(0, 1fr)
     auto
     auto
     40px
     16px;
+
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 
   border: 1px solid var(--border-color);
   border-radius: 15px;
@@ -229,6 +230,7 @@ ion-content {
     );
 
   cursor: pointer;
+
   transition:
     background 0.2s ease,
     transform 0.2s ease,
@@ -248,36 +250,52 @@ ion-content {
   outline: 2px solid var(--primary-blue);
   outline-offset: 2px;
 }
+.task-status-line {
+  width: 5px;
+  height: 100%;
+  min-height: 72px;
 
-.task-type-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+
+  border-radius: 999px;
+
+  background: #ffab00;
 }
 
-.task-checkbox {
-  width: 20px;
-  height: 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px solid #3688ff;
-  border-radius: 4px;
-
-  color: #3688ff;
+.task-status-line.status-open {
+  background: #ffab00;
 }
 
-.task-checkbox.completed {
-  border-color: #4f8cff;
-  background: rgba(79, 140, 255, 0.1);
+.task-status-line.status-progress {
+  background: #579dff;
 }
 
-.task-checkbox ion-icon {
-  font-size: 17px;
+.task-status-line.status-completed {
+  background: #4bce97;
 }
 
+.task-status-line.status-unknown {
+  background: #73737a;
+}
+.status-badge.status-open {
+  background: rgba(255, 171, 0, 0.14);
+  color: #ffbd3d;
+}
+
+.status-badge.status-progress {
+  background: rgba(87, 157, 255, 0.16);
+  color: #72a7ff;
+}
+
+.status-badge.status-completed {
+  background: rgba(75, 206, 151, 0.15);
+  color: #61d6a5;
+}
+
+.status-badge.status-unknown {
+  background: rgba(255, 255, 255, 0.08);
+  color: #aaaaaf;
+}
 .task-main-information {
   min-width: 0;
 }
@@ -561,15 +579,16 @@ ion-content {
     font-size: 12px;
   }
 
-  .task-card {
-    grid-template-columns:
-      26px
-      minmax(0, 1fr)
-      auto
-      auto
-      34px;
-    gap: 8px;
-  }
+ .task-card {
+  grid-template-columns:
+    5px
+    minmax(0, 1fr)
+    auto
+    auto
+    34px;
+
+  gap: 8px;
+}
 
   .task-arrow {
     display: none;
@@ -605,12 +624,12 @@ ion-content {
   }
 
   .task-card {
-    grid-template-columns:
-      24px
-      minmax(0, 1fr)
-      auto
-      32px;
-  }
+  grid-template-columns:
+    5px
+    minmax(0, 1fr)
+    auto
+    32px;
+}
 
   .status-badge {
     display: none;

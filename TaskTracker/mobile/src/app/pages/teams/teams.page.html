@@ -4,51 +4,103 @@
 
     <section class="top-section">
 
-      <div class="top-actions">
+  <div class="top-actions">
 
+    <div class="profile-dropdown">
+
+      <button
+        type="button"
+        class="profile-button"
+        [attr.aria-label]="userFullName || 'Profil'"
+        [attr.title]="userFullName || 'Profil'"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="isProfileMenuOpen"
+        (click)="toggleProfileMenu()">
+
+        <span>
+          {{ userInitials }}
+        </span>
+
+      </button>
+
+      <section
+        *ngIf="isProfileMenuOpen"
+        class="profile-menu"
+        role="menu"
+        aria-label="Profil seçenekleri">
+
+        <header class="profile-menu-header">
+
+          <span class="profile-menu-avatar">
+            {{ userInitials }}
+          </span>
+
+          <div class="profile-menu-user">
+
+            <strong>
+              {{ userFullName || 'Kullanıcı' }}
+            </strong>
+
+            <small>
+              Hesap seçenekleri
+            </small>
+
+          </div>
+
+        </header>
+        
         <button
           type="button"
-          class="profile-button"
-          [attr.aria-label]="
-            userFullName || 'Profil'
-          "
-          [attr.title]="
-            userFullName || 'Profil'
-          ">
+          class="profile-menu-logout"
+          role="menuitem"
+          (click)="logout()">
+
+          <span class="logout-icon">
+            ↪
+          </span>
 
           <span>
-            {{ userInitials }}
+            Çıkış yap
           </span>
 
         </button>
 
-        <button
-          type="button"
-          class="create-button"
-          aria-label="Takım oluştur"
-          (click)="createTeam()">
+      </section>
 
-          <ion-icon
-            name="add-outline">
-          </ion-icon>
+    </div>
 
-        </button>
+    <button
+      type="button"
+      class="create-button"
+      aria-label="Takım oluştur"
+      (click)="createTeam()">
 
-      </div>
+      <ion-icon name="add-outline"></ion-icon>
 
-      <div class="page-heading">
+    </button>
 
-        <p
-          class="welcome-text"
-          *ngIf="userFullName">
+  </div>
 
-          Merhaba, {{ firstName }}
+  <div
+    *ngIf="isProfileMenuOpen"
+    class="profile-menu-backdrop"
+    (click)="closeProfileMenu()">
+  </div>
 
-        </p>
+  <div class="page-heading">
 
-        <h1>Takımlar</h1>
+    <p
+      class="welcome-text"
+      *ngIf="userFullName">
 
-      </div>
+      Merhaba, {{ firstName }}
+
+    </p>
+
+    <h1>Takımlar</h1>
+
+  </div>
+
 
       <div class="search-box">
 
@@ -182,31 +234,7 @@
 
           </div>
 
-          <button
-            type="button"
-            class="favorite-button"
-            [attr.aria-label]="
-              isFavorite(recentTeam.id)
-                ? 'Favorilerden çıkar'
-                : 'Favoriye ekle'
-            "
-            (click)="
-              toggleFavorite(
-                $event,
-                recentTeam.id
-              )
-            ">
-
-            <ion-icon
-              [name]="
-                isFavorite(recentTeam.id)
-                  ? 'star'
-                  : 'star-outline'
-              ">
-            </ion-icon>
-
-          </button>
-
+        
         </article>
 
       </section>
@@ -289,31 +317,7 @@
 
             </div>
 
-            <button
-              type="button"
-              class="favorite-button"
-              [attr.aria-label]="
-                isFavorite(team.id)
-                  ? 'Favorilerden çıkar'
-                  : 'Favoriye ekle'
-              "
-              (click)="
-                toggleFavorite(
-                  $event,
-                  team.id
-                )
-              ">
-
-              <ion-icon
-                [name]="
-                  isFavorite(team.id)
-                    ? 'star'
-                    : 'star-outline'
-                ">
-              </ion-icon>
-
-            </button>
-
+          
           </article>
 
         </div>

@@ -1,4 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule,
+  Location
+ } from '@angular/common';
 
 import {
   Component,
@@ -43,6 +45,7 @@ import {
   sendOutline,
   trashOutline
 } from 'ionicons/icons';
+
 
 interface TaskDetailResponse {
   id: number;
@@ -199,7 +202,8 @@ private readonly apiBaseUrl =
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+     private readonly location: Location,
   ) {
     addIcons({
       arrowBackOutline,
@@ -281,21 +285,9 @@ private readonly apiBaseUrl =
     });
   }
 
-  goBack(): void {
-    if (this.teamId > 0) {
-      this.router.navigate([
-        '/teams',
-        this.teamId
-      ]);
-
-      return;
-    }
-
-    this.router.navigate([
-      '/teams'
-    ]);
-  }
-
+ goBack(): void {
+  this.location.back();
+}
   retry(): void {
     this.loadTask();
     this.loadComments();

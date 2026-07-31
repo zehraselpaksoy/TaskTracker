@@ -136,8 +136,14 @@ export class TeamTaskListPage implements OnInit {
 
     this.teamId = id;
     this.loadMyTeams();
-    this.loadPage();
   }
+  ionViewWillEnter(): void {
+  if (this.teamId <= 0) {
+    return;
+  }
+
+  this.loadPage();
+}
 
   @HostListener('document:keydown.escape')
   onEscapePressed(): void {
@@ -219,6 +225,10 @@ export class TeamTaskListPage implements OnInit {
 
     this.teamId = team.id;
     this.teamName = team.name;
+    this.searchText = '';
+    this.selectedAssigneeId = null;
+    this.selectedPriority = null;
+    this.selectedStatus = null;
     void this.router.navigate(['/teams', team.id, 'list']);
     this.loadPage();
   }
@@ -329,41 +339,57 @@ export class TeamTaskListPage implements OnInit {
 
     return this.getStatusLabel(this.selectedStatus);
   }
-
-  getFilteredTasks(): ExtendedBoardTask[] {
-    const normalizedSearch = this.searchText
+getFilteredTasks(): ExtendedBoardTask[] {
+  const normalizedSearch =
+    this.searchText
       .trim()
       .toLocaleLowerCase('tr-TR');
 
-    return this.tasks.filter((task: ExtendedBoardTask) => {
-      const matchesAssignee =
-        this.selectedAssigneeId === null ||
-        task.assignedToUserId === this.selectedAssigneeId;
+  return this.tasks.filter(task => {
+    const normalizedTitle =
+      task.title
+        .trim()
+        .toLocaleLowerCase('tr-TR');
 
-      const matchesPriority =
-        this.selectedPriority === null ||
-        task.priority === this.selectedPriority;
+    const taskAssigneeId =
+      task.assignedToUserId === null ||
+      task.assignedToUserId === undefined
+        ? null
+        : Number(
+            task.assignedToUserId
+          );
 
-      const matchesStatus =
-        this.selectedStatus === null ||
-        task.status === this.selectedStatus;
+    const matchesAssignee =
+      this.selectedAssigneeId === null ||
+      taskAssigneeId ===
+        Number(
+          this.selectedAssigneeId
+        );
 
-      const matchesSearch =
-        !normalizedSearch ||
-        task.title.toLocaleLowerCase('tr-TR').includes(normalizedSearch) ||
-        task.key.toLocaleLowerCase('tr-TR').includes(normalizedSearch) ||
-        task.assigneeName.toLocaleLowerCase('tr-TR').includes(normalizedSearch) ||
-        (task.createdByName &&
-          task.createdByName.toLocaleLowerCase('tr-TR').includes(normalizedSearch));
+    const matchesPriority =
+      this.selectedPriority === null ||
+      task.priority ===
+        this.selectedPriority;
 
-      return (
-        matchesAssignee &&
-        matchesPriority &&
-        matchesStatus &&
-        matchesSearch
+    const matchesStatus =
+      this.selectedStatus === null ||
+      task.status ===
+        this.selectedStatus;
+
+    const matchesSearch =
+      !normalizedSearch ||
+      normalizedTitle.startsWith(
+        normalizedSearch
       );
-    });
-  }
+
+    return (
+      matchesAssignee &&
+      matchesPriority &&
+      matchesStatus &&
+      matchesSearch
+    );
+  });
+}
 
   getPriorityLabel(priority: TaskPriority): string {
     const labels: Record<TaskPriority, string> = {
@@ -437,8 +463,11 @@ export class TeamTaskListPage implements OnInit {
       status: this.mapTaskStatus(response.status),
       priority: this.mapTaskPriority(response.priority),
       dueDate: response.dueDate,
-      assignedToUserId: response.assignedToUserId,
-      assigneeName,
+assignedToUserId:
+  response.assignedToUserId === null ||
+  response.assignedToUserId === undefined
+    ? null
+    : Number(response.assignedToUserId),      assigneeName,
       assigneeInitials: this.getInitials(response.assignedToName),
       createdByName,
       createdInitials: this.getInitials(createdByName)

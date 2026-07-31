@@ -539,7 +539,8 @@
 
       </div>
 
-      <div
+     <div
+        #boardColumns
         class="board-columns"
         cdkDropListGroup>
 
@@ -582,6 +583,7 @@
             cdkDropList
             [id]="'task-column-' + column.id"
             [cdkDropListData]="getTasksByStatus(column.id)"
+            [cdkDropListConnectedTo]="getConnectedDropListIds(column.id)"
             (cdkDropListDropped)="dropTask($event, column.id)">
 
             <article
@@ -591,7 +593,11 @@
                 trackBy: trackTask
               "
               cdkDrag
-              [cdkDragData]="task"
+              (cdkDragMoved)="onTaskDragMoved($event)"
+              [cdkDragStartDelay]="{
+                touch: 450,
+                mouse: 0
+              }"
               [cdkDragDisabled]="isTaskStatusUpdating(task.id)"
               [class.status-updating]="isTaskStatusUpdating(task.id)"
               tabindex="0"
@@ -657,19 +663,7 @@
                     name="crescent"
                     *ngIf="isTaskStatusUpdating(task.id)">
                   </ion-spinner>
-
-                  <button
-                    type="button"
-                    class="task-menu-button"
-                    aria-label="Görev seçenekleri"
-                    [disabled]="isTaskStatusUpdating(task.id)"
-                    (click)="$event.stopPropagation()">
-
-                    <ion-icon name="ellipsis-horizontal-outline">
-                    </ion-icon>
-
-                  </button>
-
+              
                 </div>
 
               </div>
@@ -765,17 +759,7 @@
 
       </div>
 
-      <div class="board-page-indicator">
-
-        <span
-          *ngFor="
-            let column of columns;
-            let index = index
-          "
-          [class.active]="index === 0">
-        </span>
-
-      </div>
+      
 
     </section>
 

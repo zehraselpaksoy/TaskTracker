@@ -400,57 +400,6 @@ h1 {
   color: #626268;
 }
 
-.favorite-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 42px;
-  height: 42px;
-
-  padding: 0;
-
-  border: 0;
-  border-radius: 50%;
-
-  color: #79797f;
-  background: transparent;
-
-  cursor: pointer;
-
-  transition:
-    transform 150ms ease,
-    color 150ms ease,
-    background 150ms ease;
-}
-
-.favorite-button ion-icon {
-  font-size: 25px;
-}
-
-.favorite-button ion-icon[name='star'] {
-  color: #ffc857;
-}
-
-.favorite-button:hover {
-  color: var(--primary-text);
-
-  background: rgba(
-    255,
-    255,
-    255,
-    0.06
-  );
-}
-
-.favorite-button:active {
-  transform: scale(0.9);
-}
-
-.favorite-button:focus-visible {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
-}
 
 .state-container,
 .empty-container {
@@ -949,4 +898,371 @@ h1 {
   .submit-button {
     width: 100%;
   }
+}
+/* =========================================================
+   PROFİL MENÜSÜ
+========================================================= */
+
+.profile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+
+  background: transparent;
+}
+
+.profile-menu {
+  position: fixed;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      88px
+    );
+
+  left: 20px;
+  z-index: 5001;
+
+  width:
+    min(
+      290px,
+      calc(100vw - 40px)
+    );
+
+  overflow: hidden;
+
+  border: 1px solid #34353a;
+  border-radius: 17px;
+
+  background: #1d1d1f;
+  color: #ffffff;
+
+  box-shadow:
+    0 20px 55px
+    rgba(0, 0, 0, 0.65);
+
+  animation:
+    profile-menu-enter
+    160ms ease-out;
+}
+
+@keyframes profile-menu-enter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-8px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.profile-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px;
+
+  border-bottom: 1px solid #34353a;
+
+  background: #242529;
+}
+
+.profile-menu-avatar {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 42px;
+
+  border-radius: 50%;
+
+  color: #161616;
+  background: #ff9f1c;
+
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.profile-menu-header > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-menu-header strong {
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-menu-header small {
+  color: #a1a1a8;
+
+  font-size: 11px;
+}
+
+.logout-button {
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 10px 16px;
+
+  border: 0;
+
+  color: #ff8f7a;
+  background: transparent;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background:
+    rgba(255, 116, 82, 0.1);
+}
+
+.logout-button:active {
+  background:
+    rgba(255, 116, 82, 0.16);
+}
+
+.logout-icon {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 30px;
+
+  border-radius: 9px;
+
+  color: #ff7452;
+  background:
+    rgba(255, 116, 82, 0.12);
+
+  font-size: 17px;
+}
+.profile-dropdown {
+  position: relative;
+  z-index: 1002;
+}
+
+.profile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: transparent;
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 1001;
+
+  width: 270px;
+  overflow: hidden;
+
+  border: 1px solid #3a3b42;
+  border-radius: 16px;
+
+  background: #242529;
+  color: #ffffff;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.58);
+
+  animation: profile-dropdown-enter 150ms ease-out;
+}
+
+.profile-menu::before {
+  position: absolute;
+  top: -6px;
+  left: 25px;
+
+  width: 12px;
+  height: 12px;
+
+  border-top: 1px solid #3a3b42;
+  border-left: 1px solid #3a3b42;
+
+  background: #242529;
+
+  transform: rotate(45deg);
+
+  content: '';
+}
+
+.profile-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px;
+
+  border-bottom: 1px solid #34353a;
+}
+
+.profile-menu-avatar {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #ffab00;
+  color: #171717;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.profile-menu-user {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.profile-menu-user strong {
+  overflow: hidden;
+
+  font-size: 14px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-menu-user small {
+  color: #a1a1a8;
+  font-size: 11px;
+}
+
+.profile-menu-logout {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 13px 15px;
+
+  border: 0;
+
+  background: transparent;
+  color: #ff8f7a;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-menu-logout:hover {
+  background: rgba(255, 116, 82, 0.1);
+}
+
+.logout-icon {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  background: rgba(255, 116, 82, 0.12);
+  color: #ff7452;
+
+  font-size: 18px;
+}
+
+@keyframes profile-dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 420px) {
+  .profile-menu {
+    width: min(270px, calc(100vw - 28px));
+  }
+}
+.top-actions {
+  position: relative;
+  z-index: 1002;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: transparent;
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 1003;
+
+  width: 270px;
+  overflow: hidden;
+
+  border: 1px solid #3a3b42;
+  border-radius: 16px;
+
+  background: #242529;
+  color: #ffffff;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.58);
 }

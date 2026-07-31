@@ -19,6 +19,8 @@ export interface DashboardSummary {
   completedTasks: number;
   overdueTasks: number;
   myTasks: number;
+
+  overdueTaskItems: OverdueTask[];
 }
 
 export interface WeeklyProgress {
@@ -34,6 +36,15 @@ export interface UpcomingTask {
   teamName: string;
   priority: string;
   remainingDays: number;
+}
+export interface OverdueTask {
+  id: number;
+  teamId: number;
+  title: string;
+  teamName: string;
+  dueDate: string;
+  priority: string;
+  overdueDays: number;
 }
 
 @Injectable({
@@ -53,6 +64,12 @@ export class ReportService {
     );
   }
 
+  getOverdueTasks():
+  Observable<OverdueTask[]> {
+  return this.http.get<OverdueTask[]>(
+    `${this.apiUrl}/overdue-tasks`
+  );
+}
   getUpcomingDeadlines(): Observable<UpcomingTask[]> {
     return this.http.get<UpcomingTask[]>(
       `${this.apiUrl}/upcoming-deadlines`

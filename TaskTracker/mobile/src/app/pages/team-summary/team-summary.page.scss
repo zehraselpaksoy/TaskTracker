@@ -1485,3 +1485,519 @@ button {
 
   font-size: 12px;
 }
+/* =========================================================
+   TAKVİM SAYFASIYLA AYNI ÜST MENÜ
+========================================================= */
+
+.board-page {
+  padding-top: 0;
+}
+
+.top-header {
+  display: grid;
+  grid-template-columns:
+    52px
+    minmax(0, 1fr)
+    52px;
+
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+
+  padding:
+    calc(env(safe-area-inset-top) + 18px)
+    20px
+    18px;
+
+  background: #000000;
+}
+
+.circle-button {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #34353a;
+  border-radius: 50%;
+
+  color: #ffffff;
+  background: #151517;
+}
+
+.circle-button ion-icon {
+  font-size: 27px;
+}
+
+.team-selector {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 10px 8px;
+
+  border: 0;
+
+  color: #ffffff;
+  background: transparent;
+
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.team-selector span {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-selector ion-icon {
+  flex: 0 0 auto;
+
+  color: #ffffff;
+
+  font-size: 17px;
+}
+
+.header-spacer {
+  width: 52px;
+  height: 52px;
+}
+
+.workspace-tabs {
+  position: relative;
+  z-index: 20;
+
+  width: 100%;
+  min-height: 59px;
+
+  display: flex;
+  align-items: stretch;
+
+  overflow: hidden;
+
+  border-top: 1px solid #242529;
+  border-bottom: 1px solid #34353a;
+
+  background: #000000;
+}
+
+.menu-tab {
+  position: relative;
+  z-index: 30;
+
+  width: 58px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 58px;
+
+  padding: 0;
+
+  border: 0;
+  border-right: 1px solid #34353a;
+
+  color: #a1a1a8;
+  background: #000000;
+
+  cursor: pointer;
+}
+
+.menu-tab ion-icon {
+  font-size: 20px;
+
+  pointer-events: none;
+}
+
+.tabs-scroll {
+  min-width: 0;
+
+  display: flex;
+  flex: 1;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: none;
+
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.workspace-tab {
+  position: relative;
+
+  min-width: 110px;
+  min-height: 58px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 110px;
+
+  padding: 0 16px;
+
+  border: 0;
+
+  color: #a1a1a8;
+  background: transparent;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.workspace-tab.active {
+  color: #ffffff;
+}
+
+.workspace-tab.active::after {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  left: 16px;
+
+  height: 3px;
+
+  border-radius:
+    999px
+    999px
+    0
+    0;
+
+  background: #72a7ff;
+
+  content: '';
+}
+.overdue-card.clickable {
+  cursor: pointer;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+.overdue-card.clickable:hover {
+  border-color:
+    rgba(255, 116, 82, 0.7);
+}
+
+.overdue-card.clickable:active {
+  transform: scale(0.99);
+}
+
+.overdue-card.clickable:focus-visible {
+  outline: 2px solid #ff7452;
+  outline-offset: 3px;
+}
+
+/* Geciken görevler modalı */
+
+.overdue-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    calc(env(safe-area-inset-top) + 18px)
+    16px
+    calc(env(safe-area-inset-bottom) + 18px);
+
+  background: rgba(0, 0, 0, 0.76);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.overdue-modal {
+  width: min(520px, 100%);
+  max-height: min(720px, 90vh);
+
+  overflow: hidden;
+
+  border: 1px solid #3a3b42;
+  border-radius: 22px;
+
+  color: var(--primary-text);
+  background:
+    linear-gradient(
+      180deg,
+      #242529 0%,
+      #1d1d1f 100%
+    );
+
+  box-shadow:
+    0 28px 85px
+    rgba(0, 0, 0, 0.72);
+
+  animation:
+    overdue-modal-enter
+    180ms ease-out;
+}
+
+@keyframes overdue-modal-enter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.overdue-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+
+  padding: 21px;
+
+  border-bottom:
+    1px solid
+    var(--border-color);
+
+  background:
+    rgba(255, 116, 82, 0.06);
+}
+
+.overdue-modal-header > div {
+  min-width: 0;
+}
+
+.overdue-modal-header > div > span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #ff7452;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.overdue-modal-header h2 {
+  margin: 0;
+
+  color: var(--primary-text);
+
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.overdue-modal-header p {
+  margin: 7px 0 0;
+
+  color: var(--secondary-text);
+
+  font-size: 12px;
+}
+
+.overdue-modal-close {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 40px;
+
+  padding: 0;
+
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+
+  color: var(--secondary-text);
+  background: #19191c;
+
+  cursor: pointer;
+}
+
+.overdue-modal-close ion-icon {
+  font-size: 22px;
+}
+
+.overdue-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  max-height: 520px;
+
+  padding: 13px;
+
+  overflow-y: auto;
+}
+
+.overdue-task-item {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    5px
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+  gap: 12px;
+
+  padding: 13px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+
+  color: var(--primary-text);
+  background: var(--surface-secondary);
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.overdue-task-item:hover {
+  border-color:
+    rgba(255, 116, 82, 0.5);
+
+  background: var(--surface-hover);
+}
+
+.overdue-task-line {
+  width: 5px;
+  height: 58px;
+
+  border-radius: 999px;
+
+  background: #ff7452;
+}
+
+.overdue-task-information {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.overdue-task-information small {
+  color: #ff8f7a;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.overdue-task-information strong {
+  overflow: hidden;
+
+  color: var(--primary-text);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overdue-task-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: var(--secondary-text);
+
+  font-size: 11px;
+}
+
+.overdue-task-date ion-icon {
+  font-size: 14px;
+}
+
+.overdue-task-priority {
+  padding: 6px 8px;
+
+  border-radius: 8px;
+
+  color: #ffab00;
+  background:
+    rgba(255, 171, 0, 0.12);
+
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.overdue-task-priority[
+  data-priority='Yüksek'
+] {
+  color: #ff7452;
+  background:
+    rgba(255, 116, 82, 0.12);
+}
+
+.overdue-task-priority[
+  data-priority='Düşük'
+] {
+  color: #72a7ff;
+  background:
+    rgba(114, 167, 255, 0.12);
+}
+
+@media (max-width: 430px) {
+  .overdue-modal-header {
+    padding: 18px;
+  }
+
+  .overdue-modal-header h2 {
+    font-size: 19px;
+  }
+
+  .overdue-task-item {
+    grid-template-columns:
+      5px
+      minmax(0, 1fr);
+  }
+
+  .overdue-task-priority {
+    grid-column: 2;
+
+    justify-self: start;
+  }
+}

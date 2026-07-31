@@ -52,32 +52,102 @@ public class ReportService : IReportService
         };
     }
 
-    public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(int userId)
+    public async Task<DashboardSummaryDto>
+        GetDashboardSummaryAsync(
+            int userId
+        )
     {
-        var tasks = await _unitOfWork.Tasks
-            .GetAssignedTasksByUserIdAsync(userId);
+        var assignedTasks =
+            await _unitOfWork.Tasks
+                .GetAssignedTasksByUserIdAsync(
+                    userId
+                );
+
+        var teamTasks =
+            await _unitOfWork.Tasks
+                .GetTasksByUserTeamMembershipsAsync(
+                    userId
+                );
 
         var now = DateTime.UtcNow;
+        var today = now.Date;
+
+        var overdueTasks =
+            assignedTasks
+                .Where(task =>
+                    task.DueDate.HasValue &&
+                    task.DueDate.Value < now &&
+                    task.Status !=
+                        TaskItemStatus.Completed
+                )
+                .OrderBy(task => task.DueDate)
+                .ToList();
 
         return new DashboardSummaryDto
         {
-            TotalTasks = tasks.Count,
+            TotalTasks = teamTasks.Count,
 
-            TodoTasks = tasks.Count(task =>
-                task.Status == TaskItemStatus.Pending),
+            MyTasks = assignedTasks.Count,
 
-            InProgressTasks = tasks.Count(task =>
-                task.Status == TaskItemStatus.InProgress),
+            TodoTasks = assignedTasks.Count(
+                task =>
+                    task.Status ==
+                    TaskItemStatus.Pending
+            ),
 
-            CompletedTasks = tasks.Count(task =>
-                task.Status == TaskItemStatus.Completed),
+            InProgressTasks =
+                assignedTasks.Count(
+                    task =>
+                        task.Status ==
+                        TaskItemStatus.InProgress
+                ),
 
-            OverdueTasks = tasks.Count(task =>
-                task.DueDate.HasValue &&
-                task.DueDate.Value < now &&
-                task.Status != TaskItemStatus.Completed),
+            CompletedTasks =
+                assignedTasks.Count(
+                    task =>
+                        task.Status ==
+                        TaskItemStatus.Completed
+                ),
 
-            MyTasks = tasks.Count
+            OverdueTasks =
+                overdueTasks.Count,
+
+            OverdueTaskItems =
+                overdueTasks
+                    .Select(task =>
+                        new OverdueTaskDto
+                        {
+                            Id = task.Id,
+
+                            TeamId =
+                                task.TeamId,
+
+                            Title =
+                                task.Title,
+
+                            TeamName =
+                                task.Team?.Name ??
+                                string.Empty,
+
+                            DueDate =
+                                task.DueDate!.Value,
+
+                            Priority =
+                                task.Priority
+                                    .ToString(),
+
+                            OverdueDays =
+                                Math.Max(
+                                    1,
+                                    (
+                                        today -
+                                        task.DueDate
+                                            .Value.Date
+                                    ).Days
+                                )
+                        }
+                    )
+                    .ToList()
         };
     }
     public async Task<List<WeeklyProgressDto>> GetWeeklyProgressAsync(int userId)
@@ -151,6 +221,58 @@ public class ReportService : IReportService
                 RemainingDays =
                     (task.DueDate.Value.Date - today).Days
             })
+            .ToList();
+    }
+    public async Task<List<OverdueTaskDto>>
+    GetOverdueTasksAsync(
+        int userId
+    )
+    {
+        var tasks =
+            await _unitOfWork.Tasks
+                .GetAssignedTasksByUserIdAsync(
+                    userId
+                );
+
+        var now = DateTime.UtcNow;
+        var today = now.Date;
+
+        return tasks
+            .Where(task =>
+                task.DueDate.HasValue &&
+                task.DueDate.Value < now &&
+                task.Status !=
+                    TaskItemStatus.Completed
+            )
+            .OrderBy(task => task.DueDate)
+            .Select(task =>
+                new OverdueTaskDto
+                {
+                    Id = task.Id,
+
+                    TeamId = task.TeamId,
+
+                    Title = task.Title,
+
+                    TeamName =
+                        task.Team?.Name ??
+                        string.Empty,
+
+                    DueDate =
+                        task.DueDate!.Value,
+
+                    Priority =
+                        task.Priority.ToString(),
+
+                    OverdueDays = Math.Max(
+                        1,
+                        (
+                            today -
+                            task.DueDate.Value.Date
+                        ).Days
+                    )
+                }
+            )
             .ToList();
     }
 }

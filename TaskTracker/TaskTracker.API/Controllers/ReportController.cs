@@ -79,4 +79,32 @@ public class ReportsController : ControllerBase
 
         return Ok(result);
     }
+    [HttpGet("overdue-tasks")]
+    public async Task<IActionResult>
+    GetOverdueTasks()
+    {
+        var userIdClaim =
+            User.FindFirst(
+                ClaimTypes.NameIdentifier
+            );
+
+        if (
+            userIdClaim is null ||
+            !int.TryParse(
+                userIdClaim.Value,
+                out var userId
+            )
+        )
+        {
+            return Unauthorized();
+        }
+
+        var result =
+            await _reportService
+                .GetOverdueTasksAsync(
+                    userId
+                );
+
+        return Ok(result);
+    }
 }

@@ -19,5 +19,6 @@ namespace TaskTracker.Application.DTOs.Reports
         public int OverdueTasks { get; set; }
 
         public int MyTasks { get; set; }
+        public List<OverdueTaskDto> OverdueTaskItems { get; set; }
     }
 }

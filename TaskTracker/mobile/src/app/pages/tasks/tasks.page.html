@@ -67,7 +67,7 @@
         [class.active]="activeFilter === 'open'"
         (click)="setFilter('open')">
 
-        <span>Açık</span>
+        <span>Yapılacak</span>
 
         <strong>
           {{ openTaskCount }}
@@ -161,27 +161,11 @@
           "
           (click)="openTask(task)"
           (keyup.enter)="openTask(task)">
-
-          <div class="task-type-icon">
-
-            <span
-              class="task-checkbox"
-              [class.completed]="
-                getStatusClass(task.status) ===
-                'status-completed'
-              ">
-
-              <ion-icon
-                *ngIf="
-                  getStatusClass(task.status) ===
-                  'status-completed'
-                "
-                name="checkbox-outline">
-              </ion-icon>
-
-            </span>
-
-          </div>
+ <span
+  class="task-status-line"
+  [ngClass]="getStatusClass(task.status)">
+</span>
+          
 
           <div class="task-main-information">
 

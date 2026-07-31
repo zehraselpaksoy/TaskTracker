@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 
 import {
   Component,
+  ElementRef,
   HostListener,
   OnDestroy,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
@@ -25,7 +27,8 @@ import {
   CdkDragPlaceholder,
   CdkDragPreview,
   CdkDropList,
-  CdkDropListGroup
+  CdkDropListGroup,
+  CdkDragMove
 } from '@angular/cdk/drag-drop';
 
 import {
@@ -114,7 +117,7 @@ interface UpdateTaskStatusRequest {
   imports: [
     CommonModule,
     FormsModule,
-
+    
     CdkDrag,
     CdkDragPreview,
     CdkDragPlaceholder,
@@ -127,6 +130,13 @@ interface UpdateTaskStatusRequest {
   ]
 })
 export class TeamBoardPage implements OnInit, OnDestroy {
+  @ViewChild(IonContent)
+private ionContent!: IonContent;
+@ViewChild('boardColumns')
+private boardColumns?: ElementRef<HTMLDivElement>;
+
+private isDragAutoScrolling = false;
+
 private readonly taskApiUrl =
   `${environment.apiUrl}/tasks`;
 
@@ -394,13 +404,156 @@ private readonly categoryApiUrl =
       }
     });
 }
-
 isRemovingMember(
   userId: number
 ): boolean {
   return this.removingMemberIds.has(
     userId
   );
+}
+getConnectedDropListIds(
+  currentColumnId: TaskStatus
+): string[] {
+  return this.columns
+    .filter(
+      column =>
+        column.id !== currentColumnId
+    )
+    .map(
+      column =>
+        `task-column-${column.id}`
+    );
+}
+onTaskDragMoved(
+  event: CdkDragMove<BoardTask>
+): void {
+  const pointerX =
+    event.pointerPosition.x;
+
+  const pointerY =
+    event.pointerPosition.y;
+
+  const screenWidth =
+    window.innerWidth;
+
+  const screenHeight =
+    window.innerHeight;
+
+  const horizontalEdgeDistance = 130;
+  const verticalEdgeDistance = 100;
+
+  /*
+   * Yatay pano kaydırma
+   */
+
+const boardElement =
+  this.boardColumns?.nativeElement;
+
+if (boardElement) {
+  let horizontalScrollAmount = 0;
+
+  const fastEdgeDistance = 45;
+  const slowScrollSpeed = 14;
+  const fastScrollSpeed = 42;
+
+  /*
+   * Sol taraf
+   */
+
+  if (
+    pointerX <
+    horizontalEdgeDistance
+  ) {
+    if (
+      pointerX <
+      fastEdgeDistance
+    ) {
+      horizontalScrollAmount =
+        -fastScrollSpeed;
+    } else {
+      horizontalScrollAmount =
+        -slowScrollSpeed;
+    }
+  }
+
+  /*
+   * Sağ taraf
+   */
+
+  else if (
+    pointerX >
+    screenWidth -
+      horizontalEdgeDistance
+  ) {
+    if (
+      pointerX >
+      screenWidth -
+        fastEdgeDistance
+    ) {
+      horizontalScrollAmount =
+        fastScrollSpeed;
+    } else {
+      horizontalScrollAmount =
+        slowScrollSpeed;
+    }
+  }
+
+  if (
+    horizontalScrollAmount !== 0
+  ) {
+    boardElement.scrollBy({
+      left:
+        horizontalScrollAmount,
+
+      behavior: 'auto'
+    });
+  }
+}
+
+  /*
+   * Dikey sayfa kaydırma
+   */
+
+  if (
+    !this.ionContent ||
+    this.isDragAutoScrolling
+  ) {
+    return;
+  }
+
+  let verticalScrollAmount = 0;
+
+  if (
+    pointerY <
+    verticalEdgeDistance
+  ) {
+    verticalScrollAmount = -14;
+  } else if (
+    pointerY >
+    screenHeight -
+      verticalEdgeDistance
+  ) {
+    verticalScrollAmount = 14;
+  }
+
+  if (
+    verticalScrollAmount === 0
+  ) {
+    return;
+  }
+
+  this.isDragAutoScrolling = true;
+
+  void this.ionContent
+    .scrollByPoint(
+      0,
+      verticalScrollAmount,
+      0
+    )
+    .finally(() => {
+      this.isDragAutoScrolling =
+        false;
+    });
 }
  private refreshTeamMembers(): void {
   this.teamService
@@ -787,53 +940,94 @@ this.updateCurrentUserTeamRole();
    */
 
   dropTask(
-    event: CdkDragDrop<BoardTask[]>,
-    newStatus: TaskStatus
-  ): void {
-    this.dragDropErrorMessage = '';
+  event: CdkDragDrop<BoardTask[]>,
+  newStatus: TaskStatus
+): void {
+  this.dragDropErrorMessage = '';
 
-    const draggedTask =
-      event.item.data as BoardTask;
+  /*
+   * Önce cdkDragData okunur.
+   * Boş gelirse görev önceki sütunun
+   * verisinden alınır.
+   */
+  const draggedTask =
+    (
+      event.item.data as
+        BoardTask | undefined
+    ) ??
+    event.previousContainer
+      .data[event.previousIndex];
 
-    if (!draggedTask) {
-      return;
-    }
+  if (!draggedTask) {
+    this.dragDropErrorMessage =
+      'Taşınan görev bilgisi okunamadı.';
 
-    if (
-      this.isTaskStatusUpdating(
-        draggedTask.id
-      )
-    ) {
-      return;
-    }
+    console.error(
+      'Sürüklenen görev okunamadı:',
+      {
+        previousContainer:
+          event.previousContainer.id,
 
-    const oldStatus =
-      draggedTask.status;
+        currentContainer:
+          event.container.id,
 
-    if (oldStatus === newStatus) {
-      return;
-    }
+        previousIndex:
+          event.previousIndex,
 
-    this.tasks =
-      this.tasks.map(task => {
-        if (
-          task.id !== draggedTask.id
-        ) {
-          return task;
-        }
-
-        return {
-          ...task,
-          status: newStatus
-        };
-      });
-
-    this.updateTaskStatus(
-      draggedTask.id,
-      oldStatus,
-      newStatus
+        currentIndex:
+          event.currentIndex
+      }
     );
+
+    return;
   }
+
+  const oldStatus =
+    draggedTask.status;
+
+  
+  if (
+    this.isTaskStatusUpdating(
+      draggedTask.id
+    )
+  ) {
+    return;
+  }
+
+  if (oldStatus === newStatus) {
+    return;
+  }
+
+  /*
+   * Arayüzü beklemeden güncelle.
+   */
+
+  this.tasks =
+    this.tasks.map(task => {
+      if (
+        task.id !== draggedTask.id
+      ) {
+        return task;
+      }
+
+      return {
+        ...task,
+        status: newStatus
+      };
+    });
+
+  /*
+   * Değişikliği backend'e gönder.
+   * İstek başarısız olursa updateTaskStatus
+   * görevi eski sütununa geri alır.
+   */
+
+  this.updateTaskStatus(
+    draggedTask.id,
+    oldStatus,
+    newStatus
+  );
+}
 
   isTaskStatusUpdating(
     taskId: number
@@ -1185,63 +1379,56 @@ sendTeamInvitation(): void {
    */
 
   getTasksByStatus(
-    status: TaskStatus
-  ): BoardTask[] {
-    const normalizedSearch =
-      this.searchText
+  status: TaskStatus
+): BoardTask[] {
+  const normalizedSearch =
+    this.searchText
+      .trim()
+      .toLocaleLowerCase('tr-TR');
+
+  return this.tasks.filter(task => {
+    const normalizedTitle =
+      task.title
         .trim()
-        .toLocaleLowerCase(
-          'tr-TR'
-        );
+        .toLocaleLowerCase('tr-TR');
 
-    return this.tasks.filter(task => {
-      const matchesStatus =
-        task.status === status;
+    const matchesStatus =
+      task.status === status;
 
-      const matchesAssignee =
-        this.selectedAssigneeId ===
-          null ||
-        task.assignedToUserId ===
-          this.selectedAssigneeId;
-
-      const matchesPriority =
-        this.selectedPriority ===
-          null ||
-        task.priority ===
-          this.selectedPriority;
-
-      const matchesSearch =
-        !normalizedSearch ||
-        task.title
-          .toLocaleLowerCase(
-            'tr-TR'
-          )
-          .includes(
-            normalizedSearch
-          ) ||
-        task.key
-          .toLocaleLowerCase(
-            'tr-TR'
-          )
-          .includes(
-            normalizedSearch
-          ) ||
-        task.assigneeName
-          .toLocaleLowerCase(
-            'tr-TR'
-          )
-          .includes(
-            normalizedSearch
+    const taskAssigneeId =
+      task.assignedToUserId === null ||
+      task.assignedToUserId === undefined
+        ? null
+        : Number(
+            task.assignedToUserId
           );
 
-      return (
-        matchesStatus &&
-        matchesAssignee &&
-        matchesPriority &&
-        matchesSearch
+    const matchesAssignee =
+      this.selectedAssigneeId === null ||
+      taskAssigneeId ===
+        Number(
+          this.selectedAssigneeId
+        );
+
+    const matchesPriority =
+      this.selectedPriority === null ||
+      task.priority ===
+        this.selectedPriority;
+
+    const matchesSearch =
+      !normalizedSearch ||
+      normalizedTitle.startsWith(
+        normalizedSearch
       );
-    });
-  }
+
+    return (
+      matchesStatus &&
+      matchesAssignee &&
+      matchesPriority &&
+      matchesSearch
+    );
+  });
+}
 
   getPriorityLabel(
     priority: TaskPriority
