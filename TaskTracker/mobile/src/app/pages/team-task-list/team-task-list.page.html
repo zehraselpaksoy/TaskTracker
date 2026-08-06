@@ -62,179 +62,224 @@
     </nav>
 
     <!-- TOOLBAR -->
-    <section class="toolbar">
+  <!-- TOOLBAR -->
 
-      <label class="search-box">
+<section class="toolbar">
 
-        <ion-icon name="search-outline"></ion-icon>
+  <label class="search-box">
 
-        <input
-          type="search"
-          [(ngModel)]="searchText"
-          placeholder="Görev ara"
-          autocomplete="off"
-          aria-label="Görev ara">
+    <ion-icon name="search-outline"></ion-icon>
 
-      </label>
+    <input
+      type="search"
+      [(ngModel)]="searchText"
+      placeholder="Görev arayın"
+      autocomplete="off"
+      aria-label="Görev ara">
 
-      <div class="filters">
+  </label>
 
-        <!-- ATANAN FİLTRESİ -->
-        <div class="filter-wrapper">
+  <div class="filters">
 
-          <button
-            type="button"
-            class="filter-button"
-            [class.active]="selectedAssigneeId !== null"
-            (click)="openAssigneeMenu()">
+    <!-- ATANAN -->
 
-            <span>
-              {{ getSelectedAssigneeLabel() }}
-            </span>
+    <div class="filter-wrapper">
 
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </button>
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="selectedAssigneeId !== null"
+        [attr.aria-expanded]="isAssigneeMenuOpen"
+        (click)="openAssigneeMenu()">
 
-          <div
-            class="filter-menu"
-            *ngIf="isAssigneeMenuOpen">
+        <span>
+          {{ getSelectedAssigneeLabel() }}
+        </span>
 
-            <button
-              type="button"
-              [class.selected]="selectedAssigneeId === null"
-              (click)="selectAssignee(null)">
+        <ion-icon name="chevron-down-outline"></ion-icon>
 
-              Tüm atananlar
-            </button>
+      </button>
 
-            <button
-              type="button"
-              *ngFor="let member of teamMembers"
-              [class.selected]="selectedAssigneeId === member.userId"
-              (click)="selectAssignee(member.userId)">
+      <div
+        class="filter-menu assignee-menu"
+        *ngIf="isAssigneeMenuOpen">
 
-              {{ member.fullName }}
-            </button>
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedAssigneeId === null"
+          (click)="selectAssignee(null)">
 
-          </div>
+          Tüm Görevler
 
-        </div>
+        </button>
 
-        <!-- ÖNCELİK FİLTRESİ -->
-        <div class="filter-wrapper">
+        <button
+          type="button"
+          class="filter-item"
+          *ngFor="let member of teamMembers"
+          [class.selected]="
+            selectedAssigneeId === member.userId
+          "
+          (click)="selectAssignee(member.userId)">
 
-          <button
-            type="button"
-            class="filter-button"
-            [class.active]="selectedPriority !== null"
-            (click)="openPriorityMenu()">
+          {{ member.fullName }}
 
-            <span>
-              {{ getSelectedPriorityLabel() }}
-            </span>
-
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </button>
-
-          <div
-            class="filter-menu"
-            *ngIf="isPriorityMenuOpen">
-
-            <button
-              type="button"
-              [class.selected]="selectedPriority === null"
-              (click)="selectPriority(null)">
-
-              Tüm öncelikler
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedPriority === 'high'"
-              (click)="selectPriority('high')">
-
-              Yüksek
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedPriority === 'medium'"
-              (click)="selectPriority('medium')">
-
-              Orta
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedPriority === 'low'"
-              (click)="selectPriority('low')">
-
-              Düşük
-            </button>
-
-          </div>
-
-        </div>
-
-        <!-- DURUM FİLTRESİ -->
-        <div class="filter-wrapper">
-
-          <button
-            type="button"
-            class="filter-button"
-            [class.active]="selectedStatus !== null"
-            (click)="openStatusMenu()">
-
-            <span>
-              {{ getSelectedStatusLabel() }}
-            </span>
-
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </button>
-
-          <div
-            class="filter-menu"
-            *ngIf="isStatusMenuOpen">
-
-            <button
-              type="button"
-              [class.selected]="selectedStatus === null"
-              (click)="selectStatus(null)">
-
-              Tüm durumlar
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedStatus === 'todo'"
-              (click)="selectStatus('todo')">
-
-              Yapılacak
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedStatus === 'inProgress'"
-              (click)="selectStatus('inProgress')">
-
-              Devam Ediyor
-            </button>
-
-            <button
-              type="button"
-              [class.selected]="selectedStatus === 'done'"
-              (click)="selectStatus('done')">
-
-              Tamamlandı
-            </button>
-
-          </div>
-
-        </div>
+        </button>
 
       </div>
 
-    </section>
+    </div>
+
+    <!-- ÖNCELİK -->
+
+    <div class="filter-wrapper">
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="selectedPriority !== null"
+        [attr.aria-expanded]="isPriorityMenuOpen"
+        (click)="openPriorityMenu()">
+
+        <span>
+          {{ getSelectedPriorityLabel() }}
+        </span>
+
+        <ion-icon name="chevron-down-outline"></ion-icon>
+
+      </button>
+
+      <div
+        class="filter-menu priority-menu"
+        *ngIf="isPriorityMenuOpen">
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedPriority === null"
+          (click)="selectPriority(null)">
+
+          Tümü
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedPriority === 'high'"
+          (click)="selectPriority('high')">
+
+          <span class="filter-dot high-dot"></span>
+
+          Yüksek
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedPriority === 'medium'"
+          (click)="selectPriority('medium')">
+
+          <span class="filter-dot medium-dot"></span>
+
+          Orta
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedPriority === 'low'"
+          (click)="selectPriority('low')">
+
+          <span class="filter-dot low-dot"></span>
+
+          Düşük
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- DURUM -->
+
+    <div class="filter-wrapper">
+
+      <button
+        type="button"
+        class="filter-button"
+        [class.active]="selectedStatus !== null"
+        [attr.aria-expanded]="isStatusMenuOpen"
+        (click)="openStatusMenu()">
+
+        <span>
+          {{ getSelectedStatusLabel() }}
+        </span>
+
+        <ion-icon name="chevron-down-outline"></ion-icon>
+
+      </button>
+
+      <div
+        class="filter-menu status-menu"
+        *ngIf="isStatusMenuOpen">
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedStatus === null"
+          (click)="selectStatus(null)">
+
+          Tümü
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedStatus === 'todo'"
+          (click)="selectStatus('todo')">
+
+          <span class="filter-dot todo-dot"></span>
+
+          Yapılacak
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedStatus === 'inProgress'"
+          (click)="selectStatus('inProgress')">
+
+          <span class="filter-dot progress-dot"></span>
+
+          Devam Ediyor
+
+        </button>
+
+        <button
+          type="button"
+          class="filter-item"
+          [class.selected]="selectedStatus === 'done'"
+          (click)="selectStatus('done')">
+
+          <span class="filter-dot done-dot"></span>
+
+          Tamamlandı
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
     <!-- LOADING -->
     <section

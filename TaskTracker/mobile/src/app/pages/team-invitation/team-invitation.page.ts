@@ -33,25 +33,28 @@ export class TeamInvitationPage implements OnInit {
     private readonly invitationService: TeamInvitationService
   ) {}
 
-  ngOnInit(): void {
-    this.invitationToken =
-      this.route.snapshot.queryParamMap.get('token')?.trim() ?? '';
+ ngOnInit(): void {
+  this.invitationToken =
+    this.route.snapshot.queryParamMap
+      .get('token')
+      ?.trim() ?? '';
 
-    this.isLoggedIn = this.authService.isLoggedIn();
+  if (!this.invitationToken) {
+    this.errorMessage =
+      'Davet bağlantısı eksik veya geçersiz.';
 
-    if (!this.invitationToken) {
-      this.errorMessage =
-        'Davet bağlantısı eksik veya geçersiz.';
-      return;
-    }
-
-    if (!this.isLoggedIn) {
-      localStorage.setItem(
-        'pendingTeamInvitationToken',
-        this.invitationToken
-      );
-    }
+    return;
   }
+
+  this.isLoggedIn =
+    this.authService.isLoggedIn();
+
+  if (!this.isLoggedIn) {
+    this.goToLogin();
+
+    return;
+  }
+}
 
   acceptInvitation(): void {
     this.respondToInvitation(true);
@@ -61,14 +64,25 @@ export class TeamInvitationPage implements OnInit {
     this.respondToInvitation(false);
   }
 
-  goToLogin(): void {
-    localStorage.setItem(
-      'pendingTeamInvitationToken',
-      this.invitationToken
-    );
+goToLogin(): void {
+  localStorage.setItem(
+    'pendingTeamInvitationToken',
+    this.invitationToken
+  );
 
-    this.router.navigate(['/login']);
-  }
+  const returnUrl =
+    this.router.url;
+
+  void this.router.navigate(
+    ['/login'],
+    {
+      queryParams: {
+        returnUrl
+      },
+      replaceUrl: true
+    }
+  );
+}
 
   goToTeams(): void {
     this.router.navigate(['/teams']);
@@ -83,6 +97,18 @@ export class TeamInvitationPage implements OnInit {
 }
 
   private respondToInvitation(accept: boolean): void {
+      if (!this.authService.isLoggedIn()) {
+    this.goToLogin();
+
+    return;
+  }
+
+  if (
+    !this.invitationToken ||
+    this.isLoading
+  ) {
+    return;
+  }
     if (!this.invitationToken || this.isLoading) {
       return;
     }

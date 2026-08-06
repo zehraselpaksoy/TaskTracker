@@ -68,13 +68,14 @@ public sealed class TeamInvitationService : ITeamInvitationService
             throw new Exception("Takım bulunamadı.");
         }
 
-        var isLeader = await _unitOfWork.TeamMembers
-            .IsTeamLeaderAsync(teamId, currentUserId);
+        var isMember = await _unitOfWork.TeamMembers
+    .IsTeamMemberAsync(teamId, currentUserId);
 
-        if (!isLeader)
+        if (!isMember)
         {
             throw new UnauthorizedAccessException(
-                "Takıma yalnızca takım lideri davet gönderebilir.");
+                "Bu takıma davet gönderebilmek için takım üyesi olmalısınız."
+            );
         }
 
         var invitedUser = await _unitOfWork.Users

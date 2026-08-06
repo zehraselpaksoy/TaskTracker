@@ -34,17 +34,6 @@ button {
     145px;
 }
 
-.top-section {
-  margin-bottom: 34px;
-}
-
-.top-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 27px;
-}
 
 .profile-button,
 .create-button {
@@ -1228,13 +1217,61 @@ h1 {
     width: min(270px, calc(100vw - 28px));
   }
 }
+.teams-page {
+  min-height: 100%;
+
+  padding:
+    0
+    20px
+    145px;
+}
+
+.top-section {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+
+  margin-bottom: 34px;
+
+  padding:
+    calc(env(safe-area-inset-top) + 20px)
+    0
+    18px;
+
+  background: #000000;
+
+  isolation: isolate;
+}
+
+/* Siyah arka plan ekranın kenarlarına uzansın */
+
+.top-section::before {
+  position: absolute;
+  inset: 0 -20px;
+  z-index: -1;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background: #000000;
+
+  box-shadow:
+    0 10px 25px
+    rgba(0, 0, 0, 0.3);
+
+  content: '';
+}
+
 .top-actions {
   position: relative;
-  z-index: 1002;
+  z-index: 2002;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  margin-bottom: 27px;
 }
 
 .profile-dropdown {

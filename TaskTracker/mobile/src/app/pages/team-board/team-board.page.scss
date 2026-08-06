@@ -1099,51 +1099,43 @@
     color: #071326;
   }
 
-  @media (max-width: 640px) {
-    .task-modal-backdrop {
-      align-items: center;
+@media (max-width: 640px) {
+  .board-toolbar {
+    display: grid;
 
-      padding:
-        calc(env(safe-area-inset-top) + 16px)
-        14px
-        calc(env(safe-area-inset-bottom) + 16px);
-    }
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      42px;
 
-    .task-modal {
-      width: 100%;
-      max-height: calc(100vh - 32px);
-
-      border-radius: 20px;
-    }
-
-    .task-modal-header {
-      padding: 19px 18px 16px;
-    }
-
-    .task-modal-header h2 {
-      font-size: 21px;
-    }
-
-    .task-form {
-      gap: 16px;
-
-      padding: 19px 18px 20px;
-    }
-
-    .task-form-row {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .task-modal-actions {
-      flex-direction: column-reverse;
-    }
-
-    .secondary-action,
-    .primary-action {
-      width: 100%;
-    }
+    align-items: center;
+    gap: 9px;
   }
+
+  .board-toolbar .search-box {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    min-width: 0;
+
+    flex-basis: auto;
+  }
+
+  .board-toolbar .filter-wrapper {
+    min-width: 0;
+  }
+
+  .board-toolbar .filter-button {
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+  }
+
+  .board-toolbar .board-menu-wrapper {
+    width: 42px;
+  }
+}
 
   /* ===========================================================
     TASK DETAIL MODAL
@@ -3102,3 +3094,89 @@
 
     content: '';
   }
+  /* =========================================================
+   SABİT BOARD ÜST ALANI
+========================================================= */
+
+.board-page {
+  padding-top: 0;
+}
+
+/* Takım başlığı */
+
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 4000;
+
+  box-sizing: border-box;
+
+  min-height:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  padding:
+    calc(env(safe-area-inset-top) + 10px)
+    12px
+    10px;
+
+  background: #000000;
+}
+
+/* Özet, Pano, Liste, Takvim */
+
+.workspace-tabs {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  z-index: 3900;
+
+  min-height: 54px;
+
+  margin: 0;
+
+  border-top: 1px solid #242529;
+  border-bottom: 1px solid #34353a;
+
+  background: #000000;
+}
+
+/* Arama ve filtreler */
+
+.board-toolbar {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      126px
+    );
+
+  z-index: 3800;
+
+  margin: 0;
+
+  padding:
+    12px
+    12px
+    10px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background: #000000;
+
+  box-shadow:
+    0 12px 24px
+    rgba(0, 0, 0, 0.3);
+
+  overflow: visible;
+}

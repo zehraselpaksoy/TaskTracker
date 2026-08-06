@@ -391,28 +391,102 @@
     color: #ff7452;
   }
 
-  @media (max-width: 760px) {
-    .calendar-content {
-      overflow-x: auto;
-    }
+/* =========================================================
+   SABİT TAKVİM — MOBİL SON DÜZELTME
+========================================================= */
 
-    .calendar-toolbar {
-      min-width: 720px;
-    }
+@media (max-width: 760px) {
+  .top-header {
+    position: sticky;
+    top: 0;
+    z-index: 4000;
 
-    .calendar-wrapper {
-      min-width: 720px;
-    }
+    grid-template-columns:
+      46px
+      minmax(0, 1fr)
+      46px;
 
-    .calendar-day {
-      min-height: 125px;
-      padding: 7px;
-    }
+    min-height:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
 
-    .month-label {
-      font-size: 18px;
-    }
+    gap: 8px;
+
+    padding:
+      calc(env(safe-area-inset-top) + 8px)
+      10px
+      8px;
+
+    background: #000000;
   }
+
+  .circle-button,
+  .header-spacer {
+    width: 46px;
+    height: 46px;
+  }
+
+  .circle-button ion-icon {
+    font-size: 24px;
+  }
+
+  .team-selector,
+  .team-title-button {
+    font-size: 17px;
+  }
+
+  .workspace-tabs {
+    position: sticky;
+
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    z-index: 3900;
+
+    min-height: 52px;
+
+    margin: 0;
+
+    background: #000000;
+  }
+
+  .menu-tab,
+  .workspace-tab {
+    min-height: 52px;
+  }
+
+  .calendar-content {
+    overflow-x: clip !important;
+  }
+
+  .calendar-toolbar {
+    position: sticky;
+
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        118px
+      );
+
+    z-index: 3800;
+
+    margin:
+      0
+      -4px
+      14px;
+
+    padding:
+      8px
+      4px;
+
+    background: #000000;
+  }
+}
   /* =========================================================
     BOARD İLE AYNI TAKVİM HEADER DÜZELTMESİ
   ========================================================= */
@@ -2242,5 +2316,208 @@ ion-content::part(scroll) {
   .week-days {
     width: 100%;
     min-width: 0;
+  }
+}
+/* =========================================================
+   SABİT TAKVİM ÜST ALANI
+========================================================= */
+
+.calendar-page {
+  padding-top: 0;
+}
+
+/* Takım başlığı */
+
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 4000;
+
+  box-sizing: border-box;
+
+  min-height:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  padding:
+    calc(env(safe-area-inset-top) + 10px)
+    12px
+    10px;
+
+  background: #000000;
+}
+
+/* Özet, Pano, Liste ve Takvim */
+
+.workspace-tabs {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  z-index: 3900;
+
+  min-height: 54px;
+  margin: 0;
+
+  border-top: 1px solid #242529;
+  border-bottom: 1px solid #34353a;
+
+  background: #000000;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0, 0, 0, 0.22);
+}
+
+/*
+ * overflow:hidden sticky davranışını
+ * engelleyebildiği için clip kullanıyoruz.
+ */
+
+.calendar-content {
+  overflow-x: clip !important;
+}
+
+/* Ay değiştirme ve Bugün alanı */
+
+.calendar-toolbar {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      126px
+    );
+
+  z-index: 3800;
+
+  margin:
+    0
+    -4px
+    16px;
+
+  padding:
+    10px
+    4px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background: #000000;
+
+  box-shadow:
+    0 10px 22px
+    rgba(0, 0, 0, 0.28);
+}
+/* =========================================================
+   STICKY ÇALIŞMASINI ENGELLEYEN OVERFLOW DÜZELTMESİ
+========================================================= */
+
+:host {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+.calendar-page {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+.calendar-content {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+/* Ionic'in asıl kayan alanı */
+ion-content {
+  --overflow: auto;
+}
+
+ion-content::part(scroll) {
+  overflow-x: clip !important;
+  overflow-y: auto !important;
+}
+
+/* Üst başlık */
+.top-header {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 4000 !important;
+
+  background: #000000;
+}
+
+/* Sekmeler */
+.workspace-tabs {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    ) !important;
+
+  z-index: 3900 !important;
+
+  margin: 0 !important;
+  background: #000000;
+}
+
+/* Ay seçimi ve Bugün düğmesi */
+.calendar-toolbar {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      126px
+    ) !important;
+
+  z-index: 3800 !important;
+
+  background: #000000;
+}
+
+/* Mobil yükseklikler */
+@media (max-width: 760px) {
+  .top-header {
+    min-height:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    padding:
+      calc(env(safe-area-inset-top) + 8px)
+      10px
+      8px;
+  }
+
+  .workspace-tabs {
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      ) !important;
+
+    min-height: 52px;
+  }
+
+  .calendar-toolbar {
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        118px
+      ) !important;
   }
 }

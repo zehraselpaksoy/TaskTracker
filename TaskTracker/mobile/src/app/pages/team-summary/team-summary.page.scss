@@ -1234,95 +1234,63 @@ button {
 
 @media (max-width: 560px) {
   .top-header {
-    grid-template-columns: 48px minmax(0, 1fr) 48px;
-    gap: 10px;
+    grid-template-columns:
+      46px
+      minmax(0, 1fr)
+      46px;
 
-    padding-right: 14px;
-    padding-left: 14px;
+    min-height:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    gap: 8px;
+
+    padding:
+      calc(env(safe-area-inset-top) + 8px)
+      10px
+      8px;
   }
 
   .circle-button,
   .header-spacer {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
   }
 
-  .team-selector {
-    font-size: 18px;
-  }
-
-  .menu-tab {
-    flex-basis: 54px;
-  }
-
-  .menu-tab ion-icon {
-    font-size: 25px;
-  }
-
-  .tabs-scroll {
-    gap: 2px;
-  }
-
-  .workspace-tab {
-    padding-right: 13px;
-    padding-left: 13px;
-
-    font-size: 15px;
-  }
-
-  .summary-content {
-    padding-right: 14px;
-    padding-left: 14px;
-  }
-
-  .section-heading {
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-heading h1 {
+  .circle-button ion-icon {
     font-size: 24px;
   }
 
-  .task-count {
-    padding: 7px 10px;
-
-    font-size: 12px;
+  .team-selector {
+    font-size: 17px;
   }
 
-  .completion-card {
-    padding: 18px;
+  .workspace-tabs {
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    min-height: 52px;
   }
 
-  .completion-header strong {
-    font-size: 36px;
+  .menu-tab {
+    min-height: 52px;
+
+    flex-basis: 54px;
   }
 
-  .completion-circle {
-    width: 58px;
-    height: 58px;
-  }
+  .workspace-tab {
+    min-height: 52px;
 
-  .statistics-grid {
-    gap: 10px;
-  }
+    padding:
+      0
+      13px;
 
-  .stat-card {
-    min-height: 132px;
-
-    padding: 15px;
-  }
-
-  .stat-card strong {
-    font-size: 30px;
-  }
-
-  .overdue-card {
-    align-items: flex-start;
-  }
-
-  .overdue-content {
-    align-items: flex-start;
+    font-size: 14px;
   }
 }
 
@@ -2000,4 +1968,61 @@ button {
 
     justify-self: start;
   }
+}
+/* =========================================================
+   SABİT ÖZET SAYFASI ÜST MENÜSÜ
+========================================================= */
+
+.summary-page {
+  padding-top: 0;
+}
+
+/* Takım adı ve geri butonu */
+
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 4000;
+
+  box-sizing: border-box;
+
+  min-height:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  padding:
+    calc(env(safe-area-inset-top) + 10px)
+    12px
+    10px;
+
+  background: #000000;
+}
+
+/* Özet, Pano, Liste ve Takvim */
+
+.workspace-tabs {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  z-index: 3900;
+
+  min-height: 54px;
+
+  margin: 0;
+
+  border-top: 1px solid #242529;
+  border-bottom: 1px solid #34353a;
+
+  background: #000000;
+
+  box-shadow:
+    0 10px 22px
+    rgba(0, 0, 0, 0.28);
 }

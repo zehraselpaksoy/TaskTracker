@@ -317,27 +317,30 @@ button {
 }
 
 .filters {
+  position: relative;
+  z-index: 1000;
+
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 
   padding-bottom: 3px;
 
-  overflow-x: auto;
-  overflow-y: visible;
-
-  scrollbar-width: none;
+  overflow: visible;
 }
 
-.filters::-webkit-scrollbar {
-  display: none;
-}
+
 
 .filter-wrapper {
   position: relative;
+  z-index: 1001;
 
   flex: 0 0 auto;
 }
 
+.filter-wrapper:has(.filter-menu) {
+  z-index: 1200;
+}
 .filter-button {
   min-height: 42px;
   max-width: 170px;
@@ -388,7 +391,7 @@ button {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  z-index: 1100;
+  z-index: 2000;
 
   min-width: 190px;
   max-width: min(280px, calc(100vw - 32px));
@@ -1383,16 +1386,37 @@ button {
 ========================================================= */
 
 @media (min-width: 700px) {
-  .toolbar {
-    display: grid;
-    grid-template-columns: minmax(260px, 1fr) auto;
-    align-items: start;
+  
+
+ .toolbar {
+    flex-wrap: nowrap;
   }
 
   .filters {
+    flex: 0 0 auto;
     justify-content: flex-end;
+  }
 
-    overflow: visible;
+  .task-row {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      230px;
+
+    align-items: center;
+    gap: 20px;
+
+    padding: 18px;
+  }
+
+  .task-users {
+    padding-top: 0;
+    padding-left: 16px;
+
+    border-top: 0;
+    border-left:
+      1px solid
+      rgba(52, 53, 58, 0.6);
   }
 
   .task-row {
@@ -1416,7 +1440,6 @@ button {
 /* =========================================================
    MOBILE
 ========================================================= */
-
 @media (max-width: 430px) {
   .list-page {
     padding-right: 12px;
@@ -1424,7 +1447,23 @@ button {
   }
 
   .page-header {
-    grid-template-columns: 46px minmax(0, 1fr) 46px;
+    grid-template-columns:
+      46px
+      minmax(0, 1fr)
+      46px;
+
+    min-height:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    gap: 8px;
+
+    padding:
+      calc(env(safe-area-inset-top) + 8px)
+      0
+      8px;
   }
 
   .back-button,
@@ -1434,48 +1473,37 @@ button {
   }
 
   .team-title-button {
-    max-width: 100%;
-
-    padding-right: 8px;
-    padding-left: 8px;
-
     font-size: 17px;
   }
 
   .workspace-tabs {
-    gap: 0;
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        66px
+      );
+
+    min-height: 52px;
   }
 
-  .menu-tab {
-    width: 40px;
-    min-width: 40px;
-
-    flex-basis: 40px;
-  }
-
+  .menu-tab,
   .workspace-tab {
-    min-width: auto;
-
-    padding-right: 13px;
-    padding-left: 13px;
-
-    font-size: 15px;
+    min-height: 52px;
   }
 
-  .filter-button {
-    max-width: 150px;
-  }
+  .toolbar {
+    top:
+      calc(
+        env(safe-area-inset-top) +
+        118px
+      );
 
-  .task-row {
-    padding: 14px;
-  }
+    margin-right: -12px;
+    margin-left: -12px;
 
-  .total-task-count {
-    display: none;
-  }
-
-  .navigation-drawer {
-    width: min(88vw, 320px);
+    padding:
+      10px
+      12px;
   }
 }
 
@@ -1687,4 +1715,606 @@ button {
   background: #72a7ff;
 
   content: '';
+}
+/* =========================================================
+   TOOLBAR — TEAM BOARD TASARIMI
+========================================================= */
+
+.toolbar {
+  position: relative;
+  z-index: 100;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  margin-bottom: 20px;
+
+  overflow: visible;
+}
+
+/* Arama alanı */
+
+.search-box {
+  display: flex;
+  flex: 1 0 220px;
+  align-items: center;
+  gap: 10px;
+
+  height: 48px;
+  min-height: 48px;
+
+  padding: 0 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+
+  background: #161618;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent);
+}
+
+.search-box ion-icon {
+  flex-shrink: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 22px;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  color: var(--text-primary);
+  background: transparent;
+
+  font-size: 15px;
+}
+
+.search-box input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Filtrelerin kapsayıcısı */
+
+.filters {
+  position: relative;
+  z-index: 1000;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0;
+
+  overflow: visible;
+}
+
+.filter-wrapper {
+  position: relative;
+  z-index: 110;
+
+  display: flex;
+  flex: 0 0 auto;
+
+  overflow: visible;
+}
+
+.filter-wrapper:has(.filter-menu) {
+  z-index: 1200;
+}
+
+/* Filtre butonları */
+
+.filter-button {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  height: 42px;
+  min-height: 42px;
+  max-width: 170px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  color: var(--text-secondary);
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.filter-button:hover {
+  border-color: #4b4d55;
+
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.filter-button.active {
+  border-color: rgba(114, 167, 255, 0.65);
+
+  color: var(--accent);
+  background: rgba(114, 167, 255, 0.08);
+}
+
+.filter-button span {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-button ion-icon {
+  flex-shrink: 0;
+
+  font-size: 16px;
+}
+
+/* Açılır filtre menüleri */
+
+.filter-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+
+  width: max-content;
+  min-width: 210px;
+  max-width: min(300px, calc(100vw - 40px));
+  max-height: 280px;
+
+  padding: 6px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: #1d1d1f;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.025);
+}
+
+/* Son durum menüsü sağa hizalansın */
+
+.filter-wrapper:last-child .filter-menu {
+  right: 0;
+  left: auto;
+}
+
+/* Menü seçenekleri */
+
+.filter-menu button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: 100%;
+  min-height: 43px;
+
+  padding: 10px 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: var(--text-primary);
+  background: transparent;
+
+  font-size: 14px;
+  font-weight: 550;
+  text-align: left;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.filter-menu button:hover {
+  background: var(--surface-hover);
+}
+
+.filter-menu button:active {
+  background: rgba(114, 167, 255, 0.14);
+}
+
+.filter-menu button.selected {
+  color: var(--accent);
+  background: rgba(114, 167, 255, 0.14);
+
+  font-weight: 700;
+}
+
+/* Scrollbar */
+
+.filter-menu::-webkit-scrollbar {
+  width: 7px;
+}
+
+.filter-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filter-menu::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #484a52;
+}
+/* =========================================================
+   TOOLBAR — TEAM BOARD İLE AYNI
+========================================================= */
+
+.toolbar {
+  position: relative;
+  z-index: 100;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  margin-bottom: 20px;
+
+  overflow: visible;
+}
+
+.search-box {
+  display: flex;
+  flex: 1 0 220px;
+  align-items: center;
+  gap: 10px;
+
+  height: 48px;
+  min-height: 48px;
+
+  padding: 0 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+
+  background: #161618;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent);
+}
+
+.search-box ion-icon {
+  flex-shrink: 0;
+
+  color: var(--text-secondary);
+  font-size: 22px;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  color: var(--text-primary);
+  background: transparent;
+
+  font-size: 15px;
+}
+
+.search-box input::placeholder {
+  color: var(--text-secondary);
+}
+
+.filters {
+  position: relative;
+  z-index: 1000;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  overflow: visible;
+}
+
+.filter-wrapper {
+  position: relative;
+  z-index: 110;
+
+  display: flex;
+  flex: 0 0 auto;
+
+  overflow: visible;
+}
+
+.filter-wrapper:has(.filter-menu) {
+  z-index: 1200;
+}
+
+.filter-button {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  height: 42px;
+  min-height: 42px;
+  max-width: 170px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  color: var(--text-secondary);
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  border-color: #4b4d55;
+
+  color: var(--text-primary);
+}
+
+.filter-button.active {
+  border-color: rgba(114, 167, 255, 0.65);
+
+  color: var(--accent);
+  background: rgba(114, 167, 255, 0.08);
+}
+
+.filter-button span {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-button ion-icon {
+  flex-shrink: 0;
+
+  font-size: 16px;
+}
+
+/* Dropdown */
+
+.filter-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+
+  width: max-content;
+  min-width: 210px;
+  max-width: min(300px, calc(100vw - 40px));
+  max-height: 280px;
+
+  padding: 6px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: #1d1d1f;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.filter-wrapper:last-child .filter-menu {
+  right: 0;
+  left: auto;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: 100%;
+  min-height: 43px;
+
+  padding: 10px 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: var(--text-primary);
+  background: transparent;
+
+  font-size: 14px;
+  font-weight: 550;
+  text-align: left;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.filter-item:hover {
+  background: var(--surface-hover);
+}
+
+.filter-item:active {
+  background: rgba(114, 167, 255, 0.14);
+}
+
+.filter-item.selected {
+  color: var(--accent);
+  background: rgba(114, 167, 255, 0.14);
+
+  font-weight: 700;
+}
+
+/* Renk noktaları */
+
+.filter-dot {
+  width: 13px;
+  height: 13px;
+
+  flex: 0 0 13px;
+
+  border-radius: 50%;
+}
+
+.high-dot {
+  background: #ff5252;
+}
+
+.medium-dot {
+  background: #ffbd2e;
+}
+
+.low-dot {
+  background: #2f8de4;
+}
+
+.todo-dot {
+  background: #ffab00;
+}
+
+.progress-dot {
+  background: #579dff;
+}
+
+.done-dot {
+  background: #4bce97;
+}
+/* =========================================================
+   SABİT LİSTE SAYFASI ÜST ALANI
+========================================================= */
+
+.list-page {
+  padding-top: 0;
+}
+
+/* Geri butonu ve takım adı */
+
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 4000;
+
+  box-sizing: border-box;
+
+  min-height:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  padding:
+    calc(env(safe-area-inset-top) + 10px)
+    0
+    10px;
+
+  background: #000000;
+}
+
+/* Özet / Pano / Liste / Takvim */
+
+.workspace-tabs {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      72px
+    );
+
+  z-index: 3900;
+
+  min-height: 54px;
+
+  margin-top: 0;
+  margin-bottom: 0;
+
+  border-top: 1px solid #242529;
+  border-bottom: 1px solid #34353a;
+
+  background: #000000;
+}
+
+/* Arama ve filtreler */
+
+.toolbar {
+  position: sticky;
+
+  top:
+    calc(
+      env(safe-area-inset-top) +
+      126px
+    );
+
+  z-index: 3800;
+
+  margin:
+    0
+    -18px
+    18px;
+
+  padding:
+    12px
+    18px
+    10px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background: #000000;
+
+  box-shadow:
+    0 12px 24px
+    rgba(0, 0, 0, 0.3);
+
+  overflow: visible;
+}
+
+/* Dropdown’lar diğer içeriklerin üstünde açılsın */
+
+.filter-wrapper:has(.filter-menu) {
+  z-index: 5000;
+}
+
+.filter-menu {
+  z-index: 5100;
 }

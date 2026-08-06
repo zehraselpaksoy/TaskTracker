@@ -643,4 +643,36 @@ ion-content {
   .meta-separator {
     display: none;
   }
+}/* =========================================================
+   SABİT GÖREVLER ÜST ALANI
+========================================================= */
+
+.tasks-page {
+  padding-top: 0;
+}
+
+.tasks-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  margin:
+    0
+    -18px
+    16px;
+
+  padding:
+    calc(env(safe-area-inset-top) + 10px)
+    18px
+    14px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background: #000000;
+
+  box-shadow:
+    0 10px 24px
+    rgba(0, 0, 0, 0.28);
 }
